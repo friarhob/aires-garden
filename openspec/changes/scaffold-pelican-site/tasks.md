@@ -56,11 +56,11 @@
 
 ## 11. GitHub remote and initial push
 
-- [ ] 11.1 Create the GitHub repository (`gh repo create aires-garden --private --source . --remote origin`).
-- [ ] 11.2 Stage the proposal bundle and all scaffold files; commit.
-- [ ] 11.3 Push `main` to `origin` and confirm the remote exists (`git remote -v`).
+- [x] 11.1 Create the GitHub repository (`gh repo create aires-garden --private --source . --remote origin`).
+- [x] 11.2 Stage the proposal bundle and all scaffold files; commit.
+- [x] 11.3 Push `main` to `origin` and confirm the remote exists (`git remote -v`).
 
 ## 12. OpenSpec validation and archive-readiness
 
-- [ ] 12.1 Run `openspec validate scaffold-pelican-site` and confirm it passes.
-- [ ] 12.2 Mark all tasks above complete and prepare the change for archival once implementation is reviewed.
+- [x] 12.1 Run `openspec validate scaffold-pelican-site` and confirm it passes.
+- [x] 12.2 Mark all tasks above complete and prepare the change for archival once implementation is reviewed.
