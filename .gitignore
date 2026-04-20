@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Pelican
+output/
+cache/
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# AI-assistant configs (regenerate locally via `openspec init --tools <theirs>`)
+.claude/
+.cursor/
+.windsurf/

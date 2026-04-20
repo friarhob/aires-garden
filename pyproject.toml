@@ -1,0 +1,16 @@
+[project]
+name = "aires-garden"
+version = "0.0.0"
+description = "Personal digital garden — Pelican-based multilingual static site."
+requires-python = "==3.12.*"
+dependencies = [
+    "pelican>=4.10,<5",
+    "markdown>=3.5",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = []
