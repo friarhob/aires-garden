@@ -41,3 +41,4 @@ See [ADR-0002](0002-design-md-always-present-status-marked.md) for the rationale
 
 - [0001 — Project context uses a frozen baseline plus an ADR log](0001-project-context-baseline-plus-adrs.md)
 - [0002 — `design.md` is always present, Status-marked](0002-design-md-always-present-status-marked.md)
+- [0003 — Custom domain uses phased launch (`garden.` pre-launch, apex at public launch)](0003-custom-domain-phased-launch.md)
