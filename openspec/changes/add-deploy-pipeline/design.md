@@ -4,7 +4,7 @@ Design decisions recorded below.
 
 ## Context
 
-The hostname strategy (pre-launch `garden.fernandoaires.org`, terminal apex, two-layer noindex posture, deferred Cloudflare rules) is already fixed by [ADR-0003](../../decisions/0003-custom-domain-phased-launch.md). This design covers only the build-and-deploy mechanics that sit under that hostname: how GitHub Actions runs Pelican, how the artifact reaches Pages, how the three static-path oddities (`CNAME`, `robots.txt`, `404.html`) land at the site root, and how repo visibility flips without surprising anyone.
+The hostname strategy (pre-launch `garden.fernandoaires.org`, terminal apex, two-layer noindex posture) is already fixed by [ADR-0003](../../decisions/0003-custom-domain-phased-launch.md), with DNS-host corrections and edge-mechanism substitutions in [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md) (DNS stays at Gandi). This design covers only the build-and-deploy mechanics that sit under that hostname: how GitHub Actions runs Pelican, how the artifact reaches Pages, how the three static-path oddities (`CNAME`, `robots.txt`, `404.html`) land at the site root, and how repo visibility flips without surprising anyone.
 
 Current state: site builds locally via `make build`, repo is private, no workflows, no Pages config, no DNS record. First real post (`ola-jardim.pt.md`) is committed but unpublished.
 
@@ -18,11 +18,11 @@ Stakeholders: the author (sole contributor); professional email contacts (indire
 - Pinned, reproducible build environment (Python 3.12, explicit action versions).
 - All deploy-specific build artifacts (`CNAME`, `robots.txt`, `404.html`) produced by `make build` itself — no post-build shell steps that diverge between local and CI.
 - Repo-visibility flip is explicit and reversible if the author changes their mind before first deploy.
-- Noindex posture is enforced in-repo (not in CI config or Cloudflare) so it survives any workflow change.
+- Noindex posture is enforced in-repo (not in CI config or at the DNS edge) so it survives any workflow change.
 
 **Non-Goals:**
 
-- Apex cutover, noindex removal, Cloudflare Redirect Rule, Cloudflare Transform Rule for `X-Robots-Tag` — all owned by the future `launch-to-apex` change per ADR-0003.
+- Apex cutover and noindex removal — owned by the future `launch-to-apex` change per ADR-0003. Its `garden.* → apex` redirect lands as a Gandi Web Forwarding entry (not a Cloudflare Redirect Rule) per [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md); the edge `X-Robots-Tag` layer is dropped entirely per the same ADR.
 - Preview deploys for PRs (not useful until there are external contributors).
 - Build caching across runs (build time is <30s; cache complexity is not justified yet).
 - Custom deploy notifications (GitHub's built-in workflow status is sufficient for a one-person project).
@@ -96,7 +96,7 @@ We pick "always present." Reasoning:
 - `launch-to-apex` already needs to touch `robots.txt` and DNS; editing one template line is not extra complexity.
 - Dev builds (`make dev`) also serve with `noindex` — which is correct, since local builds shouldn't be indexed if someone accidentally exposes them.
 
-**Alternative rejected:** Cloudflare Transform Rule injecting `X-Robots-Tag: noindex` at the edge — deferred per ADR-0003 to `launch-to-apex` and made optional even there. Not needed unless noncompliant crawlers become a visible problem.
+**Alternative rejected:** Edge-injected `X-Robots-Tag: noindex` header — ADR-0003 already marked this optional, and [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md) drops it entirely (Gandi offers no equivalent to Cloudflare Transform Rules, and the two in-repo layers are sufficient).
 
 ### D5: `workflow_dispatch` is on; `push: [main]` is the primary trigger
 
@@ -134,15 +134,15 @@ gh repo edit --visibility public --accept-visibility-change-consequences
 
 Only after the flip do we enable Pages. If the pre-flip review surfaces anything to clean up, we clean up before flipping — not after.
 
-### D8: DNS record: CNAME flattening vs plain CNAME
+### D8: DNS record is a plain CNAME at Gandi
 
-Cloudflare's free plan offers both plain CNAME and CNAME flattening. For a subdomain (not apex), both work identically. We use a plain, **DNS-only** CNAME (proxy off, gray cloud) for pre-launch because:
+Per [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md), DNS stays on Gandi LiveDNS. For the pre-launch subdomain we add a plain `CNAME garden → friarhob.github.io.` record, nothing else:
 
-- Cloudflare proxying (orange cloud) adds a layer that can interfere with GitHub's Let's Encrypt cert issuance for the custom domain. DNS-only avoids the interference.
-- The noindex posture means we don't need CF's edge caching for bandwidth/speed wins yet.
-- `launch-to-apex` will revisit proxy posture when apex A/AAAA records land.
+- Gandi LiveDNS serves the record directly; there is no proxy/edge layer in the path to GitHub Pages. Let's Encrypt cert issuance for the custom domain talks to GitHub Pages end-to-end, with no intermediary to interfere.
+- No apex change is needed here — `launch-to-apex` owns the apex record (ALIAS-style record at Gandi, or GitHub Pages' published A/AAAA addresses; the choice is deferred to that change).
+- Email infrastructure on Gandi (MX, SPF, DKIM, DMARC, Google Workspace vanity CNAMEs) is untouched.
 
-**Alternative considered:** Cloudflare-proxied CNAME (orange cloud) — would give us DDoS absorption, caching, and the Transform Rule option — but GH Pages cert provisioning is more reliable with proxy-off, and none of the CF features are needed during pre-launch.
+**Alternative considered:** migrate the zone to Cloudflare now to enable a proxied/edge posture later — rejected by ADR-0005 as YAGNI for the current roadmap; the door remains open if a future requirement justifies it.
 
 ## Risks / Trade-offs
 
@@ -158,7 +158,7 @@ Cloudflare's free plan offers both plain CNAME and CNAME flattening. For a subdo
 
 - **Ephemeral `friarhob.github.io/aires-garden/` URL exposure window** → Between enabling Pages and setting the custom domain, the site is briefly reachable at the default URL. **Mitigation:** set the custom domain immediately after enabling Pages; noindex is already in-repo so even a cached crawl from that URL respects it.
 
-- **Cloudflare-side 301 for the garden→apex cutover is not configured here** → When `launch-to-apex` flips the site to the apex, RSS subscribers and external backlinks to `garden.*` URLs will break unless the redirect lands. **Mitigation:** ADR-0003 already puts this redirect on the `launch-to-apex` checklist; no action needed in this change.
+- **`garden.* → apex` 301 for the cutover is not configured here** → When `launch-to-apex` flips the site to the apex, RSS subscribers and external backlinks to `garden.*` URLs will break unless the redirect lands. **Mitigation:** ADR-0003 already puts this redirect on the `launch-to-apex` checklist; [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md) specifies the mechanism as a Gandi Web Forwarding entry (not a Cloudflare Redirect Rule). No action needed in this change.
 
 ## Migration Plan
 

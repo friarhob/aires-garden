@@ -17,9 +17,9 @@
 - [x] 2.5 Add `environment: { name: github-pages, url: ${{ steps.deployment.outputs.page_url }} }` to the job so the Pages deploy target is explicit.
 - [x] 2.6 Lint the YAML locally (`python -c "import yaml; yaml.safe_load(open('.github/workflows/deploy.yml'))"` or similar) before committing.
 
-## 3. Cloudflare DNS
+## 3. DNS (Gandi)
 
-- [ ] 3.1 In Cloudflare dashboard for `fernandoaires.org`, add a `CNAME` record: name `garden`, target `friarhob.github.io`, proxy status **DNS only** (gray cloud).
+- [ ] 3.1 In Gandi's DNS Records UI for `fernandoaires.org`, add a record: type `CNAME`, name `garden`, value `friarhob.github.io.` (trailing dot), default TTL. Per [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md), DNS stays at Gandi.
 - [ ] 3.2 Verify resolution: `dig +short CNAME garden.fernandoaires.org` returns `friarhob.github.io.`.
 
 ## 4. Pre-flip review and repo visibility flip

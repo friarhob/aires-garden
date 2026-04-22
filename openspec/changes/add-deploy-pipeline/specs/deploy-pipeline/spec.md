@@ -28,7 +28,7 @@ GitHub Pages SHALL serve the site at `https://garden.fernandoaires.org`. The ape
 - **WHEN** the built output is inspected
 - **THEN** `output/CNAME` contains exactly the hostname `garden.fernandoaires.org` (no scheme, no path).
 
-#### Scenario: Cloudflare DNS resolves the subdomain to GitHub Pages
+#### Scenario: DNS resolves the subdomain to GitHub Pages
 - **WHEN** `garden.fernandoaires.org` is resolved
 - **THEN** it points (via CNAME) to `friarhob.github.io`.
 
@@ -102,8 +102,8 @@ Leaving the pre-launch posture SHALL require a single future change named `launc
 
 #### Scenario: Noindex removal is not attempted here
 - **WHEN** this change's diff is reviewed
-- **THEN** `robots.txt`, the meta-robots tag, and (if installed) the Cloudflare Transform Rule for `X-Robots-Tag` remain in place — none are removed or neutered.
+- **THEN** `robots.txt` and the meta-robots tag remain in place — neither is removed or neutered. (Per [ADR-0005](../../../decisions/0005-dns-stays-on-gandi.md), the originally-optional edge `X-Robots-Tag` layer from ADR-0003 is dropped entirely.)
 
 #### Scenario: Apex DNS is not configured here
-- **WHEN** Cloudflare DNS is inspected after this change applies
+- **WHEN** DNS is inspected after this change applies
 - **THEN** no A/AAAA record for the apex points at GitHub Pages; the apex remains unconfigured for web.
