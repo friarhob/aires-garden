@@ -29,8 +29,8 @@
 - [x] 4.3 Confirm `.gitignore` already excludes `.claude/`, editor configs, and machine-local tool state.
 - [x] 4.4 Confirm the author is OK with `ola-jardim.pt.md` being publicly visible (already published; sanity check).
 - [x] 4.5 Commit and push the workflow + build-side changes to `main` while the repo is still private (workflow won't run for Pages because Pages isn't configured yet — the build step will run but the deploy step will fail harmlessly until Pages is on).
-- [ ] 4.6 Flip visibility: `gh repo edit friarhob/aires-garden --visibility public --accept-visibility-change-consequences`.
-- [ ] 4.7 Verify: `gh repo view friarhob/aires-garden --json visibility` returns `"visibility":"PUBLIC"`.
+- [x] 4.6 Flip visibility: `gh repo edit friarhob/aires-garden --visibility public --accept-visibility-change-consequences`.
+- [x] 4.7 Verify: `gh repo view friarhob/aires-garden --json visibility` returns `"visibility":"PUBLIC"`.
 
 ## 5. Enable GitHub Pages
 
