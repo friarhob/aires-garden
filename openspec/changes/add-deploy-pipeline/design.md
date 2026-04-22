@@ -160,6 +160,8 @@ Per [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md), DNS stays on Gandi L
 
 - **`garden.* → apex` 301 for the cutover is not configured here** → When `launch-to-apex` flips the site to the apex, RSS subscribers and external backlinks to `garden.*` URLs will break unless the redirect lands. **Mitigation:** ADR-0003 already puts this redirect on the `launch-to-apex` checklist; [ADR-0005](../../decisions/0005-dns-stays-on-gandi.md) specifies the mechanism as a Gandi Web Forwarding entry (not a Cloudflare Redirect Rule). No action needed in this change.
 
+- **Pinned action versions use Node.js 20, which GitHub is retiring** → The four actions we pin (`actions/checkout@v4`, `actions/setup-python@v5`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`) all run on Node.js 20 today. GitHub is flipping runner defaults to Node.js 24 on **2026-06-02** and removing Node.js 20 from the runner entirely on **2026-09-16**. Surfaced as a workflow annotation on the first green deploy. **Mitigation:** tracked as a separate follow-up change (tentatively `upgrade-actions-node24`) to bump each action to its Node 24-compatible major version before 2026-09-16. Escape hatches in the meantime: `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` to opt in early, or (post-flip) `ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true` to temporarily defer. Scope-excluded from this change because the pipeline works today and action-version bumps are cleaner as independently-reviewable diffs.
+
 ## Migration Plan
 
 No migration — this is the first deploy. Rollback: revert the commit that introduces the workflow and push; Pages stops re-deploying but keeps serving the last successful artifact until GH Pages is manually disabled.
