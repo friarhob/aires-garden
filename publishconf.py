@@ -4,7 +4,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *  # noqa: F401, F403
 
-SITEURL = "https://fernandoaires.org"
+SITEURL = "https://garden.fernandoaires.org"
 RELATIVE_URLS = False
 
 DRAFT_URL = ""

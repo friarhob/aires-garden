@@ -14,6 +14,12 @@ ARTICLE_SAVE_AS = "{slug}/index.html"
 DELETE_OUTPUT_DIRECTORY = True
 DEFAULT_DATE = "fs"
 
+STATIC_PATHS = ["extra/CNAME", "extra/robots.txt"]
+EXTRA_PATH_METADATA = {
+    "extra/CNAME": {"path": "CNAME"},
+    "extra/robots.txt": {"path": "robots.txt"},
+}
+
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
