@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-04-20.
+Accepted — 2026-04-20. See [ADR-0005](0005-dns-stays-on-gandi.md) (2026-04-22) for DNS-host corrections (domain is at Gandi, not Cloudflare) and substitutions for the Cloudflare-specific mechanisms referenced below.
 
 ## Context
 

@@ -43,3 +43,4 @@ See [ADR-0002](0002-design-md-always-present-status-marked.md) for the rationale
 - [0002 — `design.md` is always present, Status-marked](0002-design-md-always-present-status-marked.md)
 - [0003 — Custom domain uses phased launch (`garden.` pre-launch, apex at public launch)](0003-custom-domain-phased-launch.md)
 - [0004 — Multilingual post frontmatter conventions (localized slugs + `Translation_key` + `Lang` format)](0004-multilingual-post-frontmatter-conventions.md)
+- [0005 — DNS stays on Gandi; tag subdomains use Gandi Web Forwarding](0005-dns-stays-on-gandi.md)
