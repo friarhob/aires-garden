@@ -41,12 +41,12 @@
 
 ## 6. First deploy
 
-- [ ] 6.1 Trigger a deploy: either push a trivial commit to `main` or use `gh workflow run deploy.yml`.
-- [ ] 6.2 Watch the Actions run to green: `gh run watch` on the latest run.
-- [ ] 6.3 Fetch `https://garden.fernandoaires.org/` and confirm the index page renders with the noindex meta tag.
-- [ ] 6.4 Fetch `https://garden.fernandoaires.org/robots.txt` and confirm `Disallow: /`.
-- [ ] 6.5 Fetch `https://garden.fernandoaires.org/ola-jardim/` and confirm the first post renders.
-- [ ] 6.6 Fetch `https://garden.fernandoaires.org/does-not-exist/` and confirm the custom 404 page renders (not GitHub's default).
+- [x] 6.1 Trigger a deploy: either push a trivial commit to `main` or use `gh workflow run deploy.yml`.
+- [x] 6.2 Watch the Actions run to green: `gh run watch` on the latest run.
+- [x] 6.3 Fetch `https://garden.fernandoaires.org/` and confirm the index page renders with the noindex meta tag.
+- [x] 6.4 Fetch `https://garden.fernandoaires.org/robots.txt` and confirm `Disallow: /`.
+- [x] 6.5 Fetch `https://garden.fernandoaires.org/ola-jardim-pt.html` and confirm the first post renders. (Pelican-default URL for non-default-lang articles. ADR-0004's terminal form `/ola-jardim/` requires a translation-grouping plugin scoped to the future `add-i18n-rendering` change.)
+- [x] 6.6 Fetch `https://garden.fernandoaires.org/does-not-exist/` and confirm the custom 404 page renders (not GitHub's default).
 
 ## 7. Verification against specs
 
