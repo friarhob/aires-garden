@@ -51,5 +51,5 @@
 ## 7. Verification against specs
 
 - [x] 7.1 Run `openspec validate add-deploy-pipeline`; expect zero errors.
-- [ ] 7.2 Walk each scenario in `specs/deploy-pipeline/spec.md` and confirm the live site / repo state satisfies it.
-- [ ] 7.3 Confirm the apex (`fernandoaires.org`) still resolves to nothing web-facing (`curl -I https://fernandoaires.org/` returns connection error or a non-GH response).
+- [x] 7.2 Walk each scenario in `specs/deploy-pipeline/spec.md` and confirm the live site / repo state satisfies it.
+- [x] 7.3 Confirm the apex (`fernandoaires.org`) still resolves to nothing web-facing (`curl -I https://fernandoaires.org/` returns connection error or a non-GH response).
