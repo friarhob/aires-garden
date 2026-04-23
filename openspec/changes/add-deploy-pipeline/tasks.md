@@ -34,10 +34,10 @@
 
 ## 5. Enable GitHub Pages
 
-- [ ] 5.1 In repo Settings → Pages, set source to **GitHub Actions**.
-- [ ] 5.2 Set custom domain to `garden.fernandoaires.org`.
-- [ ] 5.3 Wait for GitHub Pages to verify DNS; "Enforce HTTPS" should become enablable.
-- [ ] 5.4 Enable "Enforce HTTPS" once the Let's Encrypt cert is provisioned (may take minutes to ~24h).
+- [x] 5.1 In repo Settings → Pages, set source to **GitHub Actions**.
+- [x] 5.2 Set custom domain to `garden.fernandoaires.org`.
+- [x] 5.3 Wait for GitHub Pages to verify DNS; "Enforce HTTPS" should become enablable.
+- [x] 5.4 Enable "Enforce HTTPS" once the Let's Encrypt cert is provisioned (may take minutes to ~24h).
 
 ## 6. First deploy
 
