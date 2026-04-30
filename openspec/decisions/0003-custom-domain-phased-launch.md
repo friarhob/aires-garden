@@ -40,7 +40,7 @@ The timing of the cutover is not fixed here — the user flips when content volu
 
 ## Consequences
 
-- Professional email contacts see no change during build-up; the apex remains a non-signal, preserving current behavior.
+- Professional email contacts see no change during build-up; the apex remains a non-signal, preserving current behaviour.
 - `add-deploy-pipeline` is simpler in the short term: single `CNAME` to `friarhob.github.io`, no apex A/AAAA records yet.
 - One future change is anticipated by this ADR — the `launch-to-apex` migration — so the work is on the roadmap rather than rediscovered later.
 - Two noindex signals ship in-repo (`robots.txt`, meta tag). Both are explicitly temporary. The cutover checklist lives in this ADR to prevent the noindex from outliving the launch.

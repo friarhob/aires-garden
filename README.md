@@ -56,6 +56,6 @@ Declared with a range in `pyproject.toml`; pip resolves the actual version at in
 
 ## Workflow
 
-Development is organized through [OpenSpec](https://github.com/Fission-AI/OpenSpec). Each feature ships as a change proposal under `openspec/changes/<name>/` with four artifacts (`proposal.md`, `design.md`, `specs/`, `tasks.md`). See `openspec/project.md` for the plan and `openspec/decisions/` for project-level decisions (including the `design.md`-always-present convention — ADR-0002).
+Development is organised through [OpenSpec](https://github.com/Fission-AI/OpenSpec). Each feature ships as a change proposal under `openspec/changes/<name>/` with four artifacts (`proposal.md`, `design.md`, `specs/`, `tasks.md`). See `openspec/project.md` for the plan and `openspec/decisions/` for project-level decisions (including the `design.md`-always-present convention — ADR-0002).
 
 The authoring CLI, custom content tags, image pipeline, i18n rendering, design tokens, and deploy pipeline are all deferred to later proposals (see `openspec/project.md`'s "OpenSpec change proposals — implementation order").

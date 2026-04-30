@@ -8,21 +8,21 @@ Accepted — 2026-04-20.
 
 The project will publish posts in multiple languages (`en`, `pt`, `es`, `fr`, extensible per the project brief). Three questions about frontmatter conventions have to be answered before the first multilingual post ships, and before `add-content-model` introduces `frontmatter_lint` to enforce anything:
 
-1. Should each language's URL reflect that language (localized slugs) or share one slug across all translations?
+1. Should each language's URL reflect that language (localised slugs) or share one slug across all translations?
 2. If slugs can diverge, what stable identifier links the translations?
 3. What format does the `Lang:` field take?
 
 Pelican's native translation support links files by matching `Slug:` across `Lang:` values. That only works if slugs are identical in every language — which forces non-default-language URLs into a language-tagged shape (`/hello-garden-pt.html` or `/pt/hello-garden/`) and keeps the slug itself in one privileged language. The project's brief introduces a `translation_key` field precisely to break that constraint, but never specifies how to *form* the field, and does not resolve an implicit contradiction with the brief's repo-layout sketch (`<slug>/<slug>.<lang>.md`, which implicitly assumes a single slug per post).
 
-The brief also lists `Lang:` values as `en`, `pt`, `es`, `fr` but does not standardize whether regional variants (`pt-br`, `pt-pt`) are permitted — a choice that affects accessibility (`<html lang="...">`), screen-reader pronunciation, and the RSS `<language>` tag.
+The brief also lists `Lang:` values as `en`, `pt`, `es`, `fr` but does not standardise whether regional variants (`pt-br`, `pt-pt`) are permitted — a choice that affects accessibility (`<html lang="...">`), screen-reader pronunciation, and the RSS `<language>` tag.
 
-The reader-experience goal, stated by the author, is that opening any post shows links to its available translations in a clearly-placed UI element. Both "homogenous slug" and "localized slug" models can deliver that UI; the axis on which they differ is URL structure, not feature support.
+The reader-experience goal, stated by the author, is that opening any post shows links to its available translations in a clearly-placed UI element. Both "homogenous slug" and "localised slug" models can deliver that UI; the axis on which they differ is URL structure, not feature support.
 
 ## Decision
 
 Four rules govern multilingual post frontmatter:
 
-1. **`Slug:` is localized per language.** The Portuguese version of a post gets a Portuguese slug; the English version gets an English slug. URLs read native in every language — a Portuguese post lives at `/ola-jardim/`, its English translation at `/hello-garden/`.
+1. **`Slug:` is localised per language.** The Portuguese version of a post gets a Portuguese slug; the English version gets an English slug. URLs read native in every language — a Portuguese post lives at `/ola-jardim/`, its English translation at `/hello-garden/`.
 2. **`Translation_key:` = the slug of the first-written language version, held stable across all later translations.** The key is never retroactively changed once set. If Portuguese is the first language a post is written in, the PT slug becomes the `translation_key`; any later EN/ES/FR version carries the same key even though its own `Slug:` differs.
 3. **Directory name = `translation_key`; filenames = `<slug>.<lang>.md`.** One folder per translated-post-group; all translations co-locate in the same directory alongside an optional `images/` sibling. Example:
    ```
@@ -31,7 +31,7 @@ Four rules govern multilingual post frontmatter:
    ├── hello-garden.en.md        # Slug: hello-garden, Lang: en
    └── images/
    ```
-   This resolves the brief's repo-layout sketch in favor of localized slugs: the stable directory anchor is the `translation_key`, not any one language's slug.
+   This resolves the brief's repo-layout sketch in favour of localised slugs: the stable directory anchor is the `translation_key`, not any one language's slug.
 4. **`Lang:` format = ISO 639-1 two-letter codes** (`en`, `pt`, `es`, `fr`), extensible to more languages as authored. Lowercase, no region suffix. Values MUST be valid as an HTML `lang` attribute (`<html lang="pt">`).
 
 ## Consequences
@@ -39,7 +39,7 @@ Four rules govern multilingual post frontmatter:
 - URLs read native in every language — a Portuguese reader never lands on `/hello-garden-pt.html`; an English reader never lands on `/ola-jardim/`.
 - `Translation_key` is stable, grepable, and survives any slug rename to any one variant. A post's identity across translations is language-independent.
 - Directory-per-post-group keeps translations co-located; shared media in `images/` is referenced consistently across all language variants.
-- The brief's latent contradiction (localized slugs implied by `translation_key` vs. same-slug repo-layout sketch) is resolved; the repo layout is adjusted to match rule 3.
+- The brief's latent contradiction (localised slugs implied by `translation_key` vs. same-slug repo-layout sketch) is resolved; the repo layout is adjusted to match rule 3.
 - `Lang:` values remain simple and work directly as HTML `lang` attributes and RSS `<language>` tags without mapping.
 - No regional variants can be signaled under rule 4. If the author ever writes a post whose Brazilian or European Portuguese variant matters to signal explicitly, a future ADR supersedes rule 4 to permit BCP 47 region suffixes.
 - Pelican's native translation-linking (slug-matching) does not apply under rule 1 — a small plugin is required to group articles by `Translation_key:` and populate `article.translations` for Jinja templates. That plugin belongs in the future `add-i18n-rendering` change, alongside the language switcher and "Available in:" badges, which are already planned in the brief's proposal order. The incremental cost of rule 1 is therefore folded into work that was already scoped.

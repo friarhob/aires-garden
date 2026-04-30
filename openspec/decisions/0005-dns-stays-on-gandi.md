@@ -32,7 +32,7 @@ The feature is speculative — the brief envisions it, but no change has scoped 
 3. *CF CNAME flattening at the apex* — substituted with Gandi's equivalent (Gandi supports ALIAS-style apex records, or GitHub Pages' four published A/AAAA addresses can be used directly; the choice is deferred to `launch-to-apex`).
 4. *CF Access / HTTP Basic Auth for pre-launch gating* — remained rejected as overkill in ADR-0003; no substitution needed.
 
-**Migration to Cloudflare remains a cheap, reversible option** if a future requirement (rewrite-semantic tag subdomains, DDoS absorption, edge caching) concretizes and a day's focused work is justified. This ADR does not block that; it declines it today.
+**Migration to Cloudflare remains a cheap, reversible option** if a future requirement (rewrite-semantic tag subdomains, DDoS absorption, edge caching) concretises and a day's focused work is justified. This ADR does not block that; it declines it today.
 
 ## Consequences
 
@@ -45,7 +45,7 @@ The feature is speculative — the brief envisions it, but no change has scoped 
 Alternatives considered:
 
 - **Migrate DNS to Cloudflare now to preserve Workers-based rewrite option** — rejected: pays the migration cost today for a speculative feature. YAGNI. Migration cost is symmetric across timing; deferring costs nothing if the feature is never built or if redirect-semantics prove acceptable.
-- **Delegate `garden.fernandoaires.org` as a standalone Cloudflare zone, keep the apex at Gandi** — rejected: Cloudflare's supported subdomain-as-zone setup is Enterprise-only. Free-plan workarounds exist but rely on unsupported behavior for load-bearing infrastructure.
+- **Delegate `garden.fernandoaires.org` as a standalone Cloudflare zone, keep the apex at Gandi** — rejected: Cloudflare's supported subdomain-as-zone setup is Enterprise-only. Free-plan workarounds exist but rely on unsupported behaviour for load-bearing infrastructure.
 - **Deploy tag subdomains as independent GH Pages sites (one repo per tag)** — rejected: massive per-tag operational overhead (repo, workflow, CNAME file, DNS record, cert) for negligible benefit.
-- **Use a third-party host (Netlify / Vercel) with native rewrite config** — rejected: changes deploy target entirely, re-opens multiple settled decisions, and migrating static-site hosts later is cheap — no reason to pre-optimize.
+- **Use a third-party host (Netlify / Vercel) with native rewrite config** — rejected: changes deploy target entirely, re-opens multiple settled decisions, and migrating static-site hosts later is cheap — no reason to pre-optimise.
 - **Full supersession of ADR-0003** — rejected: ADR-0003's phased-launch decision is unaffected. Only its Cloudflare plumbing needs substitution. A light-touch forward-pointer in ADR-0003's Status line preserves the original reasoning intact.

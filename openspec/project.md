@@ -9,7 +9,7 @@
 
 ### Goal
 
-Build a personal digital garden: a static, multilingual, tag-organized content site with drafts and published states, a gallery homepage, custom domain, customizable visual identity, and room to grow (including embedded iframes and potentially interactive content in the future).
+Build a personal digital garden: a static, multilingual, tag-organised content site with drafts and published states, a gallery homepage, custom domain, customisable visual identity, and room to grow (including embedded iframes and potentially interactive content in the future).
 
 ### Tech stack
 
@@ -67,7 +67,7 @@ garden/
 
 ### Styling
 
-- Visual identity lives in `themes/garden/static/css/tokens.css` as CSS custom properties (colors, typography, spacing, radii).
+- Visual identity lives in `themes/garden/static/css/tokens.css` as CSS custom properties (colours, typography, spacing, radii).
 - `styles.css` consumes the tokens. Swapping identity = editing one file.
 
 ### Custom content tags (MDX-equivalent for Pelican)

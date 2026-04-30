@@ -18,9 +18,9 @@ The repository SHALL contain a GitHub Actions workflow that, on every push to `m
 - **WHEN** a maintainer clicks "Run workflow" on the Actions UI
 - **THEN** the same build-and-deploy job executes without requiring a new commit.
 
-#### Scenario: Concurrent deploys are serialized
+#### Scenario: Concurrent deploys are serialised
 - **WHEN** two pushes arrive in quick succession
-- **THEN** the workflow's concurrency group cancels the older in-flight deploy in favor of the newer one, so the live site reflects the latest commit.
+- **THEN** the workflow's concurrency group cancels the older in-flight deploy in favour of the newer one, so the live site reflects the latest commit.
 
 #### Scenario: Workflow uses least privilege
 - **WHEN** `.github/workflows/deploy.yml` is inspected
