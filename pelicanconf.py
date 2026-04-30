@@ -1,3 +1,6 @@
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["frontmatter_lint"]
+
 AUTHOR = "Fernando Aires"
 SITENAME = "aires-garden"
 SITEURL = ""
