@@ -56,4 +56,4 @@
 
 - [x] 9.1 Run `openspec validate add-content-model --strict`; expect zero errors.
 - [x] 9.2 Walk each scenario in `specs/content-model/spec.md` and confirm the implementation satisfies it (manual checklist; tick each scenario off as verified).
-- [ ] 9.3 Confirm the GitHub Actions deploy still passes on `main` after merging — the plugin runs in CI's `make build` for the first time, so an inadvertent CI-only failure surfaces here.
+- [x] 9.3 Confirm the GitHub Actions deploy still passes on `main` after merging — the plugin runs in CI's `make build` for the first time, so an inadvertent CI-only failure surfaces here.
