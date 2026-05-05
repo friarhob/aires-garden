@@ -156,21 +156,21 @@ The 404 page SHALL include inline JavaScript that, on load, inspects `window.loc
 - **WHEN** the 404 is loaded for any path starting with `/<lang>/` (where `<lang>` is one of the site's languages)
 - **THEN** only the section with `data-lang="<lang>"` is visible, and the document's `<html lang>` is set to `<lang>`.
 
-#### Scenario: A known slug prioritises its authored language
-- **WHEN** the 404 is loaded for a path matching `/<slug>/` where `<slug>` is in the build-time slug-to-lang map
-- **THEN** the section matching the mapped lang is visible, and the document's `<html lang>` is set to that lang.
+#### Scenario: Browser language preference is consulted when the URL has no lang prefix
+- **WHEN** the 404 is loaded for a path that does not start with `/<lang>/`, and `navigator.language`'s 2-letter prefix matches one of the site's languages
+- **THEN** the section matching that language is visible, and the document's `<html lang>` is set to it.
 
 #### Scenario: Unknown paths fall back to the default language
-- **WHEN** the 404 is loaded for a path that has no `/<lang>/` prefix and whose slug is not in the map
+- **WHEN** the 404 is loaded for a path with no `/<lang>/` prefix and `navigator.language`'s 2-letter prefix is not one of the site's languages (or `navigator.language` is unavailable)
 - **THEN** the section matching the document's `data-default-lang` attribute is visible.
 
 #### Scenario: With JS disabled, all sections remain visible
 - **WHEN** the 404 is loaded with JavaScript disabled in the browser
 - **THEN** every `<section data-lang>` element is rendered visible in the page (graceful degradation per ADR-0007 bar 2).
 
-#### Scenario: Slug-to-lang map is generated at build time
+#### Scenario: No build-time per-slug payload is embedded
 - **WHEN** `output/404.html` is inspected
-- **THEN** it contains a build-time-emitted JSON object (in a `<script type="application/json">` block or as a JS literal) listing every article slug and its `Lang`. The object is consumed by the inline inference script.
+- **THEN** it does not contain a slug-to-language map or any other per-article structure whose size grows with post count; the inference script relies only on the URL path, the site's language list, and `navigator.language`.
 
 #### Scenario: Inference script is inline and small
 - **WHEN** `output/404.html` is inspected

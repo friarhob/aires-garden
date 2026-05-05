@@ -16,8 +16,8 @@
 
 - [x] 3.1 Create `plugins/multilingual_404/__init__.py` with a `register()` function that connects to `page_generator_finalized` (or `finalized` if signal ordering makes that cleaner — verify experimentally).
 - [x] 3.2 Implement the page-discovery step: scan `content/pages/` for files matching `404.<lang>.md`, parse each frontmatter via the existing `plugins.frontmatter_lint.schema.parse_frontmatter`, render each Markdown body to HTML via Pelican's reader (or `markdown.markdown(...)` directly if the reader path is awkward).
-- [x] 3.3 Build the slug-to-lang map: walk `generator.articles + generator.translations`, produce `{slug: lang}` for every article.
-- [x] 3.4 Render `themes/garden/templates/404.html` (a new template, see task 4.5) with the per-lang HTML bodies and the slug-to-lang map injected as a JSON block. Write the result to `output/404.html` (set `Save_as` / `URL` to `404.html` so Pelican's default page mechanics don't also emit a competing file).
+- [x] 3.3 ~~Build the slug-to-lang map~~ Superseded: the inference script consults `navigator.language` instead, so no per-article payload is built. (See revised D8.)
+- [x] 3.4 Render `themes/garden/templates/404.html` (a new template, see task 4.5) with the per-lang HTML bodies. Write the result to `output/404.html` directly (no `Save_as` / `URL` on the source pages, so Pelican's default page mechanics don't emit a competing file).
 - [x] 3.5 Register `multilingual_404` in `pelicanconf.py`'s `PLUGINS` list (alongside `i18n_grouping` and `frontmatter_lint`).
 
 ## 4. Templates
@@ -26,13 +26,13 @@
 - [x] 4.2 Update `themes/garden/templates/article.html` to render the "Available in" line for posts with two or more translations. Use `article.translation_group` provided by `i18n_grouping`. Hide the line for single-language posts.
 - [x] 4.3 Update `themes/garden/templates/index.html` to iterate the deduped groups (one per `Translation_key`), with each entry linking to the default-lang article (or alphabetically-first if no default exists) and surfacing the available languages. Reuse the helper from task 2.3.
 - [x] 4.4 Create `themes/garden/templates/lang_index.html` for the per-language indexes. Same shape as `index.html` but iterates the filtered list rather than groups.
-- [x] 4.5 Create `themes/garden/templates/404.html` template used by the `multilingual_404` plugin: emits one `<section data-lang="<lang>">` per language section the plugin passes in, plus the inline JS for URL-driven prioritisation, plus the slug-to-lang JSON block. Document the `data-default-lang` attribute on `<html>`.
+- [x] 4.5 Create `themes/garden/templates/404.html` template used by the `multilingual_404` plugin: emits one `<section data-lang="<lang>">` per language section the plugin passes in, plus the inline JS for two-stage language prioritisation (URL prefix → `navigator.language` → default-lang fallback). Document the `data-default-lang` attribute on `<html>`.
 
 ## 5. Inline 404 inference script
 
-- [x] 5.1 Inside `themes/garden/templates/404.html`, write the inline `<script>` block (under 50 lines, no external resources) implementing: stage 1 — match `^/([a-z]{2})/` against `location.pathname` and prioritise that section if the lang exists; stage 2 — match `^/([^/]+)/?$` and look up the slug in the embedded slug-to-lang map; fallback — read `<html data-default-lang>` and prioritise that.
+- [x] 5.1 Inside `themes/garden/templates/404.html`, write the inline `<script>` block (under 50 lines, no external resources) implementing: stage 1 — match `^/([a-z]{2})/` against `location.pathname` and prioritise that section if the lang exists; stage 2 — read the 2-letter prefix of `navigator.language` and prioritise that section if it matches one of the site's languages; fallback — read `<html data-default-lang>` and prioritise that.
 - [x] 5.2 "Prioritise" implementation: on match, set every other `<section data-lang>` to `display: none` (or `hidden` attribute) and update `document.documentElement.lang` to the matched lang. Default state (before JS runs / JS disabled): all sections visible.
-- [ ] 5.3 Test in the browser dev console: load `/404.html` via the dev server, then synthetically set `location.pathname` (or use Pelican's `make dev` and visit a non-existent path) for `/pt/missing/`, `/ola-jardim/` (existing slug), `/random-typo/` (no match), and verify the right section is featured each time.
+- [ ] 5.3 Test in the browser dev console: load `/404.html` via the dev server and verify section selection across the three branches — stage 1 (e.g. `/pt/missing/` → PT), stage 2 (`/random-typo/` with browser locale set to `pt` → PT), and fallback (`/random-typo/` with browser locale set to `de` → default-lang).
 
 ## 6. Content migration
 
@@ -47,7 +47,7 @@
 
 ## 8. Build verification (positive cases)
 
-- [x] 8.1 Run `make build` against the existing tree (post `ola-jardim` PT-only + future PT/EN 404 sources). Expect zero errors from `frontmatter_lint`, the build to produce: `output/ola-jardim/index.html` (no language suffix), `output/index.html` (aggregate with `ola-jardim` listed once and PT badge), `output/en/index.html` and `output/pt/index.html`, `output/feeds/all.atom.xml`, `output/feeds/en.atom.xml`, `output/feeds/pt.atom.xml`, `output/404.html` containing both `<section data-lang="en">` and `<section data-lang="pt">` plus the slug map.
+- [x] 8.1 Run `make build` against the existing tree (post `ola-jardim` PT-only + future PT/EN 404 sources). Expect zero errors from `frontmatter_lint`, the build to produce: `output/ola-jardim/index.html` (no language suffix), `output/index.html` (aggregate with `ola-jardim` listed once and PT badge), `output/en/index.html` and `output/pt/index.html`, `output/feeds/all.atom.xml`, `output/feeds/en.atom.xml`, `output/feeds/pt.atom.xml`, `output/404.html` containing both `<section data-lang="en">` and `<section data-lang="pt">` plus the inline inference JS.
 - [x] 8.2 Inspect `output/index.html`: confirm `ola-jardim` is the only entry and its link target is `/ola-jardim/` (not the default-lang `/hello-garden/` because no EN translation exists yet — alphabetical-first rule per D10).
 - [x] 8.3 Inspect `output/en/index.html`: confirm it is empty of articles (no EN posts yet) but the page renders cleanly with the scope switcher and a "no posts in this language yet" message (or just an empty list — confirm visual is acceptable).
 - [x] 8.4 Inspect `output/pt/index.html`: confirm `ola-jardim` appears with link `/ola-jardim/`.
@@ -55,12 +55,12 @@
 
 ## 9. 404 verification
 
-- [x] 9.1 Inspect `output/404.html`: confirm both `<section data-lang="en">` and `<section data-lang="pt">` are present, the slug-to-lang JSON block contains the `ola-jardim` slug mapped to `pt`, and the inline JS is under 50 lines with no external resource loads.
-- [ ] 9.2 Test via the dev server (or by loading `output/404.html` directly): visit a `/pt/...` path and confirm only the PT section is visible. Visit a `/<unknown>/` path and confirm only the EN section (default lang) is visible. Disable JS and reload — confirm both sections are visible (graceful degradation).
-- [ ] 9.3 Test the slug-lookup branch: visit `/ola-jardim/` (which would 404 if the post were renamed; for the test, temporarily rename to provoke a 404, then check the JS picks PT from the slug map). Revert the rename.
+- [x] 9.1 Inspect `output/404.html`: confirm both `<section data-lang="en">` and `<section data-lang="pt">` are present, the inline JS is under 50 lines with no external resource loads, and no per-article payload (slug-to-lang map or similar) is embedded.
+- [x] 9.2 Test via the dev server (or by loading `output/404.html` directly): visit a `/pt/...` path and confirm only the PT section is visible. Visit a `/<unknown>/` path and confirm only the EN section (default lang) is visible. Disable JS and reload — confirm both sections are visible (graceful degradation).
+- [ ] 9.3 Test the `navigator.language` branch end-to-end: in DevTools Sensors (or via a browser-locale override), set the locale to `pt-BR`, then visit a non-existent path with no lang prefix (e.g. `/random-typo/`). Confirm the PT section is shown. Repeat with locale `de-DE` and confirm the default-lang (EN) section is shown.
 
 ## 10. Verification against specs
 
 - [x] 10.1 Run `openspec validate add-i18n-rendering --strict`; expect zero errors.
 - [ ] 10.2 Walk each scenario in `specs/i18n-rendering/spec.md` and confirm the implementation satisfies it (manual checklist; tick each scenario off as verified).
-- [ ] 10.3 Confirm the GitHub Actions deploy still passes on `main` after merging — the new plugins run in CI's `make build` for the first time. Watch the run; if it fails for a CI-only reason (e.g. signal ordering surprise on a fresh Python process), surface and fix here rather than in a follow-up.
+- [x] 10.3 Confirm the GitHub Actions deploy still passes on `main` after merging — the new plugins run in CI's `make build` for the first time. Watch the run; if it fails for a CI-only reason (e.g. signal ordering surprise on a fresh Python process), surface and fix here rather than in a follow-up.

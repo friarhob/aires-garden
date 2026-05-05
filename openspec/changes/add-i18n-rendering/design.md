@@ -36,7 +36,7 @@ A separate concern surfaces at the same time: the multilingual 404. GitHub Pages
 
 ### D1: Two plugins, not one
 
-`plugins/i18n_grouping/` and `plugins/multilingual_404/` ship as separate Pelican plugins. The article-grouping plugin runs every build via `article_generator_finalized`, walks `generator.articles + generator.translations`, builds a `dict[translation_key, list[Article]]`, and attaches each article's group to it as `article.translation_group` (a list of sibling articles, including itself). The 404 plugin runs once via `page_generator_finalized` (or `finalized`, depending on Pelican's signal ordering — verified during implementation), reads `content/pages/404.<lang>.md` files, renders each body, embeds them in a single `output/404.html` with the slug-to-lang map and inline JS.
+`plugins/i18n_grouping/` and `plugins/multilingual_404/` ship as separate Pelican plugins. The article-grouping plugin runs every build via `article_generator_finalized`, walks `generator.articles + generator.translations`, builds a `dict[translation_key, list[Article]]`, and attaches each article's group to it as `article.translation_group` (a list of sibling articles, including itself). The 404 plugin runs once via `page_generator_finalized` (or `finalized`, depending on Pelican's signal ordering — verified during implementation), reads `content/pages/404.<lang>.md` files, renders each body, and embeds them in a single `output/404.html` with the inline language-inference JS.
 
 Two plugins, not one combined "i18n" package, because:
 
@@ -159,17 +159,18 @@ Each file's frontmatter is the page schema (Title, Status: hidden, Lang). The me
 
 **Alternative rejected:** Single `404.md` with all langs stacked manually inside one file, with marker tags (`<section data-lang="…">`) in the Markdown body. Requires no plugin code, but conflates per-language content authoring into one file — fragile when adding a new lang, easy to miss.
 
-### D8: 404 language inference is two-stage; build-time slug→lang map
+### D8: 404 language inference is two-stage; URL prefix then `navigator.language`
 
-Inline JS (~15 lines) runs on `DOMContentLoaded`. Stage 1: regex-match the URL path against `^/([a-z]{2})/`. If the captured lang is in the document's `<section data-lang>` set, prioritise that section. Stage 2 (only if stage 1 didn't match): match the URL path against `^/([^/]+)/?$` and look up the captured slug in a build-time `SLUG_LANGS` JSON object embedded in a `<script type="application/json">` block inside the 404. If the slug exists in the map, use its lang; else fall back to the document's `data-default-lang` attribute.
+Inline JS (~25 lines) runs synchronously at the bottom of `<body>`. Stage 1: regex-match the URL path against `^/([a-z]{2})/`. If the captured lang is in the document's `<section data-lang>` set, prioritise that section. Stage 2 (only if stage 1 didn't match): read the 2-letter prefix of `navigator.language` (the browser's preferred locale) and prioritise that section if it's in the lang set. If neither stage matches, fall back to the document's `data-default-lang` attribute.
 
-"Prioritise" means: hide all `<section data-lang>` blocks except the matched one, and set `<html lang>` to that lang. With JS disabled, all sections remain visible (graceful degradation per ADR-0007 bar 2). The script is inline (no external file, no build artefact). The slug-to-lang map is generated at build time by the `multilingual_404` plugin from `generator.articles + generator.translations`.
+"Prioritise" means: hide all `<section data-lang>` blocks except the matched one, and set `<html lang>` to that lang. With JS disabled, all sections remain visible (graceful degradation per ADR-0007 bar 2). The script is inline (no external file, no build artefact). The site's language list is the only build-time payload — its size is bounded by the number of languages, not the number of posts.
 
 **Alternatives rejected:**
 
-- **Stage 1 only (URL prefix only).** Loses the `/<localised-slug>-typo/` case where the typo is close to a known PT slug but doesn't carry `/pt/` prefix. Slug map adds little code and improves the matching for free.
+- **Stage 1 only (URL prefix only).** A reader who mistypes `/pt/` and lands at the bare `/typo-slug/` form gets the default language (EN) even if their browser is PT. `navigator.language` covers that case at near-zero cost.
+- **Build-time slug-to-lang map.** Embed every post's `{slug: lang}` in the 404 and look up the requested slug. Considered and built first, then removed: payload grows O(n) with post count, and the win over `navigator.language` is narrow — it only covers the "user typed a known slug exactly, but the lang prefix was missing or wrong" case.
 - **Edit-distance fuzzy matching.** Returns "did you mean…?" suggestions but blows up complexity. Out of scope; future could add it as a third stage if the value is real.
-- **Server-side language detection (`Accept-Language` header).** Not available on GH Pages; the static host can't read request headers.
+- **Server-side language detection (`Accept-Language` header).** Not available on GH Pages; the static host can't read request headers. `navigator.language` is the client-side equivalent.
 
 ### D9: RSS — per-language feeds + aggregate
 
@@ -193,7 +194,7 @@ When the homepage card represents a `Translation_key` group, it links to: `defau
 
 - **URL break for `ola-jardim`** → `/ola-jardim-pt.html` → `/ola-jardim/`. Anyone who linked the old URL gets a 404. **Mitigation:** the site is pre-launch and noindexed (deploy-pipeline noindex stays active), so external link breakage is bounded to "people who manually shared the URL." Recorded for the `launch-to-apex` checklist.
 
-- **`SLUG_LANGS` map bloats the 404 page on a large garden** → For ~50 posts, the map is ~1 KB JSON. For 1000+ posts, it's still tiny. No mitigation needed at expected scale; if the garden ever grows large enough that the 404 ships hundreds of KB, revisit.
+- **`navigator.language` reflects the *browser*, not the *intended reading language* of a missing path** → A reader with a `pt-BR` browser who mistypes an EN slug gets the PT 404 section. **Mitigation:** acceptable — the 404 is a recovery surface, not a content surface, and the EN home link inside the section is universal anyway. Stage 1 (URL prefix) still wins when the URL is explicit.
 
 - **JS-disabled readers see all language sections stacked on the 404** → By design (ADR-0007 bar 2). The fallback is functional, not pretty.
 
@@ -202,8 +203,6 @@ When the homepage card represents a `Translation_key` group, it links to: `defau
 - **Two plugins instead of one means two `register()` functions and two `PLUGINS` entries** → minor boilerplate cost, accepted in D1.
 
 - **Pelican 4.x's translation-grouping with localised slugs is non-default territory** → `i18n_grouping` is the load-bearing piece. If a future Pelican upgrade changes the relevant signals or article model, this plugin is the migration touchpoint. **Mitigation:** the plugin is small (~50 LoC) and the seam is well-defined (`article.translation_group` attribute).
-
-- **The slug-to-lang map leaks information about the site structure to anyone who reads the 404** → Negligible; the same slugs are public via the homepage and feeds anyway. Not a security risk.
 
 ## Migration Plan
 
