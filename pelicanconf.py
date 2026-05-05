@@ -1,5 +1,5 @@
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["frontmatter_lint"]
+PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404"]
 
 AUTHOR = "Fernando Aires"
 SITENAME = "aires-garden"
@@ -13,6 +13,8 @@ DEFAULT_LANG = "en"
 
 ARTICLE_URL = "{slug}/"
 ARTICLE_SAVE_AS = "{slug}/index.html"
+ARTICLE_LANG_URL = "{slug}/"
+ARTICLE_LANG_SAVE_AS = "{slug}/index.html"
 
 DELETE_OUTPUT_DIRECTORY = True
 DEFAULT_DATE = "fs"
@@ -23,8 +25,9 @@ EXTRA_PATH_METADATA = {
     "extra/robots.txt": {"path": "robots.txt"},
 }
 
+FEED_ATOM = None
+TRANSLATION_FEED_ATOM = "feeds/{lang}.atom.xml"
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
-TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
