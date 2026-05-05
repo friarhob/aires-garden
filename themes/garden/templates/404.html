@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Not found — {{ SITENAME }}{% endblock %}
+{% block content %}
+    {% for lang, body in lang_sections.items() %}
+    <section data-lang="{{ lang }}">
+        {{ body }}
+    </section>
+    {% endfor %}
+
+    <script type="application/json" id="slug-lang-map">{{ slug_lang_map_json }}</script>
+    <script>
+    (function () {
+      var mapEl = document.getElementById('slug-lang-map');
+      var map = mapEl ? JSON.parse(mapEl.textContent) : {};
+      var langs = {{ SITE_LANGS | tojson }};
+      var defaultLang = document.documentElement.dataset.defaultLang || '{{ DEFAULT_LANG }}';
+      var path = window.location.pathname;
+      var target;
+
+      // Stage 1: /<lang>/ prefix
+      var m = path.match(/^\/([a-z]{2})\//);
+      if (m && langs.indexOf(m[1]) !== -1) { target = m[1]; }
+
+      // Stage 2: /<slug>/ lookup in build-time map
+      if (!target) {
+        var s = path.match(/^\/([^\/]+)\/?$/);
+        if (s && map[s[1]]) { target = map[s[1]]; }
+      }
+
+      // Fallback: default language
+      if (!target) { target = defaultLang; }
+
+      document.documentElement.lang = target;
+      var sections = document.querySelectorAll('section[data-lang]');
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].dataset.lang !== target) { sections[i].hidden = true; }
+      }
+    }());
+    </script>
+{% endblock %}
