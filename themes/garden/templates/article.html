@@ -4,6 +4,13 @@
     <article>
         <h1>{{ article.title }}</h1>
         <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+        {% if article.translation_group is defined and article.translation_group | length > 1 %}
+        <p class="available-in">Available in:
+            {% for t in article.translation_group %}
+            <a href="{{ SITEURL }}/{{ t.url }}">{{ t.lang | upper }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
         <div>{{ article.content }}</div>
     </article>
 {% endblock %}

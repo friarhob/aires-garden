@@ -2,12 +2,18 @@
 {% block title %}{{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>Posts</h1>
+    {% if HOMEPAGE_GROUPS is defined and HOMEPAGE_GROUPS %}
     <ul>
-    {% for article in articles %}
+    {% for group in HOMEPAGE_GROUPS %}
+        {% set art = group.canonical %}
         <li>
-            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-            <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+            <a href="{{ SITEURL }}/{{ art.url }}">{{ art.title }}</a>
+            <time datetime="{{ art.date.isoformat() }}">{{ art.locale_date }}</time>
+            <span class="langs">{% for t in group.translations %}{{ t.lang | upper }}{% if not loop.last %}, {% endif %}{% endfor %}</span>
         </li>
     {% endfor %}
     </ul>
+    {% else %}
+    <p>No posts yet.</p>
+    {% endif %}
 {% endblock %}
