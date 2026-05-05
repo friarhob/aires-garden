@@ -1,5 +1,4 @@
 """multilingual_404 — merge per-language 404 pages into one combined output/404.html."""
-import json
 from pathlib import Path
 
 import markdown as md_lib
@@ -53,18 +52,6 @@ def on_finalized(pelican):
     if not lang_sections:
         return
 
-    slug_lang_map = {}
-    if _article_generator is not None:
-        all_articles = (
-            list(getattr(_article_generator, "articles", []))
-            + list(getattr(_article_generator, "translations", []))
-        )
-        for art in all_articles:
-            slug = getattr(art, "slug", "")
-            lang = getattr(art, "lang", "")
-            if slug and lang:
-                slug_lang_map[slug] = lang
-
     env = getattr(_article_generator, "env", None) if _article_generator is not None else None
     if env is None:
         return
@@ -81,7 +68,6 @@ def on_finalized(pelican):
         "DEFAULT_LANG": default_lang,
         "SITE_LANGS": site_langs,
         "lang_sections": lang_sections,
-        "slug_lang_map_json": json.dumps(slug_lang_map, ensure_ascii=False, separators=(",", ":")),
         "page_kind": "404",
     }
 

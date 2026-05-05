@@ -7,24 +7,21 @@
     </section>
     {% endfor %}
 
-    <script type="application/json" id="slug-lang-map">{{ slug_lang_map_json }}</script>
     <script>
     (function () {
-      var mapEl = document.getElementById('slug-lang-map');
-      var map = mapEl ? JSON.parse(mapEl.textContent) : {};
       var langs = {{ SITE_LANGS | tojson }};
       var defaultLang = document.documentElement.dataset.defaultLang || '{{ DEFAULT_LANG }}';
       var path = window.location.pathname;
       var target;
 
-      // Stage 1: /<lang>/ prefix
+      // Stage 1: /<lang>/ prefix in the requested path
       var m = path.match(/^\/([a-z]{2})\//);
       if (m && langs.indexOf(m[1]) !== -1) { target = m[1]; }
 
-      // Stage 2: /<slug>/ lookup in build-time map
+      // Stage 2: browser language preference
       if (!target) {
-        var s = path.match(/^\/([^\/]+)\/?$/);
-        if (s && map[s[1]]) { target = map[s[1]]; }
+        var nav = ((navigator.language || navigator.userLanguage) || '').slice(0, 2).toLowerCase();
+        if (nav && langs.indexOf(nav) !== -1) { target = nav; }
       }
 
       // Fallback: default language
