@@ -32,7 +32,7 @@
 
 - [x] 5.1 Inside `themes/garden/templates/404.html`, write the inline `<script>` block (under 50 lines, no external resources) implementing: stage 1 — match `^/([a-z]{2})/` against `location.pathname` and prioritise that section if the lang exists; stage 2 — read the 2-letter prefix of `navigator.language` and prioritise that section if it matches one of the site's languages; fallback — read `<html data-default-lang>` and prioritise that.
 - [x] 5.2 "Prioritise" implementation: on match, set every other `<section data-lang>` to `display: none` (or `hidden` attribute) and update `document.documentElement.lang` to the matched lang. Default state (before JS runs / JS disabled): all sections visible.
-- [ ] 5.3 Test in the browser dev console: load `/404.html` via the dev server and verify section selection across the three branches — stage 1 (e.g. `/pt/missing/` → PT), stage 2 (`/random-typo/` with browser locale set to `pt` → PT), and fallback (`/random-typo/` with browser locale set to `de` → default-lang).
+- [x] 5.3 Test in the browser dev console: load `/404.html` via the dev server and verify section selection across the three branches — stage 1 (e.g. `/pt/missing/` → PT), stage 2 (`/random-typo/` with browser locale set to `pt` → PT), and fallback (`/random-typo/` with browser locale set to `de` → default-lang).
 
 ## 6. Content migration
 
@@ -57,10 +57,10 @@
 
 - [x] 9.1 Inspect `output/404.html`: confirm both `<section data-lang="en">` and `<section data-lang="pt">` are present, the inline JS is under 50 lines with no external resource loads, and no per-article payload (slug-to-lang map or similar) is embedded.
 - [x] 9.2 Test via the dev server (or by loading `output/404.html` directly): visit a `/pt/...` path and confirm only the PT section is visible. Visit a `/<unknown>/` path and confirm only the EN section (default lang) is visible. Disable JS and reload — confirm both sections are visible (graceful degradation).
-- [ ] 9.3 Test the `navigator.language` branch end-to-end: in DevTools Sensors (or via a browser-locale override), set the locale to `pt-BR`, then visit a non-existent path with no lang prefix (e.g. `/random-typo/`). Confirm the PT section is shown. Repeat with locale `de-DE` and confirm the default-lang (EN) section is shown.
+- [x] 9.3 Test the `navigator.language` branch end-to-end: in DevTools Sensors (or via a browser-locale override), set the locale to `pt-BR`, then visit a non-existent path with no lang prefix (e.g. `/random-typo/`). Confirm the PT section is shown. Repeat with locale `de-DE` and confirm the default-lang (EN) section is shown.
 
 ## 10. Verification against specs
 
 - [x] 10.1 Run `openspec validate add-i18n-rendering --strict`; expect zero errors.
-- [ ] 10.2 Walk each scenario in `specs/i18n-rendering/spec.md` and confirm the implementation satisfies it (manual checklist; tick each scenario off as verified).
+- [x] 10.2 Walk each scenario in `specs/i18n-rendering/spec.md` and confirm the implementation satisfies it (manual checklist; tick each scenario off as verified).
 - [x] 10.3 Confirm the GitHub Actions deploy still passes on `main` after merging — the new plugins run in CI's `make build` for the first time. Watch the run; if it fails for a CI-only reason (e.g. signal ordering surprise on a fresh Python process), surface and fix here rather than in a follow-up.
