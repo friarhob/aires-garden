@@ -9,7 +9,13 @@
       var m = path.match(/^\/([a-z]{2})\//);
       if (m && langs.indexOf(m[1]) !== -1) { target = m[1]; }
 
-      // Stage 2: browser language preference
+      // Stage 2: stored language preference (data-pref-lang set by inline loader)
+      if (!target) {
+        var pref = document.documentElement.dataset.prefLang;
+        if (pref && langs.indexOf(pref) !== -1) { target = pref; }
+      }
+
+      // Stage 3: browser language preference
       if (!target) {
         var nav = ((navigator.language || navigator.userLanguage) || '').slice(0, 2).toLowerCase();
         if (nav && langs.indexOf(nav) !== -1) { target = nav; }
