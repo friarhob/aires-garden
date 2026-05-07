@@ -8,9 +8,9 @@
 
 ## 2. `dev_drafts` plugin (promote drafts to articles in dev)
 
-- [ ] 2.1 Create `plugins/dev_drafts/__init__.py` with a `register()` function that connects to `article_generator_pretaxonomy` (or, if that signal turns out to be unavailable in the pinned Pelican version, the earliest hook on the article generator that exposes both `articles` and `drafts` lists; document the choice).
-- [ ] 2.2 Implement the handler: when `generator.settings.get("DRAFTS_AS_PUBLISHED")` is truthy, move every article from `generator.drafts` into `generator.articles` and from `generator.drafts_translations` into `generator.translations`, and set each promoted article's `status` attribute to `"published"`. No-op when the setting is False or absent.
-- [ ] 2.3 Add a defensive assertion (or build-time log) in the handler that — when `DRAFTS_AS_PUBLISHED` is True and there were drafts to promote — warns if `generator.articles` already contains any item with `status == "draft"`, signalling a signal-ordering regression.
+- [x] 2.1 Create `plugins/dev_drafts/__init__.py` with a `register()` function that connects to `article_generator_pretaxonomy` (or, if that signal turns out to be unavailable in the pinned Pelican version, the earliest hook on the article generator that exposes both `articles` and `drafts` lists; document the choice).
+- [x] 2.2 Implement the handler: when `generator.settings.get("DRAFTS_AS_PUBLISHED")` is truthy, move every article from `generator.drafts` into `generator.articles` and from `generator.drafts_translations` into `generator.translations`, and set each promoted article's `status` attribute to `"published"`. No-op when the setting is False or absent.
+- [x] 2.3 Add a defensive assertion (or build-time log) in the handler that — when `DRAFTS_AS_PUBLISHED` is True and there were drafts to promote — warns if `generator.articles` already contains any item with `status == "draft"`, signalling a signal-ordering regression.
 - [ ] 2.4 Verify the order empirically: with `DRAFTS_AS_PUBLISHED = True` and a `Status: draft` test article, run `make dev` and confirm `i18n_grouping` builds a `TRANSLATION_GROUPS` entry containing the promoted draft alongside any sibling translations.
 
 ## 3. `tag_pages` plugin (per-language tag pages and per-language all-tags index)
