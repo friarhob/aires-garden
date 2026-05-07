@@ -3,6 +3,13 @@
 {% block content %}
     <article>
         <h1>{{ page.title }}</h1>
+        {% if page.translations %}
+        <p class="available-in">Also in:
+            {% for t in page.translations %}
+            <a href="{{ SITEURL }}/{{ t.url }}">{{ t.lang | upper }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
         <div>{{ page.content }}</div>
     </article>
 {% endblock %}
