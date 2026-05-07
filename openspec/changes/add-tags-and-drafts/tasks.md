@@ -15,23 +15,23 @@
 
 ## 3. `tag_pages` plugin (per-language tag pages and per-language all-tags index)
 
-- [ ] 3.1 Create `plugins/tag_pages/__init__.py` with a `register()` function that captures the article generator on `article_generator_finalized` (mirror `i18n_grouping`'s `_article_generator` module-level pattern) and connects to `finalized` for the emission pass.
-- [ ] 3.2 Implement a helper that walks `generator.articles + generator.translations` and produces `dict[(lang, tag_slug), list[Article]]`. Use Pelican's `pelican.utils.slugify` for the tag-slug computation. Sort each list by `Date` descending.
-- [ ] 3.3 In `finalized`, render `themes/garden/templates/tag_lang_index.html` once per `(lang, tag_slug)` key, writing to `output/<lang>/tag/<tag_slug>/index.html`. Pass `articles=articles_for_lang_and_tag`, `page_lang=lang`, `tag_slug`, `page_kind="tag_lang_index"`.
-- [ ] 3.4 Implement a helper that produces `dict[lang, list[tag_slug]]` (the per-language tag-slug union, sorted alphabetically). Render `tags_list.html` once per lang, writing to `output/<lang>/tags/index.html`. Pass `tag_slugs`, `page_lang`, `page_kind="lang_tags_list"`.
+- [x] 3.1 Create `plugins/tag_pages/__init__.py` with a `register()` function that captures the article generator on `article_generator_finalized` (mirror `i18n_grouping`'s `_article_generator` module-level pattern) and connects to `finalized` for the emission pass.
+- [x] 3.2 Implement a helper that walks `generator.articles + generator.translations` and produces `dict[(lang, tag_slug), list[Article]]`. Use Pelican's `pelican.utils.slugify` for the tag-slug computation. Sort each list by `Date` descending.
+- [x] 3.3 In `finalized`, render `themes/garden/templates/tag_lang_index.html` once per `(lang, tag_slug)` key, writing to `output/<lang>/tag/<tag_slug>/index.html`. Pass `articles=articles_for_lang_and_tag`, `page_lang=lang`, `tag_slug`, `page_kind="tag_lang_index"`.
+- [x] 3.4 Implement a helper that produces `dict[lang, list[tag_slug]]` (the per-language tag-slug union, sorted alphabetically). Render `tags_list.html` once per lang, writing to `output/<lang>/tags/index.html`. Pass `tag_slugs`, `page_lang`, `page_kind="lang_tags_list"`.
 
 ## 4. `tag_pages` plugin (cross-language tag pages and cross-language all-tags index)
 
-- [ ] 4.1 Implement a helper that produces `dict[tag_slug, list[TranslationGroup]]` from `generator.context["TRANSLATION_GROUPS"]` (D3) — a group is included if any of its articles carries the tag. Sort each value by the canonical article's `Date` descending (canonical = default-lang member if present, else alphabetically-first by Lang).
-- [ ] 4.2 Render `tag_group_index.html` once per tag-slug, writing to `output/tag/<tag_slug>/index.html`. Pass `groups=groups_for_tag`, `tag_slug`, `page_kind="tag_group_index"`, plus `all_prose: dict[lang, html]` (see task 5.x).
-- [ ] 4.3 Implement a helper that produces the cross-language tag-slug union. Render `tags_list.html` for the cross-language form, writing to `output/tags/index.html`. Pass `tag_slugs`, `page_kind="all_tags_list"` (no `page_lang`).
+- [x] 4.1 Implement a helper that produces `dict[tag_slug, list[TranslationGroup]]` from `generator.context["TRANSLATION_GROUPS"]` (D3) — a group is included if any of its articles carries the tag. Sort each value by the canonical article's `Date` descending (canonical = default-lang member if present, else alphabetically-first by Lang).
+- [x] 4.2 Render `tag_group_index.html` once per tag-slug, writing to `output/tag/<tag_slug>/index.html`. Pass `groups=groups_for_tag`, `tag_slug`, `page_kind="tag_group_index"`, plus `all_prose: dict[lang, html]` (see task 5.x).
+- [x] 4.3 Implement a helper that produces the cross-language tag-slug union. Render `tags_list.html` for the cross-language form, writing to `output/tags/index.html`. Pass `tag_slugs`, `page_kind="all_tags_list"` (no `page_lang`).
 
 ## 5. `tag_pages` plugin (tag-prose discovery and rendering)
 
-- [ ] 5.1 Implement a tag-prose discovery pass that walks `content/tag-prose/<slug>/` directories from `pelican.settings["PATH"]`. For each `<slug>` directory, parse every file matching `<scope>.<lang>.md` where `<scope> ∈ {all, lang}` using the new tag-prose entrypoint in `plugins.frontmatter_lint.schema` (task 7.5). Collect the body string and frontmatter for each file.
-- [ ] 5.2 Render each tag-prose body to HTML by calling `markdown.markdown(body, extensions=[...])` directly. Use stock CommonMark only — no extensions in this change (D16). Build `tag_prose: dict[tag_slug, dict[("all"|"lang"), dict[lang, html]]]`.
-- [ ] 5.3 In task 4.2 (cross-language tag rendering), pass `all_prose = tag_prose.get(slug, {}).get("all", {})` to the template. The template chooses between zero/one/N rendering based on `len(all_prose)` (see task 6.4).
-- [ ] 5.4 In task 3.3 (per-language tag rendering), pass `tag_prose_html = tag_prose.get(slug, {}).get("lang", {}).get(lang)` to the template. The template renders the body block when truthy, omits otherwise (see task 6.5).
+- [x] 5.1 Implement a tag-prose discovery pass that walks `content/tag-prose/<slug>/` directories from `pelican.settings["PATH"]`. For each `<slug>` directory, parse every file matching `<scope>.<lang>.md` where `<scope> ∈ {all, lang}` using the new tag-prose entrypoint in `plugins.frontmatter_lint.schema` (task 7.5). Collect the body string and frontmatter for each file.
+- [x] 5.2 Render each tag-prose body to HTML by calling `markdown.markdown(body, extensions=[...])` directly. Use stock CommonMark only — no extensions in this change (D16). Build `tag_prose: dict[tag_slug, dict[("all"|"lang"), dict[lang, html]]]`.
+- [x] 5.3 In task 4.2 (cross-language tag rendering), pass `all_prose = tag_prose.get(slug, {}).get("all", {})` to the template. The template chooses between zero/one/N rendering based on `len(all_prose)` (see task 6.4).
+- [x] 5.4 In task 3.3 (per-language tag rendering), pass `tag_prose_html = tag_prose.get(slug, {}).get("lang", {}).get(lang)` to the template. The template renders the body block when truthy, omits otherwise (see task 6.5).
 
 ## 6. Templates
 
