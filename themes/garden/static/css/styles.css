@@ -196,3 +196,165 @@ main {
     margin: 0 auto;
     padding: 3rem 2rem 5rem;
 }
+
+/* ------------------------------------------------------------------ */
+/* Article list (homepage, tag pages)                                   */
+/* ------------------------------------------------------------------ */
+main ul {
+    list-style: none;
+}
+
+main ul li {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+main ul li:first-child {
+    border-top: 1px solid var(--border);
+}
+
+main ul li > a {
+    font-family: var(--font-title);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    font-variation-settings: 'opsz' 18;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    color: var(--text-heading);
+    text-decoration: none;
+    display: block;
+}
+
+main ul li > a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+main ul li time {
+    display: inline-block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+}
+
+span.langs {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* ------------------------------------------------------------------ */
+/* Article page                                                         */
+/* ------------------------------------------------------------------ */
+article h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+}
+
+article > time,
+article > p.available-in {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.4rem;
+}
+
+article > p.available-in a {
+    color: var(--accent);
+}
+
+article > div {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+}
+
+article > div p {
+    margin-bottom: 1.5rem;
+    max-width: 65ch;
+}
+
+article > div p:last-child {
+    margin-bottom: 0;
+}
+
+p.article-tags {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+p.article-tags a {
+    color: var(--accent);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+p.article-tags a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tag prose                                                            */
+/* ------------------------------------------------------------------ */
+.tag-prose {
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+    line-height: 1.65;
+}
+
+.tag-prose p {
+    margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tags list (all-tags and per-lang tags pages)                        */
+/* ------------------------------------------------------------------ */
+main ul:has(li > a:only-child) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 0.5rem;
+}
+
+main ul:has(li > a:only-child) li {
+    padding: 0;
+    border: none;
+}
+
+main ul li > a:only-child {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-variation-settings: normal;
+    letter-spacing: normal;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+    line-height: 1.5;
+    transition: background 0.15s, color 0.15s;
+}
+
+main ul li > a:only-child:hover {
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+}
