@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ page_lang | upper }} — {{ SITENAME }}{% endblock %}
 {% block content %}
-    <h1>Posts in {{ page_lang | upper }}</h1>
+    <h1>Posts ({{ page_lang | upper }})</h1>
     {% if articles %}
     <ul>
     {% for article in articles %}
