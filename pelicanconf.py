@@ -1,5 +1,20 @@
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404", "dev_drafts", "tag_pages"]
+PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404", "dev_drafts", "tag_pages", "content_tags"]
+
+MARKDOWN = {
+    "extensions": [
+        "markdown.extensions.extra",
+        "markdown.extensions.admonition",
+        "markdown.extensions.codehilite",
+    ],
+    "extension_configs": {
+        "markdown.extensions.codehilite": {
+            "css_class": "highlight",
+            "linenums": False,
+        },
+    },
+    "output_format": "html5",
+}
 
 AUTHOR = "Fernando Aires"
 SITENAME = "aires-garden"
