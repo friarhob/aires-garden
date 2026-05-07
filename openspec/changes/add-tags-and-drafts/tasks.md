@@ -47,15 +47,15 @@
 
 ## 7. `frontmatter_lint` schema additions
 
-- [ ] 7.1 In `plugins/frontmatter_lint/schema.py`, extend the `Tags` validation to reject any tag whose `pelican.utils.slugify(tag)` is the empty string. Error message: `"Tag {value!r} produces an empty slug under slugify"`.
-- [ ] 7.2 In the same module, extend the `Tags` validation to reject any post whose tag list contains two or more entries with the same `slugify(...)` value. Error message: `"Tags {a!r} and {b!r} both slugify to {slug!r}"`. Apply per post, listing every collision.
-- [ ] 7.3 Add fixture-style unit tests (or extend the existing test entry points) covering: empty-slug rejection, slug-collision rejection, mixed-case acceptance for distinct slugs, and existing-good-tags regression.
-- [ ] 7.4 Define a `parse_tag_prose_frontmatter(...)` (or analogous) function in `plugins/frontmatter_lint/schema.py`: required `Title` (non-empty string), `Lang` (ISO 639-1 alpha-2 via `langcodes`), `Status` (must be exactly `"hidden"`); forbidden `Slug`, `Translation_key`, `Tags`; reject all other fields.
-- [ ] 7.5 Add the filename↔frontmatter coupling check for tag-prose: directory name matches the post `Slug` regex; filename `<scope>.<lang>.md` where `<scope> ∈ {all, lang}` and `<lang>` equals the file's frontmatter `Lang`. Errors name the specific axis of mismatch (directory, scope, or lang).
-- [ ] 7.6 Add the per-directory uniqueness check for tag-prose: no two files in one slug directory share the same `(scope, lang)` pair.
-- [ ] 7.7 In `plugins/frontmatter_lint/__init__.py` (the plugin module): when scanning content, also walk `content/tag-prose/` and apply the new tag-prose validators. Errors integrate with the existing file-anchored grouped report.
-- [ ] 7.8 In the standalone CLI module (`plugins/frontmatter_lint/cli.py` or equivalent): when `<content-root>` contains a `tag-prose/` subdirectory, walk it and validate. Exit code and report format match the existing posts/pages flow.
-- [ ] 7.9 Run `python -m frontmatter_lint content` against the current tree and confirm no new errors before authoring tag-prose files (i.e. the existing tree still passes).
+- [x] 7.1 In `plugins/frontmatter_lint/schema.py`, extend the `Tags` validation to reject any tag whose `pelican.utils.slugify(tag)` is the empty string. Error message: `"Tag {value!r} produces an empty slug under slugify"`.
+- [x] 7.2 In the same module, extend the `Tags` validation to reject any post whose tag list contains two or more entries with the same `slugify(...)` value. Error message: `"Tags {a!r} and {b!r} both slugify to {slug!r}"`. Apply per post, listing every collision.
+- [x] 7.3 Add fixture-style unit tests (or extend the existing test entry points) covering: empty-slug rejection, slug-collision rejection, mixed-case acceptance for distinct slugs, and existing-good-tags regression.
+- [x] 7.4 Define a `parse_tag_prose_frontmatter(...)` (or analogous) function in `plugins/frontmatter_lint/schema.py`: required `Title` (non-empty string), `Lang` (ISO 639-1 alpha-2 via `langcodes`), `Status` (must be exactly `"hidden"`); forbidden `Slug`, `Translation_key`, `Tags`; reject all other fields.
+- [x] 7.5 Add the filename↔frontmatter coupling check for tag-prose: directory name matches the post `Slug` regex; filename `<scope>.<lang>.md` where `<scope> ∈ {all, lang}` and `<lang>` equals the file's frontmatter `Lang`. Errors name the specific axis of mismatch (directory, scope, or lang).
+- [x] 7.6 Add the per-directory uniqueness check for tag-prose: no two files in one slug directory share the same `(scope, lang)` pair.
+- [x] 7.7 In `plugins/frontmatter_lint/__init__.py` (the plugin module): when scanning content, also walk `content/tag-prose/` and apply the new tag-prose validators. Errors integrate with the existing file-anchored grouped report.
+- [x] 7.8 In the standalone CLI module (`plugins/frontmatter_lint/cli.py` or equivalent): when `<content-root>` contains a `tag-prose/` subdirectory, walk it and validate. Exit code and report format match the existing posts/pages flow.
+- [x] 7.9 Run `python -m frontmatter_lint content` against the current tree and confirm no new errors before authoring tag-prose files (i.e. the existing tree still passes).
 
 ## 8. ADR-0008 (dev-drafts-promotion)
 

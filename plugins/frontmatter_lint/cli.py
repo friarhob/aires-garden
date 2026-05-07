@@ -15,9 +15,12 @@ from .schema import (
     LintError,
     format_errors,
     parse_frontmatter,
+    parse_tag_prose_frontmatter,
     validate_page,
     validate_post,
     validate_post_group,
+    validate_tag_prose,
+    validate_tag_prose_group,
 )
 
 
@@ -53,11 +56,34 @@ def _collect_pages(pages_dir: Path) -> list[LintError]:
     return errors
 
 
+def _collect_tag_prose(tag_prose_dir: Path) -> list[LintError]:
+    errors: list[LintError] = []
+    if not tag_prose_dir.is_dir():
+        return errors
+
+    groups: dict[Path, list[Path]] = defaultdict(list)
+    for md in sorted(tag_prose_dir.rglob("*.md")):
+        groups[md.parent].append(md)
+
+    for slug_dir, files in sorted(groups.items()):
+        dir_name = slug_dir.name
+        for path in files:
+            raw, _body = parse_tag_prose_frontmatter(path)
+            errors.extend(validate_tag_prose(path, raw, dir_name))
+        errors.extend(validate_tag_prose_group(dir_name, files))
+
+    return errors
+
+
 def main(argv: list[str] | None = None) -> None:
     args = (argv if argv is not None else sys.argv)[1:]
     content_root = Path(args[0]) if args else Path("content")
 
-    errors = _collect_posts(content_root / "posts") + _collect_pages(content_root / "pages")
+    errors = (
+        _collect_posts(content_root / "posts")
+        + _collect_pages(content_root / "pages")
+        + _collect_tag_prose(content_root / "tag-prose")
+    )
 
     if errors:
         print(format_errors(errors), file=sys.stderr)

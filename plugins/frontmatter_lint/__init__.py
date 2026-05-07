@@ -14,9 +14,12 @@ from pelican import signals
 from .schema import (
     format_errors,
     parse_frontmatter,
+    parse_tag_prose_frontmatter,
     validate_page,
     validate_post,
     validate_post_group,
+    validate_tag_prose,
+    validate_tag_prose_group,
 )
 
 _errors: list = []
@@ -49,6 +52,20 @@ def on_page_generator_finalized(generator: object) -> None:
     for md in sorted(pages_dir.glob("*.md")):
         raw = parse_frontmatter(md)
         _errors.extend(validate_page(md, raw))
+
+    tag_prose_dir = content_root / "tag-prose"
+    if not tag_prose_dir.is_dir():
+        return
+    from collections import defaultdict as _defaultdict
+    slug_dirs: dict[Path, list[Path]] = _defaultdict(list)
+    for md in sorted(tag_prose_dir.rglob("*.md")):
+        slug_dirs[md.parent].append(md)
+    for slug_dir, files in sorted(slug_dirs.items()):
+        dir_name = slug_dir.name
+        for path in files:
+            raw, _body = parse_tag_prose_frontmatter(path)
+            _errors.extend(validate_tag_prose(path, raw, dir_name))
+        _errors.extend(validate_tag_prose_group(dir_name, files))
 
 
 def on_all_generators_finalized(generators: object) -> None:

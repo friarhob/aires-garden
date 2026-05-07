@@ -1,4 +1,4 @@
-"""Frontmatter schema and validation logic. No Pelican imports."""
+"""Frontmatter schema and validation logic."""
 
 from collections import defaultdict
 from dataclasses import dataclass
@@ -7,7 +7,9 @@ from pathlib import Path
 from typing import Annotated, Literal, Union
 
 import langcodes
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pelican.settings import DEFAULT_CONFIG
+from pelican.utils import slugify as _pelican_slugify
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 # ---------------------------------------------------------------------------
@@ -36,6 +38,11 @@ def _validate_lang(v: object) -> str:
 
 
 _SLUG_PATTERN = r"^[a-z0-9]+(-[a-z0-9]+)*$"
+_SLUG_REGEX_SUBS = DEFAULT_CONFIG["SLUG_REGEX_SUBSTITUTIONS"]
+
+
+def tag_slug(tag: str) -> str:
+    return _pelican_slugify(tag, _SLUG_REGEX_SUBS)
 
 
 # ---------------------------------------------------------------------------
@@ -65,6 +72,20 @@ class PostFrontmatter(BaseModel):
             return [v] if v.strip() else []
         return list(v)  # type: ignore[arg-type]
 
+    @model_validator(mode="after")
+    def check_tag_slugs(self) -> "PostFrontmatter":
+        seen: dict[str, str] = {}
+        for tag in self.tags:
+            slug = tag_slug(tag)
+            if not slug:
+                raise ValueError(f"Tag {tag!r} produces an empty slug under slugify")
+            if slug in seen:
+                raise ValueError(
+                    f"Tags {seen[slug]!r} and {tag!r} both slugify to {slug!r}"
+                )
+            seen[slug] = tag
+        return self
+
 
 class PageFrontmatter(BaseModel):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
@@ -81,6 +102,27 @@ class PageFrontmatter(BaseModel):
         if v is None:
             return None
         return _validate_lang(v)
+
+
+class TagProseFrontmatter(BaseModel):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    title: Annotated[str, Field(alias="Title")]
+    lang: Annotated[str, Field(alias="Lang")]
+    status: Annotated[Literal["hidden"], Field(alias="Status")]
+
+    @field_validator("lang", mode="before")
+    @classmethod
+    def check_lang(cls, v: object) -> str:
+        return _validate_lang(v)
+
+    @field_validator("title", mode="before")
+    @classmethod
+    def check_title_nonempty(cls, v: object) -> str:
+        s = str(v).strip()
+        if not s:
+            raise ValueError("Title must not be empty")
+        return s
 
 
 # ---------------------------------------------------------------------------
@@ -142,6 +184,82 @@ def validate_page(path: Path, raw: dict[str, object]) -> list[LintError]:
     return errors
 
 
+_TAG_PROSE_FORBIDDEN = {"Slug", "Translation_key", "Tags"}
+_VALID_SCOPES = {"all", "lang"}
+import re as _re
+_DIR_SLUG_RE = _re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+
+def validate_tag_prose(path: Path, raw: dict[str, object], dir_name: str) -> list[LintError]:
+    """Validate a single tag-prose file: schema + filename↔frontmatter coupling."""
+    errors: list[LintError] = []
+
+    # Forbidden fields — check before Pydantic so we get specific messages.
+    for field in _TAG_PROSE_FORBIDDEN:
+        if field in raw:
+            errors.append(LintError(path, f"Forbidden field on tag-prose: '{field}'"))
+
+    # Directory slug format.
+    if not _DIR_SLUG_RE.match(dir_name):
+        errors.append(LintError(
+            path,
+            f"Tag-prose directory name '{dir_name}' does not match slug regex "
+            f"(^[a-z0-9]+(-[a-z0-9]+)*$)"
+        ))
+
+    try:
+        m = TagProseFrontmatter.model_validate(raw)
+    except Exception as exc:
+        for msg in _pydantic_errors(exc):
+            errors.append(LintError(path, msg))
+        return errors  # skip filename checks when schema fails
+
+    # Filename: <scope>.<lang>.md
+    stem = path.stem  # strips final .md only
+    parts = stem.rsplit(".", 1)
+    if len(parts) != 2:
+        errors.append(LintError(
+            path,
+            f"Tag-prose filename must be <scope>.<lang>.md, got '{path.name}'"
+        ))
+        return errors
+
+    scope_part, lang_part = parts
+
+    if scope_part not in _VALID_SCOPES:
+        errors.append(LintError(
+            path,
+            f"Tag-prose filename scope '{scope_part}' is not valid; must be 'all' or 'lang'"
+        ))
+
+    if lang_part != m.lang:
+        errors.append(LintError(
+            path,
+            f"Tag-prose filename lang '{lang_part}' ≠ frontmatter Lang '{m.lang}'"
+        ))
+
+    return errors
+
+
+def parse_tag_prose_frontmatter(path: Path) -> tuple[dict[str, object], str]:
+    """Parse tag-prose frontmatter and return (raw_dict, body_str)."""
+    raw: dict[str, object] = {}
+    body_lines: list[str] = []
+    in_body = False
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            stripped = line.rstrip("\n")
+            if not in_body and not stripped:
+                in_body = True
+                continue
+            if in_body:
+                body_lines.append(line)
+            elif ": " in stripped:
+                key, _, value = stripped.partition(": ")
+                raw[key.strip()] = value.strip()
+    return raw, "".join(body_lines)
+
+
 # ---------------------------------------------------------------------------
 # Cross-document group validation
 # ---------------------------------------------------------------------------
@@ -164,6 +282,32 @@ def validate_post_group(
             errors.append(LintError(
                 path,
                 f"(Slug='{slug}', Lang='{lang}') already used by '{seen[key].name}'"
+            ))
+        else:
+            seen[key] = path
+
+    return errors
+
+
+def validate_tag_prose_group(
+    dir_name: str,
+    files: list[Path],
+) -> list[LintError]:
+    """Check (scope, lang) uniqueness across tag-prose siblings in one slug directory."""
+    errors: list[LintError] = []
+    seen: dict[tuple[str, str], Path] = {}
+
+    for path in files:
+        stem = path.stem
+        parts = stem.rsplit(".", 1)
+        if len(parts) != 2:
+            continue  # malformed filename — validate_tag_prose already reports it
+        scope, lang = parts
+        key = (scope, lang)
+        if key in seen:
+            errors.append(LintError(
+                path,
+                f"(scope='{scope}', lang='{lang}') already used by '{seen[key].name}'"
             ))
         else:
             seen[key] = path
