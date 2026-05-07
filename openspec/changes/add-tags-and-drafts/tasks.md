@@ -59,13 +59,13 @@
 
 ## 8. ADR-0008 (dev-drafts-promotion)
 
-- [ ] 8.1 Author `openspec/decisions/0008-dev-drafts-promotion.md` with `## Status: Accepted — <today>` and Context / Decision / Consequences sections. Decision: settings-flag toggle (`DRAFTS_AS_PUBLISHED`), set True in `pelicanconf.py` and False in `publishconf.py`. Rejected: env var, two-plugin variant, template-level draft handling.
-- [ ] 8.2 Update `openspec/decisions/README.md` to add ADR-0008 to the `## Index` section in numerical order alongside the existing ADRs.
+- [x] 8.1 Author `openspec/decisions/0008-dev-drafts-promotion.md` with `## Status: Accepted — <today>` and Context / Decision / Consequences sections. Decision: settings-flag toggle (`DRAFTS_AS_PUBLISHED`), set True in `pelicanconf.py` and False in `publishconf.py`. Rejected: env var, two-plugin variant, template-level draft handling.
+- [x] 8.2 Update `openspec/decisions/README.md` to add ADR-0008 to the `## Index` section in numerical order alongside the existing ADRs.
 
 ## 9. ADR-0009 (tag-prose-content-type)
 
-- [ ] 9.1 Author `openspec/decisions/0009-tag-prose-content-type.md` with `## Status: Accepted — <today>` and Context / Decision / Consequences sections. Decision: third content type at `content/tag-prose/<slug>/<scope>.<lang>.md`, schema independent of pages. Rejected: page-with-marker (`Page_kind: tag-prose`), embed-prose-in-first-tagged-article, file-layout option II (parallel dirs), file-layout option III (filename infix).
-- [ ] 9.2 Update `openspec/decisions/README.md` to add ADR-0009 to the `## Index` section.
+- [x] 9.1 Author `openspec/decisions/0009-tag-prose-content-type.md` with `## Status: Accepted — <today>` and Context / Decision / Consequences sections. Decision: third content type at `content/tag-prose/<slug>/<scope>.<lang>.md`, schema independent of pages. Rejected: page-with-marker (`Page_kind: tag-prose`), embed-prose-in-first-tagged-article, file-layout option II (parallel dirs), file-layout option III (filename infix).
+- [x] 9.2 Update `openspec/decisions/README.md` to add ADR-0009 to the `## Index` section.
 
 ## 10. Seed content for end-to-end verification
 

@@ -46,3 +46,5 @@ See [ADR-0002](0002-design-md-always-present-status-marked.md) for the rationale
 - [0005 — DNS stays on Gandi; tag subdomains use Gandi Web Forwarding](0005-dns-stays-on-gandi.md)
 - [0006 — Status enum is `{draft, published, hidden}`](0006-status-enum.md)
 - [0007 — Small client-side JS is acceptable where the static-host constraint requires it](0007-small-clientside-js.md)
+- [0008 — Dev-drafts promotion via a settings-flag toggle](0008-dev-drafts-promotion.md)
+- [0009 — Tag prose is a third content type at `content/tag-prose/<slug>/`](0009-tag-prose-content-type.md)
