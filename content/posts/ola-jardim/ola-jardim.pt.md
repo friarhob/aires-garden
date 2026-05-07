@@ -3,7 +3,7 @@ Slug: ola-jardim
 Date: 2026-04-20
 Lang: pt
 Status: published
-Tags: rant
+Tags: Rant
 Translation_key: ola-jardim
 
 Foi o [Tony Oreglia](https://www.tonycodes.com/garden/) que me apresentou o conceito de [jardim digital](https://maggieappleton.com/garden-history), quando trabalhámos juntos há uns anos. A parte visível era um site com posts de tecnologia, receitas, recomendações de livros e poesias, mas ele explicou-me o que um jardim deveria ser - além do que ele é.

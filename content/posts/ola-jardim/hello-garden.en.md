@@ -3,7 +3,7 @@ Slug: hello-garden
 Date: 2026-05-05
 Lang: en
 Status: published
-Tags: rant
+Tags: Rant
 Translation_key: ola-jardim
 
 It was [Tony Oreglia](https://www.tonycodes.com/garden/) who introduced me to the concept of a [digital garden](https://maggieappleton.com/garden-history), back when we worked together a few years ago. The visible part was a site of posts on technology, recipes, book recommendations, and poetry — but he explained to me what a garden ought to be, beyond what it appears to be.
