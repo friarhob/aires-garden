@@ -69,11 +69,11 @@
 
 ## 10. Seed content for end-to-end verification
 
-- [ ] 10.1 Author at least one post under `content/posts/` carrying `Tags: published-works` (any lang). Real authored content if ready; otherwise a thin placeholder noting it's a seed (the placeholder body should still be coherent — the seed post is publicly visible). Conform to the existing post schema (`Title`, `Slug`, `Date`, `Lang`, `Status`, `Translation_key`, `Tags`).
-- [ ] 10.2 Create `content/tag-prose/published-works/` directory.
-- [ ] 10.3 Author `content/tag-prose/published-works/all.en.md` and `content/tag-prose/published-works/all.pt.md` (cross-language prose, English and Portuguese — different bodies, both framed as "all my published works" without "in &lt;lang&gt;" qualifier). Required frontmatter: `Title`, `Lang`, `Status: hidden`.
-- [ ] 10.4 Author at least one `content/tag-prose/published-works/lang.<lang>.md` (recommended: `lang.en.md` and `lang.pt.md` so both per-language tag pages are exercised). Body uses "in &lt;lang&gt;" framing.
-- [ ] 10.5 Run `python -m frontmatter_lint content` and confirm zero validation errors across all three trees.
+- [x] 10.1 Author at least one post under `content/posts/` carrying `Tags: published-works` (any lang). Real authored content if ready; otherwise a thin placeholder noting it's a seed (the placeholder body should still be coherent — the seed post is publicly visible). Conform to the existing post schema (`Title`, `Slug`, `Date`, `Lang`, `Status`, `Translation_key`, `Tags`).
+- [x] 10.2 Create `content/tag-prose/published-works/` directory.
+- [x] 10.3 Author `content/tag-prose/published-works/all.en.md` and `content/tag-prose/published-works/all.pt.md` (cross-language prose, English and Portuguese — different bodies, both framed as "all my published works" without "in &lt;lang&gt;" qualifier). Required frontmatter: `Title`, `Lang`, `Status: hidden`.
+- [x] 10.4 Author at least one `content/tag-prose/published-works/lang.<lang>.md` (recommended: `lang.en.md` and `lang.pt.md` so both per-language tag pages are exercised). Body uses "in &lt;lang&gt;" framing.
+- [x] 10.5 Run `python -m frontmatter_lint content` and confirm zero validation errors across all three trees.
 
 ## 11. Build verification
 
