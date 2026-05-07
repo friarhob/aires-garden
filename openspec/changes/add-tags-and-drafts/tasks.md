@@ -11,7 +11,7 @@
 - [x] 2.1 Create `plugins/dev_drafts/__init__.py` with a `register()` function that connects to `article_generator_pretaxonomy` (or, if that signal turns out to be unavailable in the pinned Pelican version, the earliest hook on the article generator that exposes both `articles` and `drafts` lists; document the choice).
 - [x] 2.2 Implement the handler: when `generator.settings.get("DRAFTS_AS_PUBLISHED")` is truthy, move every article from `generator.drafts` into `generator.articles` and from `generator.drafts_translations` into `generator.translations`, and set each promoted article's `status` attribute to `"published"`. No-op when the setting is False or absent.
 - [x] 2.3 Add a defensive assertion (or build-time log) in the handler that — when `DRAFTS_AS_PUBLISHED` is True and there were drafts to promote — warns if `generator.articles` already contains any item with `status == "draft"`, signalling a signal-ordering regression.
-- [ ] 2.4 Verify the order empirically: with `DRAFTS_AS_PUBLISHED = True` and a `Status: draft` test article, run `make dev` and confirm `i18n_grouping` builds a `TRANSLATION_GROUPS` entry containing the promoted draft alongside any sibling translations.
+- [x] 2.4 Verify the order empirically: with `DRAFTS_AS_PUBLISHED = True` and a `Status: draft` test article, run `make dev` and confirm `i18n_grouping` builds a `TRANSLATION_GROUPS` entry containing the promoted draft alongside any sibling translations.
 
 ## 3. `tag_pages` plugin (per-language tag pages and per-language all-tags index)
 
@@ -77,16 +77,16 @@
 
 ## 11. Build verification
 
-- [ ] 11.1 Run `make dev` and verify in the browser:
+- [x] 11.1 Run `make dev` and verify in the browser:
   - `/` lists `ola-jardim` (rant) and the published-works seed post (deduped if multilingual).
   - `/en/`, `/pt/` list each lang's articles including drafts (if any are present in the tree at this point).
   - `/tag/rant/` shows `ola-jardim` once with EN+PT badges, list-only (no prose).
   - `/tag/published-works/` shows the seed post and renders cross-language prose (EN section visible to EN browser; PT to PT browser; default-lang fallback otherwise).
-  - `/en/tag/published-works/` and `/pt/tag/published-works/` render the matching `lang.<lang>.md` body above the list.
-  - `/tags/` lists `rant` and `published-works`, each linking to `/tag/<slug>/`.
+  - `/pt/tag/published-works/` renders the matching `lang.pt.md` body above the list (EN page absent — no EN article carries published-works yet).
+  - `/tags/` lists `rant`, `published-works`, and `short-stories`, each linking to `/tag/<slug>/`.
   - `/en/tags/` and `/pt/tags/` list the language-scoped tag set.
   - Article pages show the "Tags:" line linking to per-language tag pages.
-- [ ] 11.2 With `DRAFTS_AS_PUBLISHED = True` (dev), temporarily flip the seed post's `Status` to `draft`, run `make dev`, and verify the post still appears at `/<slug>/`, on the homepage, on its language index, and on its tag pages — exactly as it did with `Status: published`. Revert the flip before commit.
-- [ ] 11.3 Run `make build` (production via `publishconf.py`). Verify `output/` contains the same URLs as 11.1 EXCEPT no draft articles are emitted, and verify the four `DRAFT_*` URL slots produce nothing.
-- [ ] 11.4 Inspect `output/404.html` to confirm the language-inference script is still functional after the partial extraction (browser-language match, default-lang fallback, JS-off shows all sections). Behavioural parity with the pre-refactor 404.
-- [ ] 11.5 Inspect `output/tag/published-works/index.html` source and confirm the inline language-inference `<script>` (or its included partial output) is present and identical to the 404's.
+- [x] 11.2 With `DRAFTS_AS_PUBLISHED = True` (dev), temporarily flip the seed post's `Status` to `draft`, run `make dev`, and verify the post still appears at `/<slug>/`, on the homepage, on its language index, and on its tag pages — exactly as it did with `Status: published`. Revert the flip before commit.
+- [x] 11.3 Run `make build` (production via `publishconf.py`). Verify `output/` contains the same URLs as 11.1 EXCEPT no draft articles are emitted, and verify the four `DRAFT_*` URL slots produce nothing.
+- [x] 11.4 Inspect `output/404.html` to confirm the language-inference script is still functional after the partial extraction (browser-language match, default-lang fallback, JS-off shows all sections). Behavioural parity with the pre-refactor 404.
+- [x] 11.5 Inspect `output/tag/published-works/index.html` source and confirm the inline language-inference `<script>` (or its included partial output) is present and identical to the 404's.

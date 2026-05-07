@@ -16,6 +16,8 @@ ARTICLE_SAVE_AS = "{slug}/index.html"
 ARTICLE_LANG_URL = "{slug}/"
 ARTICLE_LANG_SAVE_AS = "{slug}/index.html"
 
+ARTICLE_EXCLUDES = ["tag-prose"]
+
 HIDDEN_ARTICLE_URL = "{slug}/"
 HIDDEN_ARTICLE_SAVE_AS = "{slug}/index.html"
 HIDDEN_ARTICLE_LANG_URL = "{slug}/"
