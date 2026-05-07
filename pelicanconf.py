@@ -1,5 +1,5 @@
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404"]
+PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404", "dev_drafts", "tag_pages"]
 
 AUTHOR = "Fernando Aires"
 SITENAME = "aires-garden"
@@ -15,6 +15,18 @@ ARTICLE_URL = "{slug}/"
 ARTICLE_SAVE_AS = "{slug}/index.html"
 ARTICLE_LANG_URL = "{slug}/"
 ARTICLE_LANG_SAVE_AS = "{slug}/index.html"
+
+HIDDEN_ARTICLE_URL = "{slug}/"
+HIDDEN_ARTICLE_SAVE_AS = "{slug}/index.html"
+HIDDEN_ARTICLE_LANG_URL = "{slug}/"
+HIDDEN_ARTICLE_LANG_SAVE_AS = "{slug}/index.html"
+
+TAG_URL = ""
+TAG_SAVE_AS = ""
+TAGS_URL = ""
+TAGS_SAVE_AS = ""
+
+DRAFTS_AS_PUBLISHED = True
 
 DELETE_OUTPUT_DIRECTORY = True
 DEFAULT_DATE = "fs"

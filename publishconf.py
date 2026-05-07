@@ -12,5 +12,7 @@ DRAFT_SAVE_AS = ""
 DRAFT_LANG_URL = ""
 DRAFT_LANG_SAVE_AS = ""
 
+DRAFTS_AS_PUBLISHED = False
+
 FEED_ALL_ATOM = "feeds/all.atom.xml"
 CATEGORY_FEED_ATOM = "feeds/{slug}.atom.xml"

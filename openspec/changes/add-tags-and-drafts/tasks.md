@@ -1,10 +1,10 @@
 ## 1. Pelican configuration
 
-- [ ] 1.1 In `pelicanconf.py`, set `HIDDEN_ARTICLE_URL = "{slug}/"`, `HIDDEN_ARTICLE_SAVE_AS = "{slug}/index.html"`, `HIDDEN_ARTICLE_LANG_URL = "{slug}/"`, and `HIDDEN_ARTICLE_LANG_SAVE_AS = "{slug}/index.html"` so hidden articles emit at the terminal form (D13).
-- [ ] 1.2 In `pelicanconf.py`, set `TAG_URL = ""`, `TAG_SAVE_AS = ""`, `TAGS_URL = ""`, `TAGS_SAVE_AS = ""` to disable Pelican's native tag mechanism (D12).
-- [ ] 1.3 In `pelicanconf.py`, set `DRAFTS_AS_PUBLISHED = True` (dev default toggling the `dev_drafts` plugin's behaviour, D2 / ADR-0008).
-- [ ] 1.4 In `publishconf.py`, set `DRAFTS_AS_PUBLISHED = False`. Verify the existing `DRAFT_URL`/`DRAFT_SAVE_AS`/`DRAFT_LANG_URL`/`DRAFT_LANG_SAVE_AS` blanks remain in place; do not remove them.
-- [ ] 1.5 In `pelicanconf.py`, append `dev_drafts` and `tag_pages` to the `PLUGINS` list, in that order, *after* `i18n_grouping` (D15 — registration order matters because PLUGINS is processed top-to-bottom).
+- [x] 1.1 In `pelicanconf.py`, set `HIDDEN_ARTICLE_URL = "{slug}/"`, `HIDDEN_ARTICLE_SAVE_AS = "{slug}/index.html"`, `HIDDEN_ARTICLE_LANG_URL = "{slug}/"`, and `HIDDEN_ARTICLE_LANG_SAVE_AS = "{slug}/index.html"` so hidden articles emit at the terminal form (D13).
+- [x] 1.2 In `pelicanconf.py`, set `TAG_URL = ""`, `TAG_SAVE_AS = ""`, `TAGS_URL = ""`, `TAGS_SAVE_AS = ""` to disable Pelican's native tag mechanism (D12).
+- [x] 1.3 In `pelicanconf.py`, set `DRAFTS_AS_PUBLISHED = True` (dev default toggling the `dev_drafts` plugin's behaviour, D2 / ADR-0008).
+- [x] 1.4 In `publishconf.py`, set `DRAFTS_AS_PUBLISHED = False`. Verify the existing `DRAFT_URL`/`DRAFT_SAVE_AS`/`DRAFT_LANG_URL`/`DRAFT_LANG_SAVE_AS` blanks remain in place; do not remove them.
+- [x] 1.5 In `pelicanconf.py`, append `dev_drafts` and `tag_pages` to the `PLUGINS` list, in that order, *after* `i18n_grouping` (D15 — registration order matters because PLUGINS is processed top-to-bottom).
 
 ## 2. `dev_drafts` plugin (promote drafts to articles in dev)
 
