@@ -29,11 +29,11 @@
 ## 5. Verification
 
 - [x] 5.1 Run `pelican content -s pelicanconf.py` and confirm build completes without errors
-- [ ] 5.2 Confirm dark theme persists across page navigation when set via the toggle
-- [ ] 5.3 Confirm light theme persists across page navigation when set via the toggle
-- [ ] 5.4 Confirm reloading any page applies the stored theme before first paint (no FOUC)
-- [ ] 5.5 Confirm the language-pref button cycles EN → PT → EN and updates `data-pref-lang` on `<html>` immediately
-- [ ] 5.6 Confirm `/en/tag/published-works/` still respects URL scope (Stage 1 wins) regardless of `data-pref-lang`
-- [ ] 5.7 Confirm `/tag/published-works/` (cross-lang) shows the section matching `data-pref-lang` when set
-- [ ] 5.8 Confirm 404 page (`/output/404.html`) honours the new inference order
-- [ ] 5.9 Confirm preference controls are not visually broken in either theme
+- [x] 5.2 Confirm dark theme persists across page navigation when set via the toggle
+- [x] 5.3 Confirm light theme persists across page navigation when set via the toggle
+- [x] 5.4 Confirm reloading any page applies the stored theme before first paint (no FOUC)
+- [x] 5.5 Confirm the language-pref button cycles EN → PT → EN and updates `data-pref-lang` on `<html>` immediately
+- [x] 5.6 Confirm `/en/tag/published-works/` still respects URL scope (Stage 1 wins) regardless of `data-pref-lang`
+- [x] 5.7 Confirm `/tag/published-works/` (cross-lang) shows the section matching `data-pref-lang` when set
+- [x] 5.8 Confirm 404 page (`/output/404.html`) honours the new inference order
+- [x] 5.9 Confirm preference controls are not visually broken in either theme
