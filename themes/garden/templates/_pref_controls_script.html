@@ -6,14 +6,11 @@
       var langBtn = document.querySelector('.pref-lang');
 
       function syncThemeBtn(theme) {
-        var isLight = theme === 'light';
-        themeBtn.textContent = isLight ? 'Dark' : 'Light';
-        if (isLight) { themeBtn.dataset.active = ''; } else { delete themeBtn.dataset.active; }
+        themeBtn.textContent = theme === 'light' ? 'Dark' : 'Light';
       }
 
       function syncLangBtn(lang) {
         langBtn.textContent = lang.toUpperCase();
-        if (lang !== defaultLang) { langBtn.dataset.active = ''; } else { delete langBtn.dataset.active; }
       }
 
       var initTheme = document.documentElement.dataset.theme || 'dark';

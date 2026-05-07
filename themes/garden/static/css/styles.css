@@ -149,12 +149,6 @@ header > a:first-child:hover {
     color: var(--accent);
 }
 
-.pref-theme[data-active],
-.pref-lang[data-active] {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
 /* ------------------------------------------------------------------ */
 /* Headings                                                             */
 /* ------------------------------------------------------------------ */
