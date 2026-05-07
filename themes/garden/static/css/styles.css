@@ -120,39 +120,6 @@ header > a:first-child:hover {
     text-decoration: none;
 }
 
-.scope-switcher {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.scope-switcher a,
-.scope-switcher span {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 0.25rem 0.6rem;
-    border-radius: 2px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.scope-switcher a:hover {
-    color: var(--accent);
-    text-decoration: none;
-}
-
-.scope-switcher .lang-current {
-    background: var(--bg-subtle);
-    color: var(--accent);
-}
-
-.scope-switcher .lang-disabled {
-    opacity: 0.35;
-    cursor: default;
-}
-
 /* ------------------------------------------------------------------ */
 /* Preference controls                                                  */
 /* ------------------------------------------------------------------ */

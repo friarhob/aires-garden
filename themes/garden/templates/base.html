@@ -23,25 +23,6 @@
 <body>
     <header>
         <a href="{{ SITEURL }}/">{{ SITENAME }}</a>
-        {% if SITE_LANGS is defined and SITE_LANGS %}
-        {% set current_lang = article.lang if article is defined else (page_lang if page_lang is defined else none) %}
-        {% set is_home = article is not defined and page_lang is not defined and page_kind is not defined %}
-        <nav class="scope-switcher">
-            <a href="{{ SITEURL }}/"{% if is_home %} class="lang-current"{% endif %}>All</a>
-            {% for lang in SITE_LANGS %}
-                {% if article is defined %}
-                    {% set trans_list = article.translation_group | selectattr("lang", "equalto", lang) | list if article.translation_group is defined else [] %}
-                    {% if trans_list %}
-                    <a href="{{ SITEURL }}/{{ trans_list[0].url }}"{% if lang == current_lang %} class="lang-current"{% endif %}>{{ lang | upper }}</a>
-                    {% else %}
-                    <span class="lang-disabled">{{ lang | upper }}</span>
-                    {% endif %}
-                {% else %}
-                    <a href="{{ SITEURL }}/{{ lang }}/"{% if lang == current_lang %} class="lang-current"{% endif %}>{{ lang | upper }}</a>
-                {% endif %}
-            {% endfor %}
-        </nav>
-        {% endif %}
         <div class="prefs">
             <button type="button" class="pref-theme">Light</button>
             <button type="button" class="pref-lang">{{ DEFAULT_LANG | upper }}</button>
