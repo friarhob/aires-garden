@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}#{{ tag_slug }} — {{ SITENAME }}{% endblock %}
+{% block content %}
+    <h1>#{{ tag_slug }}</h1>
+
+    {% if all_prose %}
+        {% if all_prose | length == 1 %}
+            {% for lang, body in all_prose.items() %}
+            <div class="tag-prose">{{ body | safe }}</div>
+            {% endfor %}
+        {% else %}
+            {% for lang, body in all_prose.items() %}
+            <section data-lang="{{ lang }}" class="tag-prose">{{ body | safe }}</section>
+            {% endfor %}
+            {% include "_lang_inference_script.html" %}
+        {% endif %}
+    {% endif %}
+
+    {% if groups %}
+    <ul>
+    {% for group in groups %}
+        {% set art = group.canonical %}
+        <li>
+            <a href="{{ SITEURL }}/{{ art.url }}">{{ art.title }}</a>
+            <time datetime="{{ art.date.isoformat() }}">{{ art.locale_date }}</time>
+            <span class="langs">{% for t in group.translations %}{{ t.lang | upper }}{% if not loop.last %}, {% endif %}{% endfor %}</span>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No posts with this tag yet.</p>
+    {% endif %}
+{% endblock %}

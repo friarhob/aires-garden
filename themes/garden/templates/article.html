@@ -12,5 +12,12 @@
         </p>
         {% endif %}
         <div>{{ article.content }}</div>
+        {% if article.tags %}
+        <p class="article-tags">Tags:
+            {% for tag in article.tags %}
+            <a href="{{ SITEURL }}/{{ article.lang }}/tag/{{ tag.slug }}/">{{ tag.name }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
     </article>
 {% endblock %}

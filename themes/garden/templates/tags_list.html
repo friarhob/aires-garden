@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{% if page_lang is defined and page_lang %}Tags in {{ page_lang | upper }}{% else %}All Tags{% endif %} — {{ SITENAME }}{% endblock %}
+{% block content %}
+    <h1>{% if page_lang is defined and page_lang %}Tags in {{ page_lang | upper }}{% else %}All Tags{% endif %}</h1>
+
+    {% if tag_slugs %}
+    <ul>
+    {% for slug in tag_slugs %}
+        <li>
+            {% if page_lang is defined and page_lang %}
+            <a href="{{ SITEURL }}/{{ page_lang }}/tag/{{ slug }}/">#{{ slug }}</a>
+            {% else %}
+            <a href="{{ SITEURL }}/tag/{{ slug }}/">#{{ slug }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tags yet.</p>
+    {% endif %}
+{% endblock %}

@@ -35,15 +35,15 @@
 
 ## 6. Templates
 
-- [ ] 6.1 Create `themes/garden/templates/_lang_inference_script.html` containing the inline `<script>` block currently in `themes/garden/templates/404.html` (D10). Move the verbatim contents; no logic change.
-- [ ] 6.2 Edit `themes/garden/templates/404.html` to replace the inline `<script>` block with `{% include "_lang_inference_script.html" %}`. Verify the rendered 404 page is byte-identical to the pre-refactor output (or, if minor whitespace differs, behaviour-identical).
-- [ ] 6.3 Edit `themes/garden/templates/article.html` to add a "Tags:" line below the article body, hidden when `article.tags` is empty. Each tag links to `/<article.lang>/tag/<slugify(tag)>/`. Use Jinja's `slugify` filter or a passthrough variable from the plugin.
-- [ ] 6.4 Create `themes/garden/templates/tag_group_index.html` (extends `base.html`). Mirrors `index.html` for the list, but above the list renders prose based on `all_prose` cardinality:
+- [x] 6.1 Create `themes/garden/templates/_lang_inference_script.html` containing the inline `<script>` block currently in `themes/garden/templates/404.html` (D10). Move the verbatim contents; no logic change.
+- [x] 6.2 Edit `themes/garden/templates/404.html` to replace the inline `<script>` block with `{% include "_lang_inference_script.html" %}`. Verify the rendered 404 page is byte-identical to the pre-refactor output (or, if minor whitespace differs, behaviour-identical).
+- [x] 6.3 Edit `themes/garden/templates/article.html` to add a "Tags:" line below the article body, hidden when `article.tags` is empty. Each tag links to `/<article.lang>/tag/<slugify(tag)>/`. Use Jinja's `slugify` filter or a passthrough variable from the plugin.
+- [x] 6.4 Create `themes/garden/templates/tag_group_index.html` (extends `base.html`). Mirrors `index.html` for the list, but above the list renders prose based on `all_prose` cardinality:
   - `len(all_prose) == 0`: nothing.
   - `len(all_prose) == 1`: the single body inline (no `<section>` wrapper, no script).
   - `len(all_prose) >= 2`: one `<section data-lang="<lang>">{{ body | safe }}</section>` per entry, then `{% include "_lang_inference_script.html" %}`.
-- [ ] 6.5 Create `themes/garden/templates/tag_lang_index.html` (extends `base.html`). Mirrors `lang_index.html` for the list. Above the list, render `{{ tag_prose_html | safe }}` when truthy, omit otherwise. Single block, no `<section>`, no script.
-- [ ] 6.6 Create `themes/garden/templates/tags_list.html` (extends `base.html`). Iterates `tag_slugs`, each rendered as a link. Heading text and link target depend on `page_lang`: when set, list scoped to that language with anchors to `/<lang>/tag/<slug>/`; when unset, cross-language list with anchors to `/tag/<slug>/`.
+- [x] 6.5 Create `themes/garden/templates/tag_lang_index.html` (extends `base.html`). Mirrors `lang_index.html` for the list. Above the list, render `{{ tag_prose_html | safe }}` when truthy, omit otherwise. Single block, no `<section>`, no script.
+- [x] 6.6 Create `themes/garden/templates/tags_list.html` (extends `base.html`). Iterates `tag_slugs`, each rendered as a link. Heading text and link target depend on `page_lang`: when set, list scoped to that language with anchors to `/<lang>/tag/<slug>/`; when unset, cross-language list with anchors to `/tag/<slug>/`.
 
 ## 7. `frontmatter_lint` schema additions
 
