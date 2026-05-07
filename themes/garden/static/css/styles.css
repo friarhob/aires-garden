@@ -154,6 +154,41 @@ header > a:first-child:hover {
 }
 
 /* ------------------------------------------------------------------ */
+/* Preference controls                                                  */
+/* ------------------------------------------------------------------ */
+.prefs {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pref-theme,
+.pref-lang {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.pref-theme:hover,
+.pref-lang:hover {
+    color: var(--accent);
+}
+
+.pref-theme[data-active],
+.pref-lang[data-active] {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ */
 /* Headings                                                             */
 /* ------------------------------------------------------------------ */
 h1 {

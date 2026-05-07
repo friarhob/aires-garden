@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('garden-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        var l = localStorage.getItem('garden-lang');
+        if (l) document.documentElement.dataset.prefLang = l;
+      } catch (e) {}
+    }());
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -32,9 +42,14 @@
             {% endfor %}
         </nav>
         {% endif %}
+        <div class="prefs">
+            <button type="button" class="pref-theme">Light</button>
+            <button type="button" class="pref-lang">{{ DEFAULT_LANG | upper }}</button>
+        </div>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
+    {% include "_pref_controls_script.html" %}
 </body>
 </html>

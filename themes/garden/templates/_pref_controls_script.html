@@ -1,0 +1,41 @@
+    <script>
+    (function () {
+      var langs = {{ SITE_LANGS | tojson }};
+      var defaultLang = '{{ DEFAULT_LANG }}';
+      var themeBtn = document.querySelector('.pref-theme');
+      var langBtn = document.querySelector('.pref-lang');
+
+      function syncThemeBtn(theme) {
+        var isLight = theme === 'light';
+        themeBtn.textContent = isLight ? 'Dark' : 'Light';
+        if (isLight) { themeBtn.dataset.active = ''; } else { delete themeBtn.dataset.active; }
+      }
+
+      function syncLangBtn(lang) {
+        langBtn.textContent = lang.toUpperCase();
+        if (lang !== defaultLang) { langBtn.dataset.active = ''; } else { delete langBtn.dataset.active; }
+      }
+
+      var initTheme = document.documentElement.dataset.theme || 'dark';
+      var initLang = document.documentElement.dataset.prefLang || defaultLang;
+      syncThemeBtn(initTheme);
+      syncLangBtn(initLang);
+
+      themeBtn.addEventListener('click', function () {
+        var current = document.documentElement.dataset.theme || 'dark';
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('garden-theme', next); } catch (e) {}
+        syncThemeBtn(next);
+      });
+
+      langBtn.addEventListener('click', function () {
+        var current = document.documentElement.dataset.prefLang || defaultLang;
+        var idx = langs.indexOf(current);
+        var next = langs[(idx + 1) % langs.length];
+        document.documentElement.dataset.prefLang = next;
+        try { localStorage.setItem('garden-lang', next); } catch (e) {}
+        syncLangBtn(next);
+      });
+    }());
+    </script>
