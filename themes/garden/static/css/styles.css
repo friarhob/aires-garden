@@ -1,7 +1,198 @@
+/* ------------------------------------------------------------------ */
+/* Tokens — dark mode (default)                                         */
+/* ------------------------------------------------------------------ */
+:root {
+    --bg:              #130A22;
+    --bg-subtle:       #0A0515;
+    --text:            #F0EAE0;
+    --text-heading:    #F0EAE0;
+    --text-muted:      #A08EC0;
+    --accent:          #F0C060;
+    --accent-display:  #F0C060;
+    --border:          #261648;
+
+    --font-title: 'Fraunces', Georgia, serif;
+    --font-body:  'IBM Plex Sans', system-ui, sans-serif;
+
+    --body-size:     clamp(16px, 1.15vw, 18px);
+    --content-width: clamp(600px, 55vw, 900px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tokens — light mode (automatic)                                      */
+/* ------------------------------------------------------------------ */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --bg:              #FAF7F2;
+        --bg-subtle:       #F0EAE0;
+        --text:            #2A1640;
+        --text-heading:    #2D1A4A;
+        --text-muted:      #7B54A0;
+        --accent:          #8B6209;
+        --accent-display:  #EDB755;
+        --border:          #DDD5C8;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Tokens — explicit overrides                                          */
+/* ------------------------------------------------------------------ */
+:root[data-theme="light"] {
+    --bg:              #FAF7F2;
+    --bg-subtle:       #F0EAE0;
+    --text:            #2A1640;
+    --text-heading:    #2D1A4A;
+    --text-muted:      #7B54A0;
+    --accent:          #8B6209;
+    --accent-display:  #EDB755;
+    --border:          #DDD5C8;
+}
+
+:root[data-theme="dark"] {
+    --bg:              #130A22;
+    --bg-subtle:       #0A0515;
+    --text:            #F0EAE0;
+    --text-heading:    #F0EAE0;
+    --text-muted:      #A08EC0;
+    --accent:          #F0C060;
+    --accent-display:  #F0C060;
+    --border:          #261648;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reset                                                                */
+/* ------------------------------------------------------------------ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
 body {
-    font-family: system-ui, sans-serif;
-    max-width: 42rem;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    line-height: 1.5;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    line-height: 1.75;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+}
+
+a {
+    color: var(--accent);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ */
+/* Header / nav                                                         */
+/* ------------------------------------------------------------------ */
+header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+header > a:first-child {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 14;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+header > a:first-child:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.scope-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.scope-switcher a,
+.scope-switcher span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.scope-switcher a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.scope-switcher .lang-current {
+    background: var(--bg-subtle);
+    color: var(--accent);
+}
+
+.scope-switcher .lang-disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Headings                                                             */
+/* ------------------------------------------------------------------ */
+h1 {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    font-variation-settings: 'opsz' 36;
+    line-height: 1.15;
+    letter-spacing: 0.005em;
+    color: var(--text-heading);
+    margin-bottom: 2.5rem;
+}
+
+.article-title {
+    font-family: var(--font-title);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+}
+
+.article-list h2 {
+    font-family: var(--font-title);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    font-variation-settings: 'opsz' 18;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    color: var(--text-heading);
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                               */
+/* ------------------------------------------------------------------ */
+main {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
 }
