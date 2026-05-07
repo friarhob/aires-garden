@@ -2,6 +2,11 @@
 {% block title %}{{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>Posts</h1>
+    {% if SITE_LANGS | length >= 2 %}
+    <p class="page-langs">Also in:
+        {% for lang in SITE_LANGS | sort %}{% if not loop.first %} · {% endif %}<a href="{{ SITEURL }}/{{ lang }}/">{{ lang | upper }}</a>{% endfor %}
+    </p>
+    {% endif %}
     {% if HOMEPAGE_GROUPS is defined and HOMEPAGE_GROUPS %}
     <ul>
     {% for group in HOMEPAGE_GROUPS %}

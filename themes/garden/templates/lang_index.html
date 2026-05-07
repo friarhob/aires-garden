@@ -2,6 +2,11 @@
 {% block title %}{{ page_lang | upper }} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>Posts ({{ page_lang | upper }})</h1>
+    {% if SITE_LANGS | length >= 2 %}
+    <p class="page-langs">Also in:
+        <a href="{{ SITEURL }}/">All</a>{% for lang in SITE_LANGS | sort %}{% if lang != page_lang %} · <a href="{{ SITEURL }}/{{ lang }}/">{{ lang | upper }}</a>{% endif %}{% endfor %}
+    </p>
+    {% endif %}
     {% if articles %}
     <ul>
     {% for article in articles %}

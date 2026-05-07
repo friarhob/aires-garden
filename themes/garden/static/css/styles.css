@@ -336,6 +336,24 @@ article > div p:last-child {
     margin-bottom: 0;
 }
 
+/* ------------------------------------------------------------------ */
+/* Per-page lang-links bar (non-article pages)                         */
+/* ------------------------------------------------------------------ */
+p.page-langs {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+p.page-langs a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+p.page-langs a:hover {
+    text-decoration: underline;
+}
+
 p.article-tags {
     margin-top: 2.5rem;
     padding-top: 1.5rem;
