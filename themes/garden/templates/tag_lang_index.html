@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}#{{ tag_slug }} in {{ page_lang | upper }} — {{ SITENAME }}{% endblock %}
+{% block title %}#{{ tag_slug }} ({{ page_lang | upper }}) — {{ SITENAME }}{% endblock %}
 {% block content %}
-    <h1>#{{ tag_slug }} in {{ page_lang | upper }}</h1>
+    <h1>#{{ tag_slug }} ({{ page_lang | upper }})</h1>
 
     {% if tag_prose_html %}
     <div class="tag-prose">{{ tag_prose_html | safe }}</div>
