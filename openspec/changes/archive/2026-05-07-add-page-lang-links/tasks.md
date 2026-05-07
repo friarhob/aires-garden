@@ -32,5 +32,5 @@
 
 - [x] 7.1 Confirm article pages still render only their existing "Available in" line (no `<p class="page-langs">`); the bar must not appear on `output/<slug>/index.html`.
 - [x] 7.2 Confirm bar links are plain `<a>` elements with `href` only — no `onclick`, `data-lang`, or other attributes that would pull them into the header preference-toggle JS.
-- [ ] 7.3 Visually inspect each page kind in the browser (light + dark theme) to confirm the current-scope marker is legible and consistent across all six page kinds.
-- [ ] 7.4 Click each per-lang link from a per-lang page back to the cross-lang page and forward to a different per-lang page; confirm normal navigation occurs (no JS interception, URL changes correctly).
+- [x] 7.3 Visually inspect each page kind in the browser (light + dark theme) to confirm the current-scope marker is legible and consistent across all six page kinds.
+- [x] 7.4 Click each per-lang link from a per-lang page back to the cross-lang page and forward to a different per-lang page; confirm normal navigation occurs (no JS interception, URL changes correctly).
