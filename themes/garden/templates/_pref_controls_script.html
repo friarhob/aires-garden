@@ -1,9 +1,9 @@
     <script>
     (function () {
-      var langs = {{ SITE_LANGS | tojson }};
       var defaultLang = '{{ DEFAULT_LANG }}';
       var themeBtn = document.querySelector('.pref-theme');
       var langBtn = document.querySelector('.pref-lang');
+      var langMenu = document.querySelector('.pref-lang-menu');
 
       function syncThemeBtn(theme) {
         themeBtn.textContent = theme === 'light' ? 'Dark' : 'Light';
@@ -11,6 +11,24 @@
 
       function syncLangBtn(lang) {
         langBtn.textContent = lang.toUpperCase();
+        var items = langMenu.querySelectorAll('[data-lang]');
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].dataset.lang === lang) { items[i].dataset.current = ''; }
+          else { delete items[i].dataset.current; }
+        }
+      }
+
+      function applyLang(next) {
+        document.documentElement.dataset.prefLang = next;
+        try { localStorage.setItem('garden-lang', next); } catch (e) {}
+        syncLangBtn(next);
+        var sections = document.querySelectorAll('section[data-lang]');
+        if (sections.length) {
+          document.documentElement.lang = next;
+          for (var i = 0; i < sections.length; i++) {
+            sections[i].hidden = sections[i].dataset.lang !== next;
+          }
+        }
       }
 
       var initTheme = document.documentElement.dataset.theme || 'dark';
@@ -26,20 +44,20 @@
         syncThemeBtn(next);
       });
 
-      langBtn.addEventListener('click', function () {
-        var current = document.documentElement.dataset.prefLang || defaultLang;
-        var idx = langs.indexOf(current);
-        var next = langs[(idx + 1) % langs.length];
-        document.documentElement.dataset.prefLang = next;
-        try { localStorage.setItem('garden-lang', next); } catch (e) {}
-        syncLangBtn(next);
-        var sections = document.querySelectorAll('section[data-lang]');
-        if (sections.length) {
-          document.documentElement.lang = next;
-          for (var i = 0; i < sections.length; i++) {
-            sections[i].hidden = sections[i].dataset.lang !== next;
-          }
-        }
+      langBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        langMenu.hidden = !langMenu.hidden;
+      });
+
+      langMenu.addEventListener('click', function (e) {
+        var item = e.target;
+        if (!item.dataset.lang) return;
+        applyLang(item.dataset.lang);
+        langMenu.hidden = true;
+      });
+
+      document.addEventListener('click', function () {
+        langMenu.hidden = true;
       });
     }());
     </script>

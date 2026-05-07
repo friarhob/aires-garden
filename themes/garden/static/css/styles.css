@@ -149,6 +149,57 @@ header > a:first-child:hover {
     color: var(--accent);
 }
 
+.pref-lang::after {
+    content: ' ▾';
+    font-size: 0.7em;
+    opacity: 0.6;
+}
+
+.pref-lang-picker {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.pref-lang-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.25rem);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    min-width: 100%;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pref-lang-menu button {
+    display: block;
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    text-align: center;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.pref-lang-menu button:hover {
+    color: var(--accent);
+}
+
+.pref-lang-menu button[data-current] {
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    padding-left: calc(0.75rem - 2px);
+}
+
 /* ------------------------------------------------------------------ */
 /* Headings                                                             */
 /* ------------------------------------------------------------------ */

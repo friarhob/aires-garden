@@ -25,7 +25,14 @@
         <a href="{{ SITEURL }}/">{{ SITENAME }}</a>
         <div class="prefs">
             <button type="button" class="pref-theme">Light</button>
-            <button type="button" class="pref-lang">{{ DEFAULT_LANG | upper }}</button>
+            <div class="pref-lang-picker">
+                <button type="button" class="pref-lang">{{ DEFAULT_LANG | upper }}</button>
+                <div class="pref-lang-menu" hidden>
+                    {% for lang in SITE_LANGS %}
+                    <button type="button" data-lang="{{ lang }}">{{ lang | upper }}</button>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </header>
     <main>
