@@ -38,7 +38,11 @@ A Markdown source fragment of the form `!!! <variant> "Optional title"` followed
 
 #### Scenario: Each documented variant has CSS styling
 - **WHEN** `themes/garden/static/css/styles.css` is inspected
-- **THEN** it defines visual rules for at least `.admonition.note`, `.admonition.warning`, `.admonition.tip`, and `.admonition.danger`, all referencing existing design tokens (no hardcoded colours).
+- **THEN** it defines visual rules for `.admonition.note`, `.admonition.warning`, `.admonition.tip`, and `.admonition.danger` using the `--admonition-note`, `--admonition-tip`, `--admonition-warning`, and `--admonition-danger` tokens defined in the `design-tokens` spec; no hardcoded colour literals appear in admonition rules.
+
+#### Scenario: Admonition uses block-marker icon layout
+- **WHEN** an admonition is rendered in the browser
+- **THEN** a type-specific icon (`ⓘ` note, `✦` tip, `▲` warning, `✖` danger) appears as a CSS `::before` block marker at the top-left of the box, with the title and body indented to its right; the icon colour matches the variant's `--admonition-*` token.
 
 ### Requirement: Markdown image-with-title renders as a captioned figure
 

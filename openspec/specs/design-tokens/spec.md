@@ -116,3 +116,26 @@ Title headings (`h1`, article titles) SHALL use lighter Fraunces weights (≤500
 #### Scenario: Dark mode accent contrast
 - **WHEN** `--accent` (`#F0C060`) is rendered on `--bg` (`#130A22`)
 - **THEN** the contrast ratio SHALL be ≥ 4.5:1
+
+---
+
+### Requirement: Admonition semantic tokens defined
+
+Four semantic tokens SHALL express the accent colour for each admonition variant in both dark and light modes.
+
+| Token | Dark value | Light value |
+|---|---|---|
+| `--admonition-note` | `#4AADBA` (teal) | `#1A7A8A` |
+| `--admonition-tip` | `#3ABAA0` (mint) | `#207860` |
+| `--admonition-warning` | `#F0C060` (matches `--accent`) | `#8B6209` (matches `--accent`) |
+| `--admonition-danger` | `#C04040` | `#A02020` |
+
+These tokens SHALL be defined in all four token blocks (`:root`, `@media prefers-color-scheme: light`, `:root[data-theme="light"]`, `:root[data-theme="dark"]`). Admonition CSS rules SHALL reference these tokens exclusively — no direct colour literals SHALL appear in admonition rules.
+
+#### Scenario: Admonition tokens present in all token blocks
+- **WHEN** the stylesheet is inspected
+- **THEN** `--admonition-note`, `--admonition-tip`, `--admonition-warning`, and `--admonition-danger` are defined in all four token blocks with values matching the table above
+
+#### Scenario: Admonition rules use only token references
+- **WHEN** the admonition CSS rules are inspected
+- **THEN** every colour value references a `var(--admonition-*)` token — no hardcoded hex values appear in admonition rules
