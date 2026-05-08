@@ -11,6 +11,7 @@ from pathlib import Path
 
 from pelican import signals
 
+from .body_scanner import get_body, scan as scan_body
 from .schema import (
     format_errors,
     parse_frontmatter,
@@ -38,6 +39,7 @@ def on_article_generator_finalized(generator: object) -> None:
         raw = parse_frontmatter(md)
         dir_name = md.parent.name
         _errors.extend(validate_post(md, raw, dir_name))
+        _errors.extend(scan_body(md, get_body(md)))
         groups[md.parent].append((md, raw))
 
     for group_dir, files in sorted(groups.items()):
@@ -52,6 +54,7 @@ def on_page_generator_finalized(generator: object) -> None:
     for md in sorted(pages_dir.glob("*.md")):
         raw = parse_frontmatter(md)
         _errors.extend(validate_page(md, raw))
+        _errors.extend(scan_body(md, get_body(md)))
 
     tag_prose_dir = content_root / "tag-prose"
     if not tag_prose_dir.is_dir():
@@ -63,8 +66,9 @@ def on_page_generator_finalized(generator: object) -> None:
     for slug_dir, files in sorted(slug_dirs.items()):
         dir_name = slug_dir.name
         for path in files:
-            raw, _body = parse_tag_prose_frontmatter(path)
+            raw, body = parse_tag_prose_frontmatter(path)
             _errors.extend(validate_tag_prose(path, raw, dir_name))
+            _errors.extend(scan_body(path, body))
         _errors.extend(validate_tag_prose_group(dir_name, files))
 
 

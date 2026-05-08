@@ -22,13 +22,13 @@
 
 ## 4. Lint integration
 
-- [ ] 4.1 Add a body-content scanner module to `plugins/frontmatter_lint/` (e.g. `body_scanner.py`) that imports `plugins.content_tags.registry.REGISTRY` and exposes a `scan(file_path: Path, body: str) -> list[Error]` function
-- [ ] 4.2 Implement the same code-fence-skipping logic the renderer uses (extract to a shared helper imported by both modules — single source of truth for "what counts as a candidate embed line")
-- [ ] 4.3 Validate each candidate line: name in REGISTRY (else "unknown tag" with did-you-mean suggestion via difflib), all required_args present (else "missing required argument"), every supplied key in required_args ∪ optional_args (else "unknown argument" with the allowed set listed)
-- [ ] 4.4 Detect malformed lines (started `[!` but didn't match the grammar) as a distinct error class
-- [ ] 4.5 Wire the body scanner into the existing per-file walk in `plugins/frontmatter_lint/cli.py` and the Pelican-side plugin entrypoint, so both `python -m frontmatter_lint` and `make build` exercise it
-- [ ] 4.6 Extend the existing file-anchored error reporter to emit body-scanner errors with file path + line number + structured message
-- [ ] 4.7 Add tests under `plugins/frontmatter_lint/tests/` covering each error class (unknown tag, missing required arg, unknown arg, malformed delimiter) and the happy path (valid embeds pass)
+- [x] 4.1 Add a body-content scanner module to `plugins/frontmatter_lint/` (e.g. `body_scanner.py`) that imports `plugins.content_tags.registry.REGISTRY` and exposes a `scan(file_path: Path, body: str) -> list[Error]` function
+- [x] 4.2 Implement the same code-fence-skipping logic the renderer uses (extract to a shared helper imported by both modules — single source of truth for "what counts as a candidate embed line")
+- [x] 4.3 Validate each candidate line: name in REGISTRY (else "unknown tag" with did-you-mean suggestion via difflib), all required_args present (else "missing required argument"), every supplied key in required_args ∪ optional_args (else "unknown argument" with the allowed set listed)
+- [x] 4.4 Detect malformed lines (started `[!` but didn't match the grammar) as a distinct error class
+- [x] 4.5 Wire the body scanner into the existing per-file walk in `plugins/frontmatter_lint/cli.py` and the Pelican-side plugin entrypoint, so both `python -m frontmatter_lint` and `make build` exercise it
+- [x] 4.6 Extend the existing file-anchored error reporter to emit body-scanner errors with file path + line number + structured message
+- [x] 4.7 Add tests under `plugins/frontmatter_lint/tests/` covering each error class (unknown tag, missing required arg, unknown arg, malformed delimiter) and the happy path (valid embeds pass)
 
 ## 5. Theme styling
 

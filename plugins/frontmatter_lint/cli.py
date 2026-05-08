@@ -11,6 +11,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from .body_scanner import get_body, scan as scan_body
 from .schema import (
     LintError,
     format_errors,
@@ -40,6 +41,7 @@ def _collect_posts(posts_dir: Path) -> list[LintError]:
         for path in files:
             raw = parse_frontmatter(path)
             errors.extend(validate_post(path, raw, dir_name))
+            errors.extend(scan_body(path, get_body(path)))
             raw_list.append((path, raw))
         errors.extend(validate_post_group(dir_name, raw_list))
 
@@ -53,6 +55,7 @@ def _collect_pages(pages_dir: Path) -> list[LintError]:
     for path in sorted(pages_dir.glob("*.md")):
         raw = parse_frontmatter(path)
         errors.extend(validate_page(path, raw))
+        errors.extend(scan_body(path, get_body(path)))
     return errors
 
 
@@ -68,8 +71,9 @@ def _collect_tag_prose(tag_prose_dir: Path) -> list[LintError]:
     for slug_dir, files in sorted(groups.items()):
         dir_name = slug_dir.name
         for path in files:
-            raw, _body = parse_tag_prose_frontmatter(path)
+            raw, body = parse_tag_prose_frontmatter(path)
             errors.extend(validate_tag_prose(path, raw, dir_name))
+            errors.extend(scan_body(path, body))
         errors.extend(validate_tag_prose_group(dir_name, files))
 
     return errors
