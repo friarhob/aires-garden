@@ -32,22 +32,22 @@
 
 ## 5. Theme styling
 
-- [ ] 5.1 Add admonition CSS rules to `themes/garden/static/css/styles.css` for `.admonition`, `.admonition-title`, `.admonition.note`, `.admonition.warning`, `.admonition.tip`, `.admonition.danger`, all using existing tokens
-- [ ] 5.2 Add `figure` and `figcaption` rules using `--text-muted`, `--border`, and existing spacing scale
-- [ ] 5.3 Add `.embed`, `.embed iframe`, `.embed-youtube`, `.embed-iframe` rules — full-width iframe, 16:9 aspect for `.embed-youtube` via `aspect-ratio: 16 / 9`, sensible vertical margins
-- [ ] 5.4 Verify both light and dark token sets render correctly (admonition variants must remain legible against `--bg` and `--bg-subtle` in both modes)
+- [x] 5.1 Add admonition CSS rules to `themes/garden/static/css/styles.css` for `.admonition`, `.admonition-title`, `.admonition.note`, `.admonition.warning`, `.admonition.tip`, `.admonition.danger`, all using existing tokens
+- [x] 5.2 Add `figure` and `figcaption` rules using `--text-muted`, `--border`, and existing spacing scale
+- [x] 5.3 Add `.embed`, `.embed iframe`, `.embed-youtube`, `.embed-iframe` rules — full-width iframe, 16:9 aspect for `.embed-youtube` via `aspect-ratio: 16 / 9`, sensible vertical margins
+- [x] 5.4 Verify both light and dark token sets render correctly (admonition variants must remain legible against `--bg` and `--bg-subtle` in both modes)
 
 ## 6. Verification content
 
-- [ ] 6.1 Author `content/posts/embeds-demo/embeds-demo.en.md` with `Status: hidden`, exercising all four constructs: at least one `!!! note "Title"` admonition, one `![alt](src "caption")` figure, one `[!youtube id="…"]` embed (use a known stable id), and one `[!iframe src="…" title="…"]` embed
-- [ ] 6.2 Add a Portuguese translation `embeds-demo.pt.md` sharing the same `Translation_key` to verify embeds render identically across languages
-- [ ] 6.3 Place a small test image at `content/posts/embeds-demo/images/` and reference it from both language variants
+- [x] 6.1 Author `content/posts/embeds-demo/embeds-demo.en.md` with `Status: hidden`, exercising all four constructs: at least one `!!! note "Title"` admonition, one `![alt](src "caption")` figure, one `[!youtube id="…"]` embed (use a known stable id), and one `[!iframe src="…" title="…"]` embed
+- [x] 6.2 Add a Portuguese translation `embeds-demo.pt.md` sharing the same `Translation_key` to verify embeds render identically across languages
+- [x] 6.3 Place a small test image at `content/posts/embeds-demo/assets/` and reference it from both language variants
 
 ## 7. End-to-end verification
 
-- [ ] 7.1 Run `make lint` against the full content tree — expect zero errors
-- [ ] 7.2 Run `make build` and inspect `output/embeds-demo/index.html` — confirm admonition, figure, youtube iframe, iframe HTML are all rendered as documented in the spec
-- [ ] 7.3 Run `make dev`, open `/embeds-demo/` in a browser, confirm: admonition is styled per variant, figure has visible caption, YouTube embed loads in `youtube-nocookie.com` host, iframe embed loads with sandbox attribute set
-- [ ] 7.4 Negative-test lint: introduce a typo (`[!yotube id="abc"]`), missing required arg (`[!youtube]`), unknown arg (`[!youtube id="abc" autoplay="true"]`), and malformed delimiter (`[!youtube id="abc"`); confirm `make lint` exits non-zero with file/line/structured message for each, then revert
-- [ ] 7.5 Confirm fenced code block containing `[!youtube id="abc"]` renders as literal text in the output, not as an embed
-- [ ] 7.6 Toggle theme between light and dark in the browser and verify admonition variants and embed containers remain legible
+- [x] 7.1 Run `make lint` against the full content tree — expect zero errors
+- [x] 7.2 Run `make build` and inspect `output/embeds-demo/index.html` — confirm admonition, figure, youtube iframe, iframe HTML are all rendered as documented in the spec
+- [x] 7.3 Run `make dev`, open `/embeds-demo/` in a browser, confirm: admonition is styled per variant, figure has visible caption, YouTube embed loads in `youtube-nocookie.com` host, iframe embed loads with sandbox attribute set
+- [x] 7.4 Negative-test lint: introduce a typo (`[!yotube id="abc"]`), missing required arg (`[!youtube]`), unknown arg (`[!youtube id="abc" autoplay="true"]`), and malformed delimiter (`[!youtube id="abc"`); confirm `make lint` exits non-zero with file/line/structured message for each, then revert
+- [x] 7.5 Confirm fenced code block containing `[!youtube id="abc"]` renders as literal text in the output, not as an embed
+- [x] 7.6 Toggle theme between light and dark in the browser and verify admonition variants and embed containers remain legible
