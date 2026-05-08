@@ -289,3 +289,39 @@ The `python -m frontmatter_lint <content-root>` entrypoint SHALL discover and va
 #### Scenario: Plugin and CLI share the tag-prose schema
 - **WHEN** `plugins/frontmatter_lint/` is inspected
 - **THEN** the tag-prose validator lives in `schema.py` (or a sibling module imported by it) and is consumed by both the plugin (`__init__.py`) and the CLI (`cli.py`); neither duplicates the schema.
+
+---
+
+### Requirement: Post and page directories MAY contain a colocated assets/ subdirectory
+
+Any directory under `content/posts/` or `content/pages/` MAY contain an `assets/` subdirectory holding arbitrary files (images, PDFs, audio, data files, or any nested sub-structure). The presence or contents of `assets/` are not validated by `frontmatter_lint`. This is the sole designated location for files that are served alongside a post or page — ad-hoc sibling directories with other names are not copied to the output.
+
+#### Scenario: assets/ directory is not required
+- **WHEN** a post directory contains no `assets/` subdirectory
+- **THEN** validation and build both succeed without error.
+
+#### Scenario: assets/ contents are not validated
+- **WHEN** a post directory contains an `assets/` subdirectory with arbitrary files
+- **THEN** `frontmatter_lint` does not inspect or validate those files.
+
+---
+
+### Requirement: The post_assets plugin copies colocated assets to the output for every language slug
+
+The repository SHALL ship a Pelican plugin at `plugins/post_assets/` that, after all content is generated, copies the contents of each `assets/` directory to `<slug>/assets/` in the output for every `Slug` declared by a sibling Markdown file in the same directory. The plugin runs on Pelican's `finalized` signal, after `DELETE_OUTPUT_DIRECTORY` rebuilds the tree, and requires no per-post configuration.
+
+#### Scenario: assets are copied to the correct output path
+- **WHEN** a post directory contains `assets/photo.jpg` and one Markdown file with `Slug: my-post`
+- **THEN** `output/my-post/assets/photo.jpg` exists after `make build`.
+
+#### Scenario: assets are copied for every language slug
+- **WHEN** a post directory contains `assets/photo.jpg` and two Markdown files with `Slug: my-post` (EN) and `Slug: meu-post` (PT)
+- **THEN** both `output/my-post/assets/photo.jpg` and `output/meu-post/assets/photo.jpg` exist after `make build`.
+
+#### Scenario: nested subdirectories inside assets/ are preserved
+- **WHEN** a post's `assets/` contains `data/table.csv`
+- **THEN** `output/<slug>/assets/data/table.csv` is produced, preserving the subdirectory structure.
+
+#### Scenario: directories without a Slug-bearing sibling are skipped
+- **WHEN** an `assets/` directory has no sibling `.md` file with a `Slug:` header
+- **THEN** the plugin does not copy anything and does not error.
