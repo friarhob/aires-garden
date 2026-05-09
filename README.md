@@ -104,12 +104,27 @@ Syntax — the body must be indented by four spaces:
     Red-coloured danger block.
 ```
 
-### Captioned figures
+### Images
 
-Add a `title` attribute to any image and the plugin promotes it to a `<figure>` with a `<figcaption>`:
+Attributes are added with `{key=value}` after the image — the same syntax works for captions, sizing, and both combined.
+
+**Caption** — a `title` attribute promotes the image to a `<figure>` with a `<figcaption>`:
 
 ```markdown
 ![Alt text](assets/photo.jpg){title="Caption text"}
+```
+
+**Resize** — use `width`/`height` (pixels, unitless) or `style` (any CSS unit):
+
+```markdown
+![Alt text](assets/photo.jpg){width=500}
+![Alt text](assets/photo.jpg){style="width: 60%"}
+```
+
+**Combined**:
+
+```markdown
+![Alt text](assets/photo.jpg){title="Caption text" width=500}
 ```
 
 ### Embed tags
