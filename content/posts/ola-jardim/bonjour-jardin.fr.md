@@ -1,0 +1,19 @@
+Title: Bonjour, Jardin !
+Slug: bonjour-jardin
+Date: 2026-05-05
+Lang: fr
+Translation_key: ola-jardim
+Status: draft
+Tags: Rant
+
+C'est [Tony Oreglia](https://www.tonycodes.com/garden/) qui m'a fait découvrir le concept de [jardin numérique](https://maggieappleton.com/garden-history), lorsque nous avons travaillé ensemble il y a quelques années. La partie visible était un site avec des billets sur la technologie, des recettes, des recommandations de livres et de la poésie — mais il m'a expliqué ce qu'un jardin devrait être, au-delà de ce qu'il est en apparence.
+
+On m'a parfois qualifié de [polymathe](https://fr.wikipedia.org/wiki/Polymathe) (mes détracteurs diraient « ce type qui ne sait pas se concentrer », et ils n'auraient pas tout à fait tort non plus). Quoi qu'il en soit, je me suis lancé dans beaucoup de choses dans cette vie (et j'ai déjà vécu un bon bout de chemin). J'ai étudié formellement l'ingénierie, puis la philosophie, puis le marketing, puis la pédagogie, puis la psychanalyse, et informellement bien d'autres matières encore. J'ai travaillé comme programmeur, comme analyste/scientifique de données, comme psychanalyste, comme thérapeute complémentaire, comme musicien, comme manager, comme consultant, comme écrivain, comme rédacteur, comme scénariste de bandes dessinées et comme enseignant. En tant qu'enseignant, j'ai donné des cours au niveau universitaire et postuniversitaire : philosophie, statistiques, finance, administration des entreprises, gestion des personnes, théorie de la computation, génie logiciel et mathématiques — dans des formations relevant des mythiques quatre grands domaines (STIM, Sciences humaines, Sciences sociales et Sciences de la vie — une taxonomie à laquelle je n'ai jamais réussi à trouver le moindre sens, pour être honnête, mais que beaucoup de gens utilisent). Une chère collègue disait que j'étais « un vrai couteau suisse » chaque fois que nous nous attaquions au redouté système d'attribution des cours.
+
+Et pourtant, chaque fois que j'ai publié du contenu sur Internet, je parlais d'aspects spécifiques de sujets précis. J'ai créé des blogs aujourd'hui disparus, sur des plateformes qui n'existent plus que dans le Web Archive (si on a de la chance), sur des sujets étroits — certains n'ont duré que trois billets, d'autres ont tenu des années. En vieillissant, je perds de plus en plus patience avec les réseaux sociaux et la course permanente à la mise en scène de qui nous voulons que les autres croient que nous sommes. J'ai un mépris absolu pour les opinions (les miennes en particulier) et pour les pensées mal structurées (même si j'évite de débattre avec leurs détenteurs — mépriser les idées n'a rien à voir avec mépriser les gens, d'ailleurs). Me défaire progressivement des nombreuses certitudes que je portais a été un cadeau que j'ai décidé de m'offrir, avec le privilège des années et d'une barbe blanche.
+
+Alors pourquoi créer un jardin numérique ? La vérité, c'est que j'aimerais un endroit où garder mes écrits, et un espace plus centralisé pour les créer. Mon ami Tony m'a montré que je n'avais pas de moyen, par exemple, de partager ma poésie avec un ami comme il l'avait fait avec moi. Je ne veux pas la célébrité ; je ne veux pas ma photo nulle part sur ce site. Je veux juste laisser des idées, et éventuellement les repenser, les réécrire et même les supprimer. Si quelqu'un veut lire et offrir des compléments et/ou des contre-points, bienvenue. Mais n'attendez pas beaucoup d'engagement de ma part.
+
+Il est tout à fait possible que je réécrive cette entrée de zéro, d'ailleurs, ou même que je la supprime purement et simplement — j'avais besoin d'un texte de test pour tester l'environnement que je construis pour tout ceci. En attendant, la voici.
+
+À mon sujet : ce n'est pas important. Je ne suis pas important.
