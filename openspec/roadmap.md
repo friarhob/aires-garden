@@ -26,7 +26,7 @@
 
 Items are listed in intended implementation order. Dependencies are noted where they exist.
 
-### 1. `default-light-mode`
+### `default-light-mode`
 
 Switch the site default from dark mode to light mode. The `add-user-preferences` change established dark as default; this reverses that decision. Will be accompanied by a new ADR superseding the prior choice.
 
@@ -35,7 +35,7 @@ Switch the site default from dark mode to light mode. The `add-user-preferences`
 
 ---
 
-### 2. `refactor-language-selector`
+### `refactor-language-selector`
 
 The current language selector in the header shows all supported languages but doesn't navigate to the equivalent page in the selected language. Refactor it to be translation-aware: selecting a language takes the reader to the translation of the current content if one exists, or falls back gracefully. Pages without an explicit language (404, "all" tag-prose shapes) retain the current behaviour.
 
@@ -44,7 +44,7 @@ The current language selector in the header shows all supported languages but do
 
 ---
 
-### 3. `refactor-homepage`
+### `refactor-homepage`
 
 The current homepage is a flat list of recent posts. This change introduces:
 
@@ -57,6 +57,22 @@ The current homepage is a flat list of recent posts. This change introduces:
 - **Depends on:** nothing (but `default-light-mode` should ship first to avoid re-touching theme twice)
 
 ---
+
+### `smarter-cli`
+
+The current CLI requires a slug argument for every command that acts on existing content. This has two problems: the user must remember the exact slug, and omitting the slug currently fails immediately even in TTY mode (despite the spec requiring an interactive prompt).
+
+This change improves the CLI interaction model:
+
+- When a slug is omitted in TTY mode, show an interactive searchable list of all posts to select from, rather than erroring. Commands affected: lifecycle commands (`publish`, `draft`, `archive`) and `translate` — exact scope to confirm during design.
+- Handle the case where the post list grows large: how to present and filter it is a design question to resolve during implementation.
+- Shell tab completion (Typer has built-in support for this) is an alternative worth exploring during design: `garden publish <Tab>` could autocomplete slugs without changing the prompt flow at all.
+
+- **Scope:** medium — interactive picker UX across multiple commands; design discovery on list size and exact command scope
+- **Depends on:** `add-python-cli` (shipped)
+
+---
+
 
 ## Deferred
 
