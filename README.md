@@ -46,6 +46,96 @@ garden lint                                                         # validate f
 
 Any argument can be omitted and the CLI will prompt interactively.
 
+## Content syntax
+
+Posts and pages are written in Markdown with several extensions active. See the full spec at [`openspec/specs/content-tags/spec.md`](openspec/specs/content-tags/spec.md).
+
+### Standard Markdown extensions
+
+The site uses [Python-Markdown Extra](https://python-markdown.github.io/extensions/extra/) plus a few additional extensions. Non-obvious syntax:
+
+**Tables** (GFM-style):
+
+```markdown
+| Column A | Column B | Column C |
+| -------- | -------- | -------- |
+| Row 1    | value    | value    |
+| Row 2    | value    | value    |
+```
+
+**Footnotes**:
+
+```markdown
+Here is a claim.[^1]
+
+[^1]: And here is the footnote text.
+```
+
+**Definition lists**:
+
+```markdown
+Term
+:   Definition of the term.
+```
+
+### Admonitions
+
+Four severity levels are available:
+
+- **Note** (blue) — neutral supplementary information.
+- **Tip** (green) — a helpful suggestion or shortcut.
+- **Warning** (amber) — something the reader should take care about.
+- **Danger** (red) — a breaking or destructive action.
+
+Syntax — the body must be indented by four spaces:
+
+```markdown
+!!! note "Optional title"
+    Body text goes here. It may span
+    multiple lines.
+
+!!! tip
+    A tip without a custom title.
+
+!!! warning "Watch out"
+    Amber-coloured caution.
+
+!!! danger "Irreversible"
+    Red-coloured danger block.
+```
+
+### Captioned figures
+
+Add a `title` attribute to any image and the plugin promotes it to a `<figure>` with a `<figcaption>`:
+
+```markdown
+![Alt text](assets/photo.jpg){title="Caption text"}
+```
+
+### Embed tags
+
+YouTube videos and arbitrary iframes can be embedded inline:
+
+```markdown
+[!youtube](dQw4w9WgXcQ)
+[!iframe](https://example.com/widget){width=800 height=600}
+```
+
+### Colocated assets
+
+Each post lives in its own directory alongside an `assets/` folder:
+
+```
+content/posts/my-post/
+    my-post.en.md
+    my-post.pt.md
+    assets/
+        photo.jpg
+        diagram.png
+```
+
+Reference assets with a relative path from the file (`assets/photo.jpg`).
+
 ## Layout
 
 - `content/` — Markdown posts and pages (`posts/`, `pages/`).
