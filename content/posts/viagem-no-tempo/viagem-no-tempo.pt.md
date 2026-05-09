@@ -6,7 +6,7 @@ Translation_key: viagem-no-tempo
 Status: published
 Tags: Published Works, Short Stories
 
-!!! note Sobre o texto
+!!! note "Sobre o texto"
     Este texto foi publicado na coletânea [Futura - Histórias do Século XXXI](assets/futura.pdf), uma publicação feita por um coletivo de 11 autores, eu inclusive, em 2014.
 
 “O senhor é a única pessoa que eu conheço que ainda carrega papel nos bolsos para anotar coisas.” Jacques Würt deu um sorriso largo, e se lembrou da conversa que teve semanas antes com Alexander, seu aluno e orientando, enquanto guardava seu criticado caderno e sua caneta no casaco marrom que estava pendurado no espaldar da cadeira ao lado, ao som de aplausos no auditório. Ao final dos aplausos, uma voz mecânica diz: 

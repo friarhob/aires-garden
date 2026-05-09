@@ -6,7 +6,7 @@ Translation_key: her-is
 Status: published
 Tags: Published Works, Short Stories
 
-!!! note Sobre este texto
+!!! note "Sobre este texto"
     Este texto foi publicado na antologia Solarium 3, da editora Multifoco, em 2014.
 
 Eu estava naquele deserto árido havia muito tempo. Dias, talvez meses. Já não cuidava mais do tempo, nem das datas. Encostado numa das torres de defesa desativadas, eu respirava ofegante. E me lembrava que, por todo o tempo, tive medo de morrer.

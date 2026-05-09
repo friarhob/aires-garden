@@ -6,7 +6,7 @@ Translation_key: sonetos-c-clicos
 Status: published
 Tags: Published Works, Poetry
 
-!!! note Sobre este texto
+!!! note "Sobre este texto"
     Estes sonetos foram publicados na antologia As Quatro Estações, da editora brasileira Multifoco, em 2014. Foi minha primeira experiência a publicar poesia.
 
 ## Primavera

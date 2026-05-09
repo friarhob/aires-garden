@@ -97,7 +97,7 @@ Four severity levels are available:
 - **Warning** (amber) — something the reader should take care about.
 - **Danger** (red) — a breaking or destructive action.
 
-Syntax — the body must be indented by four spaces:
+Syntax — the body must be indented by four spaces. The title must be quoted; without quotes the title is ignored:
 
 ```markdown
 !!! note "Optional title"

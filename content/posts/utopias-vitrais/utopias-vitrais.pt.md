@@ -6,7 +6,7 @@ Translation_key: utopias-vitrais
 Status: published
 Tags: Short Stories, Published Works
 
-!!! note Sobre este texto
+!!! note "Sobre este texto"
     Este texto foi publicado no início dos anos 2010 em uma apostila de preparação pré-vestibular da Fundação Bradesco. Eu tenho algumas ressalvas sobre a premissa dele, é um texto que não envelheceu muito bem na minha opinião, mas como já foi publicado segue da mesma forma.
 
 Na sua mesa de escritório, Cíntia inspira fundo. Aperta a fronteira entre os olhos fechados e o nariz com a mão direita, e com a esquerda deixa a folha de papel cheia de números, traços de grafite e caneta marca-texto cair sobre a mesa. Abre os olhos desanimados, e olha para aquela folha, caída sobre muitos papeis espalhados e iluminados pela tela do computador. O relógio do computador marca “23:35”. Lembra que não dorme desde a noite retrasada, quando acordou mais cedo para chegar às sete horas da manhã para o planejamento da companhia, que ainda não acabou. Lembra da impressão que teve de um boicote por parte de alguns diretores, ao trazerem mais e mais problemas todos de uma vez, e pensa que provavelmente o fizeram porque não enxergam naquela mulher de baixa estatura e voz angelical alguém capaz de tomar decisões e liderar a companhia, apesar do cargo de gerente regional que assumiu há seis meses.
