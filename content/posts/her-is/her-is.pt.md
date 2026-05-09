@@ -23,9 +23,9 @@ Continuamos a nos defender dos insetos gigantes, e a avançar nas torres de defe
 
 E foi então que vi o terceiro robô. Dois luminosos à frente pareciam que apontavam na minha direção. Fechei os olhos, e empurrei meu corpo na torre de defesa. Ele não sumiu. Não havia nada a ser feito: tentei ainda atirar, mas ele parecia imune aos ataques. Apenas veio se aproximando, abriu sua bocarra grutural, e exprimiu:
 
-- O jantar está pronto.
+-- O jantar está pronto.
 
-- Está bem, pai.
+-- Está bem, pai.
 
 Levantei-me, apoiando no poste que me escorava e derrubando no chão o graveto que segurava. Dei a mão a meu pai, e caminhamos pela rua de terra, em direção ao alpendre da casa do meu avô, onde costumeiramente passava as férias de escola, banhados pelo pôr-do-sol do interior. Mesmo tendo perecido, a missão parecia ter sido um sucesso. E, quando se tem sete anos, o dia seguinte sempre nos permite tentar novamente outras aventuras, mas com os mesmos heróis.
 
