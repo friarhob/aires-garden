@@ -6,6 +6,9 @@ Translation_key: martina
 Status: published
 Tags: Published Works, Short Stories
 
+!!! note Sobre este texto
+    Este texto foi publicado na extinta Revista Outros Ares, volume 4, por volta de 2008, 2009. Foi meu primeiro trabalho de ficção aceito por uma publicação.
+
 Ela observa Marcos entrar em casa a partir da poltrona branca. Aquele homem desajeitado, com o paletó entortado para a direita, cabelos dessarumados, os óculos pendurados pela corrente no pescoço, e a pasta surrada com um fecho aberto, disputando com a fechadura da porta para obter de volta o molho de chaves enquanto balbucia um “oi, amor”, mais para si mesmo que para ela, é seu marido. Observa e lembra-se.
 
 Lembra-se do dia em que conhecera Marcos. Foi na festa de aniversário de um amigo em comum. Martina estava sentada num canto do sofá, e encarava com admiração aquele rapaz por trás dos óculos arredondados, numa conversa inflamada com os outros co-habitantes do sofá, citando “A República”, de Platão, para defender que o processo de instituição democrática fundante da sociedade pós-regime ditatorial era ilusório, conquanto trazia uma falaciosa liberdade de ser regido pelo desejo popular, mas formado pela opinião de ignorantes, o que de facto remontava aos interesses demagógicos da elite populista. Havia uma excentricidade charmosa e uma inteligência transpirante naqueles olhos verdes infantis, que quase que pediam para serem cuidados. Enquanto Marcos falava, Martina prendia a respiração. Mas não falou nada. Depois, pediu para o amigo em comum para dar seu telefone para ele.
