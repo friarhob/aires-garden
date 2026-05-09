@@ -3,7 +3,7 @@ Slug: viagem-no-tempo
 Date: 2026-05-09
 Lang: pt
 Translation_key: viagem-no-tempo
-Status: draft
+Status: published
 Tags: Published Works, Short Stories
 
 !!! note Sobre o texto
