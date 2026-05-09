@@ -97,6 +97,7 @@ def _create_post(title: str, slug: str, lang: str) -> None:
         "Lang": lang,
         "Translation_key": slug,
         "Status": "draft",
+        "Tags": "",
     }
     write_frontmatter(target, fields, "")
     typer.echo(f"Created {target}")
