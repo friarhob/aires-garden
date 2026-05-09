@@ -78,6 +78,16 @@ Term
 :   Definition of the term.
 ```
 
+**Line breaks** — consecutive lines with no blank line between them produce a `<br>` without a paragraph gap. A blank line still creates a new paragraph as normal:
+
+```markdown
+Line one
+Line two     ← <br> between these
+Line three
+
+New paragraph ← blank line above creates a paragraph break
+```
+
 ### Admonitions
 
 Four severity levels are available:
