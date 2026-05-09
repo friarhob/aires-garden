@@ -8,17 +8,29 @@ dependencies = [
     "markdown>=3.5",
     "pydantic>=2,<3",
     "langcodes>=3,<4",
+    "typer>=0.12,<1",
+    "questionary>=2,<3",
 ]
+
+[project.scripts]
+garden = "garden.cli:app"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = []
+packages = [
+    "garden", "garden.commands", "garden.tests",
+    "content_tags", "content_tags.embeds", "content_tags.markdown_extensions", "content_tags.tests",
+    "dev_drafts",
+    "frontmatter_lint", "frontmatter_lint.tests",
+    "i18n_grouping",
+    "multilingual_404",
+    "post_assets",
+    "tag_pages",
+]
 
 [tool.setuptools.package-dir]
 "" = "plugins"
-
-[tool.setuptools.packages.find]
-where = ["plugins"]
+"garden" = "garden"
