@@ -26,14 +26,14 @@
 
 ## 4. `garden translate` subcommand
 
-- [x] - [ ] 4.1 Implement `garden/commands/translate.py` with signature `translate(slug: str, to: str, slug_new: str | None, title_new: str | None) -> None` (Typer maps `--to`, `--slug`, `--title` to these); register on `app`
-- [x] - [ ] 4.2 Resolve source via `content_index.find_by_slug`; raise BadParameter if not found
-- [x] - [ ] 4.3 Refuse for `kind == "page"` and `kind == "tag-prose"` initially? — actually allow translate for all kinds; pages and tag-prose can also be translated. Confirm in tests.
-- [x] - [ ] 4.4 Read source frontmatter + body; build new frontmatter dict with `Title=title_new`, `Slug=slug_new` (or original if not supplied), `Lang=to`, `Translation_key=source.translation_key`, `Status="draft"`, copy `Date:` if present; body is copied verbatim
-- [x] - [ ] 4.5 Compute target path (post: same directory, new filename; page: same `pages/` dir, new filename; tag-prose: same tag dir, new filename) and refuse if it already exists
-- [x] - [ ] 4.6 Validate `to`, `slug_new`, `title_new` via `validation.py`; in TTY mode prompt for missing `slug_new` and `title_new`; in non-TTY mode fail
-- [x] - [ ] 4.7 Write atomically via `frontmatter_io.write_frontmatter`
-- [x] - [ ] 4.8 Add tests: post translate, page translate, tag-prose translate, refuse-on-existing-target, refuse-on-missing-source, body-byte-identical-to-source
+- [x] 4.1 Implement `garden/commands/translate.py` with signature `translate(slug: str, to: str, slug_new: str | None, title_new: str | None) -> None` (Typer maps `--to`, `--slug`, `--title` to these); register on `app`
+- [x] 4.2 Resolve source via `content_index.find_by_slug`; raise BadParameter if not found
+- [x] 4.3 Refuse for `kind == "page"` and `kind == "tag-prose"` initially? — actually allow translate for all kinds; pages and tag-prose can also be translated. Confirm in tests.
+- [x] 4.4 Read source frontmatter + body; build new frontmatter dict with `Title=title_new`, `Slug=slug_new` (or original if not supplied), `Lang=to`, `Translation_key=source.translation_key`, `Status="draft"`, copy `Date:` if present; body is copied verbatim
+- [x] 4.5 Compute target path (post: same directory, new filename; page: same `pages/` dir, new filename; tag-prose: same tag dir, new filename) and refuse if it already exists
+- [x] 4.6 Validate `to`, `slug_new`, `title_new` via `validation.py`; in TTY mode prompt for missing `slug_new` and `title_new`; in non-TTY mode fail
+- [x] 4.7 Write atomically via `frontmatter_io.write_frontmatter`
+- [x] 4.8 Add tests: post translate, page translate, tag-prose translate, refuse-on-existing-target, refuse-on-missing-source, body-byte-identical-to-source
 
 ## 5. Lifecycle subcommands (publish / draft / archive)
 
@@ -60,13 +60,13 @@
 
 ## 8. End-to-end verification
 
-- [x] - [ ] 8.1 Install the package fresh in the venv (`pip install -e .`) and confirm `garden --help` runs from PATH and lists every subcommand
-- [x] - [ ] 8.2 Confirm `python -m garden --help` produces identical output
-- [x] - [ ] 8.3 Run `garden new --kind post --title "Verify" --slug verify --lang en`; confirm file is created with correct frontmatter and `assets/` directory; run `garden lint` and confirm exit 0
-- [x] - [ ] 8.4 Run `garden translate verify --to pt --slug verificar --title "Verificar"`; confirm paired file exists with correct frontmatter and identical body; run `garden lint` and confirm exit 0
-- [x] - [ ] 8.5 Run `garden publish verify --no-all-translations`; confirm only the EN file is `published`. Run `garden publish verify --all-translations`; confirm both EN and PT are now `published`. Run `garden archive verify --all-translations`; confirm both flip to `hidden`. Run `garden draft verify --all-translations --force`; confirm both flip back to `draft`.
-- [x] - [ ] 8.6 Negative test: run `garden new --kind post --title "X" --slug "Bad Slug" --lang en` and confirm exit non-zero with a slug-pattern error and no file written. Run `garden new --kind post --title "X" --slug ok --lang english` and confirm exit non-zero with a lang-pattern error.
-- [x] - [ ] 8.7 Negative test: with the EN file `hidden`, run `garden publish verify --no-all-translations` and confirm refusal with `--force` suggestion. Then run with `--force` and confirm it now flips.
-- [x] - [ ] 8.8 Run `garden new < /dev/null` (no flags, stdin redirected) and confirm exit non-zero with a missing-required-argument error (no hang).
-- [x] - [ ] 8.9 Clean up the verification post: `rm -rf content/posts/verify/`. Confirm `garden lint` still passes.
-- [x] - [ ] 8.10 Run `make build` and confirm the build still succeeds (sanity check that nothing in this change broke the existing pipeline).
+- [x] 8.1 Install the package fresh in the venv (`pip install -e .`) and confirm `garden --help` runs from PATH and lists every subcommand
+- [x] 8.2 Confirm `python -m garden --help` produces identical output
+- [x] 8.3 Run `garden new --kind post --title "Verify" --slug verify --lang en`; confirm file is created with correct frontmatter and `assets/` directory; run `garden lint` and confirm exit 0
+- [x] 8.4 Run `garden translate verify --to pt --slug verificar --title "Verificar"`; confirm paired file exists with correct frontmatter and identical body; run `garden lint` and confirm exit 0
+- [x] 8.5 Run `garden publish verify --no-all-translations`; confirm only the EN file is `published`. Run `garden publish verify --all-translations`; confirm both EN and PT are now `published`. Run `garden archive verify --all-translations`; confirm both flip to `hidden`. Run `garden draft verify --all-translations --force`; confirm both flip back to `draft`.
+- [x] 8.6 Negative test: run `garden new --kind post --title "X" --slug "Bad Slug" --lang en` and confirm exit non-zero with a slug-pattern error and no file written. Run `garden new --kind post --title "X" --slug ok --lang english` and confirm exit non-zero with a lang-pattern error.
+- [x] 8.7 Negative test: with the EN file `hidden`, run `garden publish verify --no-all-translations` and confirm refusal with `--force` suggestion. Then run with `--force` and confirm it now flips.
+- [x] 8.8 Run `garden new < /dev/null` (no flags, stdin redirected) and confirm exit non-zero with a missing-required-argument error (no hang).
+- [x] 8.9 Clean up the verification post: `rm -rf content/posts/verify/`. Confirm `garden lint` still passes.
+- [x] 8.10 Run `make build` and confirm the build still succeeds (sanity check that nothing in this change broke the existing pipeline).
