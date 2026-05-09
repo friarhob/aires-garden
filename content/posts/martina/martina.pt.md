@@ -2,9 +2,9 @@ Title: Martina
 Slug: martina
 Date: 2026-05-07
 Lang: pt
-Status: draft
-Tags: Published Works, Short Stories
 Translation_key: martina
+Status: published
+Tags: Published Works, Short Stories
 
 Ela observa Marcos entrar em casa a partir da poltrona branca. Aquele homem desajeitado, com o paletó entortado para a direita, cabelos dessarumados, os óculos pendurados pela corrente no pescoço, e a pasta surrada com um fecho aberto, disputando com a fechadura da porta para obter de volta o molho de chaves enquanto balbucia um “oi, amor”, mais para si mesmo que para ela, é seu marido. Observa e lembra-se.
 
