@@ -1,4 +1,4 @@
-.PHONY: dev build lint
+.PHONY: dev build
 
 VENV := .venv
 PELICAN := $(VENV)/bin/pelican
@@ -9,9 +9,6 @@ $(PELICAN):
 
 dev: $(PELICAN)
 	$(PELICAN) --autoreload --listen
-
-lint: $(PELICAN)
-	$(VENV)/bin/python -m frontmatter_lint content
 
 build: $(PELICAN)
 	$(PELICAN) content -o output -s publishconf.py

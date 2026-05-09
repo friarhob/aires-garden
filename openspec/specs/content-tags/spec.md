@@ -192,10 +192,10 @@ The `iframe` embed SHALL declare `src` and `title` as required arguments and `he
 
 ### Requirement: Lint fails the build on unknown embed tag names
 
-`make build`, `make lint`, and the `python -m frontmatter_lint` CLI SHALL each fail with a non-zero exit code when any post, page, or tag-prose body contains an embed tag whose name is not present in `plugins.content_tags.registry.REGISTRY`. The error report SHALL identify the file, the line number, the offending tag name, and (if a registered name has a small Levenshtein distance to the typo) a suggested correction.
+`make build`, `garden lint`, and the `python -m frontmatter_lint` CLI SHALL each fail with a non-zero exit code when any post, page, or tag-prose body contains an embed tag whose name is not present in `plugins.content_tags.registry.REGISTRY`. The error report SHALL identify the file, the line number, the offending tag name, and (if a registered name has a small Levenshtein distance to the typo) a suggested correction.
 
 #### Scenario: Unknown tag name fails the lint
-- **WHEN** a post body contains `[!fugure src="x.jpg"]` and `make lint` is run
+- **WHEN** a post body contains `[!fugure src="x.jpg"]` and `garden lint` is run
 - **THEN** the command exits non-zero with an error naming the file, line, and offending tag name `fugure`.
 
 #### Scenario: Did-you-mean suggestion appears for close typos
@@ -213,11 +213,11 @@ The `iframe` embed SHALL declare `src` and `title` as required arguments and `he
 Lint SHALL fail when any embed tag is missing one or more of its registered `required_args`. The error report SHALL list every missing argument by name.
 
 #### Scenario: youtube without id fails lint
-- **WHEN** a post body contains `[!youtube]` and `make lint` is run
+- **WHEN** a post body contains `[!youtube]` and `garden lint` is run
 - **THEN** the command exits non-zero with an error naming the file, line, tag name `youtube`, and missing argument `id`.
 
 #### Scenario: iframe missing both src and title fails lint
-- **WHEN** a post body contains `[!iframe]` and `make lint` is run
+- **WHEN** a post body contains `[!iframe]` and `garden lint` is run
 - **THEN** the command exits non-zero with an error naming both missing arguments `src` and `title`.
 
 ---
@@ -227,7 +227,7 @@ Lint SHALL fail when any embed tag is missing one or more of its registered `req
 Lint SHALL fail when any embed tag carries an argument whose name is neither in `required_args` nor in `optional_args` for its registered tag. The error report SHALL name the tag, the offending argument, and the allowed argument set.
 
 #### Scenario: Unknown argument fails lint
-- **WHEN** a post body contains `[!youtube id="abc" autoplay="true"]` and `make lint` is run (where `autoplay` is not registered for `youtube`)
+- **WHEN** a post body contains `[!youtube id="abc" autoplay="true"]` and `garden lint` is run (where `autoplay` is not registered for `youtube`)
 - **THEN** the command exits non-zero with an error naming the file, line, tag name `youtube`, and offending argument `autoplay`, and listing the allowed arguments (`id`, `start`).
 
 ---
@@ -266,7 +266,7 @@ The `frontmatter_lint` plugin's body-content scanner SHALL import `plugins.conte
 
 ### Requirement: A hidden `embeds-demo` post exercises every starter construct
 
-Content under `content/posts/embeds-demo/` SHALL provide at least one post (any language, `Status: hidden`) that uses each of: a `note` admonition, a captioned figure, a `[!youtube]` embed, and a `[!iframe]` embed. The post SHALL build cleanly under both `make dev` and `make build` and pass `make lint`.
+Content under `content/posts/embeds-demo/` SHALL provide at least one post (any language, `Status: hidden`) that uses each of: a `note` admonition, a captioned figure, a `[!youtube]` embed, and a `[!iframe]` embed. The post SHALL build cleanly under both `make dev` and `make build` and pass `garden lint`.
 
 #### Scenario: Demo post exists with required Status
 - **WHEN** `content/posts/embeds-demo/` is inspected

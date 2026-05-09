@@ -31,6 +31,21 @@ Build the production output (writes to `output/`):
 make build
 ```
 
+## Authoring content
+
+The `garden` CLI handles all content workflows. Run `garden --help` for a full list.
+
+```bash
+garden new --kind post --title "My Post" --slug my-post --lang en   # scaffold a draft post
+garden translate my-post --to pt --slug meu-post --title "Meu Post" # add a translation
+garden publish my-post --all-translations                            # draft → published
+garden draft my-post --no-all-translations                          # published → draft
+garden archive my-post --all-translations                           # published → hidden
+garden lint                                                         # validate frontmatter
+```
+
+Any argument can be omitted and the CLI will prompt interactively.
+
 ## Layout
 
 - `content/` — Markdown posts and pages (`posts/`, `pages/`).
@@ -39,7 +54,8 @@ make build
 - `publishconf.py` — prod Pelican configuration (absolute `SITEURL`, drafts excluded, feeds enabled).
 - `Makefile` — `dev` and `build` targets.
 - `pyproject.toml` — Python dependencies and project metadata.
-- `plugins/`, `tools/garden/` — empty placeholders populated by later OpenSpec proposals.
+- `garden/` — `garden` CLI for content authoring and lifecycle.
+- `plugins/` — Pelican plugins (frontmatter lint, content tags, i18n grouping, etc.).
 - `openspec/` — change proposals, specs, project baseline, and decision records.
   - `project.md` — frozen project baseline (original brief).
   - `decisions/` — append-only Architecture Decision Records.

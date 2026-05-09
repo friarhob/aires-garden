@@ -86,7 +86,7 @@ Exposed through a Makefile. Minimum viable surface:
 
 - `make new` — scaffold a new post (prompts for title, lang, tags; pre-fills frontmatter; generates slug and `translation_key`).
 - `make translate slug=<slug> lang=<lang>` — create a translation stub sharing the same `translation_key`.
-- `make lint` — validate frontmatter schema, check translation-key consistency, check tag usage. Fails build on errors.
+- `garden lint` — validate frontmatter schema, check translation-key consistency, check tag usage. Fails build on errors.
 - `make dev` — `pelican --autoreload --listen` with drafts visible.
 - `make build` — production build (runs lint first, then Pelican with `publishconf.py`).
 - `make publish` — wrapper that lints, runs any sanity checks, then `git push origin main`. Actual build+deploy happens in GitHub Actions.
@@ -99,7 +99,7 @@ Keep the CLI small. Add commands only when a real annoyance shows up — don't o
 - **Workflow** `.github/workflows/deploy.yml` runs on push to `main`:
   1. Check out repo
   2. Set up Python 3.12, install deps
-  3. `make lint && make build`
+  3. `garden lint && make build`
   4. Upload `output/` as the Pages artifact (`actions/upload-pages-artifact@v3`)
   5. Deploy with `actions/deploy-pages@v4`
 - **`CNAME`** file at repo root containing the custom domain. Pelican config must copy it into `output/` via `STATIC_PATHS`.
