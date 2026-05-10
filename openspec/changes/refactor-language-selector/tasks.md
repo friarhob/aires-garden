@@ -41,15 +41,15 @@
 - [X] 6.4 Visit `/en/` — popover lists `PT`; click navigates to `/pt/`.
 - [X] 6.5 Visit `/tag/<slug>/` for a tag with single-lang prose — popover lists `tag_langs`; click navigates to `/<lang>/tag/<slug>/`.
 - [X] 6.6 Visit `/tag/<slug>/` for a tag with multi-lang prose — popover lists `SITE_LANGS`; click toggles `<section data-lang>` visibility, URL unchanged.
-- [ ] 6.7 Visit a non-existent URL to trigger `output/404.html` — popover lists only `lang_sections` langs (EN, PT); click toggles section visibility, URL unchanged.
-- [ ] 6.8 Per-page lang-links bar still renders on every non-article page; clicking a bar entry navigates without writing `localStorage["garden-lang"]` (verify in DevTools).
-- [ ] 6.9 Disable JS in DevTools, reload the article — popover entries are still followable anchors; click navigates correctly; preference is not written (expected).
-- [ ] 6.10 Cmd/middle-click an entry — opens in new tab, browser default preserved.
+- [X] 6.7 Visit a non-existent URL to trigger `output/404.html` — popover lists only `lang_sections` langs (EN, PT); click toggles section visibility, URL unchanged.
+- [X] 6.8 Per-page lang-links bar still renders on every non-article page; clicking a bar entry navigates without writing `localStorage["garden-lang"]` (verify in DevTools).
+- [X] 6.9 Disable JS in DevTools, reload the article — popover entries are still followable anchors; click navigates correctly; preference is not written (expected).
+- [X] 6.10 Cmd/middle-click an entry — opens in new tab, browser default preserved.
 
 ## 7. Spec validation
 
-- [ ] 7.1 `openspec validate refactor-language-selector` passes (or whatever the project's validate command is).
-- [ ] 7.2 `openspec status --change refactor-language-selector` reports `isComplete: true`.
+- [x] 7.1 `openspec validate refactor-language-selector` passes (or whatever the project's validate command is).
+- [x] 7.2 `openspec status --change refactor-language-selector` reports `isComplete: true`.
 
 ## 8. Commit
 
