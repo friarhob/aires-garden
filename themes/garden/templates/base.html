@@ -34,7 +34,7 @@
                         <a href="{{ url }}" data-lang="{{ lang }}">{{ lang | upper }}</a>
                         {% endfor %}
                     {% else %}
-                        {% for lang in SITE_LANGS %}
+                        {% for lang in (section_langs if section_langs is defined else SITE_LANGS) %}
                         <button type="button" data-lang="{{ lang }}">{{ lang | upper }}</button>
                         {% endfor %}
                     {% endif %}

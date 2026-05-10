@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%- set section_langs = lang_sections.keys() | list -%}
 {% block title %}Not found — {{ SITENAME }}{% endblock %}
 {% block content %}
     {% for lang, body in lang_sections.items() %}

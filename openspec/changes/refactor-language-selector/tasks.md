@@ -35,13 +35,13 @@
 
 ## 6. Manual verification (golden paths)
 
-- [ ] 6.1 `make devbuild`, then visit `/hello-garden/` (EN) — picker popover lists `PT` only, click navigates to `/ola-jardim/`, the new page shows `PT` on the trigger and `EN` in the popover, `localStorage["garden-lang"] === "pt"`.
-- [ ] 6.2 Visit `/ola-jardim/` (assumed multi-lang case) and confirm reverse direction works.
-- [ ] 6.3 Visit a single-language post and confirm the popover is empty (no entries) and the trigger still shows the post's language.
-- [ ] 6.4 Visit `/en/` — popover lists `PT`; click navigates to `/pt/`.
-- [ ] 6.5 Visit `/tag/<slug>/` for a tag with single-lang prose — popover lists `tag_langs`; click navigates to `/<lang>/tag/<slug>/`.
-- [ ] 6.6 Visit `/tag/<slug>/` for a tag with multi-lang prose — popover lists `SITE_LANGS`; click toggles `<section data-lang>` visibility, URL unchanged.
-- [ ] 6.7 Visit a non-existent URL to trigger `output/404.html` — popover lists `SITE_LANGS`; click toggles section visibility, URL unchanged.
+- [X] 6.1 `make devbuild`, then visit `/hello-garden/` (EN) — picker popover lists `PT` only, click navigates to `/ola-jardim/`, the new page shows `PT` on the trigger and `EN` in the popover, `localStorage["garden-lang"] === "pt"`.
+- [X] 6.2 Visit `/ola-jardim/` (assumed multi-lang case) and confirm reverse direction works.
+- [X] 6.3 Visit a single-language post and confirm the popover is empty (no entries) and the trigger still shows the post's language.
+- [X] 6.4 Visit `/en/` — popover lists `PT`; click navigates to `/pt/`.
+- [X] 6.5 Visit `/tag/<slug>/` for a tag with single-lang prose — popover lists `tag_langs`; click navigates to `/<lang>/tag/<slug>/`.
+- [X] 6.6 Visit `/tag/<slug>/` for a tag with multi-lang prose — popover lists `SITE_LANGS`; click toggles `<section data-lang>` visibility, URL unchanged.
+- [ ] 6.7 Visit a non-existent URL to trigger `output/404.html` — popover lists only `lang_sections` langs (EN, PT); click toggles section visibility, URL unchanged.
 - [ ] 6.8 Per-page lang-links bar still renders on every non-article page; clicking a bar entry navigates without writing `localStorage["garden-lang"]` (verify in DevTools).
 - [ ] 6.9 Disable JS in DevTools, reload the article — popover entries are still followable anchors; click navigates correctly; preference is not written (expected).
 - [ ] 6.10 Cmd/middle-click an entry — opens in new tab, browser default preserved.
