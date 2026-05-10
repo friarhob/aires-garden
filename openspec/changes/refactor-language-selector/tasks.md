@@ -1,7 +1,7 @@
 ## 1. Decision log
 
-- [ ] 1.1 Add `openspec/decisions/0010-header-lang-picker-as-navigator.md` (Status: Accepted) recording the navigator-vs-preference reversal; cite `add-user-preferences` design D5 as superseded.
-- [ ] 1.2 Update `openspec/decisions/README.md` index to list ADR-0010.
+- [x] 1.1 Add `openspec/decisions/0010-header-lang-picker-as-navigator.md` (Status: Accepted) recording the navigator-vs-preference reversal; cite `add-user-preferences` design D5 as superseded.
+- [x] 1.2 Update `openspec/decisions/README.md` index to list ADR-0010.
 
 ## 2. Header partial — two-mode picker
 
