@@ -18,7 +18,9 @@
 | `add-tags-and-drafts` | 2026-05-07 | Tag index pages, draft handling |
 | `add-user-preferences` | 2026-05-07 | Dark/light mode toggle, persisted preference |
 | `add-content-tags` | 2026-05-08 | Markdown extensions: admonitions, figures, embeds |
-| `add-python-cli` | pending | `garden` CLI: new, translate, publish, draft, archive, lint |
+| `add-python-cli` | 2026-05-09 | `garden` CLI: new, translate, publish, draft, archive, lint |
+| `fix-tag-lang-links` | 2026-05-10 | Fix tag-page language links broken by header refactor |
+| `refactor-language-selector` | 2026-05-10 | Translation-aware language picker; falls back gracefully on unmatched pages |
 
 ---
 
@@ -35,12 +37,21 @@ Switch the site default from dark mode to light mode. The `add-user-preferences`
 
 ---
 
-### `refactor-language-selector`
+### `refactor-colour-scheme`
 
-The current language selector in the header shows all supported languages but doesn't navigate to the equivalent page in the selected language. Refactor it to be translation-aware: selecting a language takes the reader to the translation of the current content if one exists, or falls back gracefully. Pages without an explicit language (404, "all" tag-prose shapes) retain the current behaviour.
+The current off-white used for text in dark mode and as the background in light mode has been flagged as too bright. This change replaces it with a less saturated alternative and audits all colour pairs in `tokens.css` against WCAG AA contrast requirements, adjusting only those that fail. Also produces a `docs/visual-identity.md` file documenting the colour palette and design token conventions.
 
-- **Scope:** medium — theme template update + i18n_grouping plugin logic
-- **Depends on:** nothing
+- **Scope:** small-medium — token changes, contrast audit, Markdown doc
+- **Depends on:** nothing (separate from `default-light-mode`, though shipping that first avoids touching the token file twice)
+
+---
+
+### `add-l10n-rendering`
+
+Localise all UI chrome strings so the site renders in the visitor's language rather than always in English. In scope: site title/branding, page titles, UI labels ("Also in:", "Tags:", "Posts", and any others in templates), date formats, and footer text. RSS feed labels are out of scope. All four languages (en, pt, es, fr) ship together; English is the fallback for any unimplemented language or string.
+
+- **Scope:** medium — strings layer (format TBD at design time), theme template updates, date localisation
+- **Note:** `refactor-homepage` may introduce additional strings that need localising; coordinate if both are in flight
 
 ---
 
