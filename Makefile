@@ -1,4 +1,4 @@
-.PHONY: dev build
+.PHONY: dev devbuild build
 
 VENV := .venv
 PELICAN := $(VENV)/bin/pelican
@@ -9,6 +9,9 @@ $(PELICAN):
 
 dev: $(PELICAN)
 	$(PELICAN) --autoreload --listen
+
+devbuild: $(PELICAN)
+	$(PELICAN) content
 
 build: $(PELICAN)
 	$(PELICAN) content -o output -s publishconf.py
