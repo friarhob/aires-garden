@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{%- set header_lang_links = {} -%}
+{%- if SITE_LANGS | length >= 2 -%}
+{%- for lang in SITE_LANGS -%}
+{%- if header_lang_links.update({lang: SITEURL ~ '/' ~ lang ~ '/'}) -%}{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
 {% block title %}{{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>Posts</h1>

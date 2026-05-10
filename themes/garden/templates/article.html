@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{%- set header_lang_links = {} -%}
+{%- if article.translation_group is defined -%}
+{%- for t in article.translation_group -%}
+{%- if header_lang_links.update({t.lang: SITEURL ~ '/' ~ t.url}) -%}{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
 {% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <article>

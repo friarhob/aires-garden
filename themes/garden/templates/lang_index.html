@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{%- set header_lang_links = {} -%}
+{%- for lang in SITE_LANGS -%}
+{%- if header_lang_links.update({lang: SITEURL ~ '/' ~ lang ~ '/'}) -%}{%- endif -%}
+{%- endfor -%}
 {% block title %}{{ page_lang | upper }} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>Posts ({{ page_lang | upper }})</h1>

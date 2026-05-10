@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{%- if not all_prose or all_prose | length < 2 -%}
+{%- set header_lang_links = {} -%}
+{%- for lang in tag_langs -%}
+{%- if header_lang_links.update({lang: SITEURL ~ '/' ~ lang ~ '/tag/' ~ tag_slug ~ '/'}) -%}{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
 {% block title %}#{{ tag_slug }} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>#{{ tag_slug }}</h1>

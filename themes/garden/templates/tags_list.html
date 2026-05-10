@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{%- set header_lang_links = {} -%}
+{%- if SITE_LANGS | length >= 2 -%}
+{%- if page_lang is defined and page_lang -%}
+{%- for lang in SITE_LANGS -%}
+{%- if header_lang_links.update({lang: SITEURL ~ '/' ~ lang ~ '/tags/'}) -%}{%- endif -%}
+{%- endfor -%}
+{%- else -%}
+{%- for lang in SITE_LANGS -%}
+{%- if header_lang_links.update({lang: SITEURL ~ '/' ~ lang ~ '/tags/'}) -%}{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endif -%}
 {% block title %}{% if page_lang is defined and page_lang %}Tags ({{ page_lang | upper }}){% else %}All Tags{% endif %} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>{% if page_lang is defined and page_lang %}Tags ({{ page_lang | upper }}){% else %}All Tags{% endif %}</h1>

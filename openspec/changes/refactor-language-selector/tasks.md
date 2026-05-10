@@ -9,24 +9,24 @@
 - [x] 2.2 Mark the active mode on the picker root (e.g. `data-picker-mode="navigation"` vs `data-picker-mode="section-toggle"`) so JS and CSS can branch off it.
 - [x] 2.3 In `themes/garden/templates/_pref_controls_script.html`, branch the popover-click handler on `data-picker-mode`: in navigation mode, write `localStorage["garden-lang"]` and `data-pref-lang` then let the click follow the `href` (do not `preventDefault()` for any modifier-key clicks); in section-toggle mode, keep the existing toggle path.
 - [x] 2.4 Confirm middle-click and modifier-key clicks (`cmd`/`ctrl`/`shift`) on `<a>` entries preserve the browser default (no `preventDefault`); guard with explicit checks if needed.
-- [x] 2.5 Update the popover's "current" indicator logic to apply to the trigger button only (current lang is no longer in the popover in navigation mode).
+- [x] 2.5 Update the popover's "current" indicator logic: current lang IS included in popover entries and marked with `data-current`; trigger button also shows current lang label.
 
 ## 3. Page templates — publish `header_lang_links`
 
-- [ ] 3.1 `themes/garden/templates/article.html`: add `{% set header_lang_links = ... %}` deriving from `article.translation_group | selectattr('lang', '!=', article.lang)` mapped to `lang -> SITEURL ~ '/' ~ t.url`.
-- [ ] 3.2 `themes/garden/templates/page.html`: add `{% set header_lang_links = ... %}` deriving from `page.translations` mapped to `lang -> SITEURL ~ '/' ~ t.url`.
-- [ ] 3.3 `themes/garden/templates/index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `SITE_LANGS` to `SITEURL ~ '/' ~ lang ~ '/'`.
-- [ ] 3.4 `themes/garden/templates/lang_index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `SITE_LANGS` other than `page_lang` to `SITEURL ~ '/' ~ lang ~ '/'`.
-- [ ] 3.5 `themes/garden/templates/tags_list.html`: add `{% set header_lang_links = ... %}` covering both shapes (cross-lang `/tags/` and per-lang `/<lang>/tags/`); per-lang form excludes `page_lang`.
-- [ ] 3.6 `themes/garden/templates/tag_lang_index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `tag_langs` other than `page_lang` to `SITEURL ~ '/' ~ lang ~ '/tag/' ~ tag_slug ~ '/'`.
-- [ ] 3.7 `themes/garden/templates/tag_group_index.html`: add `{% set header_lang_links = ... %}` only when `all_prose | length < 2` — mapping each `lang` in `tag_langs` to `SITEURL ~ '/' ~ lang ~ '/tag/' ~ tag_slug ~ '/'`. When `all_prose | length >= 2`, do not set it.
-- [ ] 3.8 `themes/garden/templates/404.html`: confirm `header_lang_links` is NOT set (deliberate omission so section-toggle mode wins).
-- [ ] 3.9 If template duplication is awkward, extract a one-line Jinja macro `header_lang_links_for(...)` in a shared partial; otherwise leave inlined.
+- [x] 3.1 `themes/garden/templates/article.html`: add `{% set header_lang_links = ... %}` deriving from `article.translation_group` (all langs including current) mapped to `lang -> SITEURL ~ '/' ~ t.url`.
+- [x] 3.2 `themes/garden/templates/page.html`: add `{% set header_lang_links = ... %}` deriving from `page.translations` mapped to `lang -> SITEURL ~ '/' ~ t.url`.
+- [x] 3.3 `themes/garden/templates/index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `SITE_LANGS` to `SITEURL ~ '/' ~ lang ~ '/'`.
+- [x] 3.4 `themes/garden/templates/lang_index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `SITE_LANGS` (including `page_lang`) to `SITEURL ~ '/' ~ lang ~ '/'`.
+- [x] 3.5 `themes/garden/templates/tags_list.html`: add `{% set header_lang_links = ... %}` covering both shapes (cross-lang `/tags/` and per-lang `/<lang>/tags/`); per-lang form includes `page_lang`.
+- [x] 3.6 `themes/garden/templates/tag_lang_index.html`: add `{% set header_lang_links = ... %}` mapping each `lang` in `tag_langs` (including `page_lang`) to `SITEURL ~ '/' ~ lang ~ '/tag/' ~ tag_slug ~ '/'`.
+- [x] 3.7 `themes/garden/templates/tag_group_index.html`: add `{% set header_lang_links = ... %}` only when `all_prose | length < 2` — mapping each `lang` in `tag_langs` to `SITEURL ~ '/' ~ lang ~ '/tag/' ~ tag_slug ~ '/'`. When `all_prose | length >= 2`, do not set it.
+- [x] 3.8 `themes/garden/templates/404.html`: confirm `header_lang_links` is NOT set (deliberate omission so section-toggle mode wins).
+- [x] 3.9 If template duplication is awkward, extract a one-line Jinja macro `header_lang_links_for(...)` in a shared partial; otherwise leave inlined. _(Kept inlined — no awkward duplication.)_
 
 ## 4. Plugins — verify nothing else needs to change
 
-- [ ] 4.1 `plugins/i18n_grouping/__init__.py`: confirm the per-language index render path in `on_finalized` already passes the context the template needs (`SITE_LANGS`, `page_lang`); no plugin code change required.
-- [ ] 4.2 `plugins/tag_pages/__init__.py`: confirm the tag-language and tag-group render paths already pass `tag_langs`, `tag_slug`, `all_prose`, `page_lang`; no plugin code change required. (If they do not, inject the missing variables.)
+- [x] 4.1 `plugins/i18n_grouping/__init__.py`: confirm the per-language index render path in `on_finalized` already passes the context the template needs (`SITE_LANGS`, `page_lang`); no plugin code change required.
+- [x] 4.2 `plugins/tag_pages/__init__.py`: confirm the tag-language and tag-group render paths already pass `tag_langs`, `tag_slug`, `all_prose`, `page_lang`; no plugin code change required.
 
 ## 5. Styles
 
