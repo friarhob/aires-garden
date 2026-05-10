@@ -7,7 +7,7 @@ Status: published
 Tags: Published Works, Short Stories
 
 !!! note "Sobre este texto"
-    Este texto foi selecionado numa coletânea de histórias sobre canções da editora Multifoco. A coletânea acabou por não ter sido publicada, mas eu considero ele na lista de textos publicados por ter sido aceito antes disso. É baseado na [música do Toquinho e do Vinícius de Moraes de mesmo nome](https://www.youtube.com/watch?v=HelbO2_LW3w). Tem algumas referências a outras músicas também.
+    Este texto foi selecionado numa coletânea de histórias sobre canções da editora Multifoco, algo entre 2015 e 2016. A coletânea acabou por não ter sido publicada, mas eu considero ele na lista de textos publicados por ter sido aceito antes disso. É baseado na [música do Toquinho e do Vinícius de Moraes de mesmo nome](https://www.youtube.com/watch?v=HelbO2_LW3w). Tem algumas referências a outras músicas também.
 
 Sabe, moço, aqui em São Paulo a gente não conhece as pessoas. Eu nem sei quanto tempo faz que ele mudou aqui para o prédio, e eu moro aqui tem bem uns dez anos. Eu lembro que uma vez eu o encontrei no elevador. Ele disse “bom dia”, eu não respondi. Ninguém responde “bom dia” aqui em São Paulo, moço. O senhor está aqui há pouco tempo, mas é verdade. Ele segurou a porta do elevador, eu entrei com as compras, e ele foi embora. Nem sei como eu lembro desse dia, moço, mas acho que foi a primeira vez que vi o homem.
 
