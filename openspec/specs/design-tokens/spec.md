@@ -16,16 +16,20 @@ The theme SHALL express every colour, typography, spacing, and layout value as a
 ---
 
 ### Requirement: Dark mode token set (default)
-The stylesheet SHALL define dark-mode token values in `:root` as the default. Dark mode uses `--bg: #130A22`, `--bg-subtle: #0A0515`, `--text: #F0EAE0`, `--text-muted: #A08EC0`, `--accent: #F0C060`, `--accent-display: #F0C060`, `--border: #261648`.
+The stylesheet SHALL define light-mode token values in `:root` as the default. Light mode uses `--bg: #FAF7F2`, `--bg-subtle: #F0EAE0`, `--text: #2A1640`, `--text-heading: #2D1A4A`, `--text-muted: #7B54A0`, `--accent: #8B6209`, `--accent-display: #EDB755`, `--border: #DDD5C8`. Dark-mode token values SHALL be declared in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`.
 
-#### Scenario: Dark palette applied without any attribute
-- **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is dark or unset
+#### Scenario: Light palette applied without any attribute
+- **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is light or unset
+- **THEN** the background SHALL be `#FAF7F2` and body text SHALL be `#2A1640`
+
+#### Scenario: Dark palette applied when OS prefers dark
+- **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is dark
 - **THEN** the background SHALL be `#130A22` and body text SHALL be `#F0EAE0`
 
 ---
 
 ### Requirement: Light mode token set (override)
-The stylesheet SHALL define light-mode token overrides in both `:root[data-theme="light"]` and `@media (prefers-color-scheme: light) :root:not([data-theme="dark"])`. Light mode uses `--bg: #FAF7F2`, `--bg-subtle: #F0EAE0`, `--text: #2A1640`, `--text-muted: #7B54A0`, `--accent: #8B6209`, `--accent-display: #EDB755`, `--border: #DDD5C8`.
+The stylesheet SHALL define light-mode token overrides in `:root[data-theme="light"]` only. Dark-mode token overrides SHALL be defined in both `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. The `@media (prefers-color-scheme: light)` block used in the previous implementation SHALL be removed.
 
 #### Scenario: Light palette applied when OS prefers light
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is light
