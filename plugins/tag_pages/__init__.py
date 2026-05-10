@@ -100,6 +100,9 @@ def _render_lang_tag_pages(env, output_path, base_ctx, lang_tag_map, tag_prose):
         template = env.get_template("tag_lang_index.html")
     except Exception:
         return
+    slug_to_langs: dict[str, set] = {}
+    for (lang, slug) in lang_tag_map:
+        slug_to_langs.setdefault(slug, set()).add(lang)
     for (lang, slug), articles in sorted(lang_tag_map.items()):
         prose_html = tag_prose.get(slug, {}).get("lang", {}).get(lang)
         out_dir = output_path / lang / "tag" / slug
@@ -110,6 +113,7 @@ def _render_lang_tag_pages(env, output_path, base_ctx, lang_tag_map, tag_prose):
             page_lang=lang,
             tag_slug=slug,
             tag_prose_html=prose_html,
+            tag_langs=sorted(slug_to_langs.get(slug, set())),
             page_kind="tag_lang_index",
         )
         (out_dir / "index.html").write_text(rendered, encoding="utf-8")
@@ -180,6 +184,12 @@ def _render_cross_tag_pages(env, output_path, base_ctx, cross_tag_map, tag_prose
         return
     for slug, groups in sorted(cross_tag_map.items()):
         all_prose = tag_prose.get(slug, {}).get("all", {})
+        tag_langs = sorted({
+            getattr(t, "lang", "")
+            for g in groups
+            for t in g["translations"]
+            if getattr(t, "lang", "")
+        })
         out_dir = output_path / "tag" / slug
         out_dir.mkdir(parents=True, exist_ok=True)
         rendered = template.render(
@@ -187,6 +197,7 @@ def _render_cross_tag_pages(env, output_path, base_ctx, cross_tag_map, tag_prose
             groups=groups,
             tag_slug=slug,
             all_prose=all_prose,
+            tag_langs=tag_langs,
             page_kind="tag_group_index",
         )
         (out_dir / "index.html").write_text(rendered, encoding="utf-8")
