@@ -1,12 +1,19 @@
     <script>
     (function () {
       var defaultLang = '{{ DEFAULT_LANG }}';
+      var picker = document.querySelector('.pref-lang-picker');
+      var pickerMode = picker ? picker.dataset.pickerMode || 'section-toggle' : 'section-toggle';
       var themeBtn = document.querySelector('.pref-theme');
       var langBtn = document.querySelector('.pref-lang');
       var langMenu = document.querySelector('.pref-lang-menu');
 
       function syncThemeBtn(theme) {
         themeBtn.textContent = theme === 'light' ? 'Dark' : 'Light';
+      }
+
+      function writePref(next) {
+        document.documentElement.dataset.prefLang = next;
+        try { localStorage.setItem('garden-lang', next); } catch (e) {}
       }
 
       function syncLangBtn(lang) {
@@ -18,9 +25,8 @@
         }
       }
 
-      function applyLang(next) {
-        document.documentElement.dataset.prefLang = next;
-        try { localStorage.setItem('garden-lang', next); } catch (e) {}
+      function applyInPlace(next) {
+        writePref(next);
         syncLangBtn(next);
         var sections = document.querySelectorAll('section[data-lang]');
         if (sections.length) {
@@ -44,20 +50,28 @@
         syncThemeBtn(next);
       });
 
-      langBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        langMenu.hidden = !langMenu.hidden;
-      });
+      if (langBtn && langMenu) {
+        langBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (!langMenu.querySelector('[data-lang]')) return;
+          langMenu.hidden = !langMenu.hidden;
+        });
 
-      langMenu.addEventListener('click', function (e) {
-        var item = e.target;
-        if (!item.dataset.lang) return;
-        applyLang(item.dataset.lang);
-        langMenu.hidden = true;
-      });
+        langMenu.addEventListener('click', function (e) {
+          var item = e.target.closest('[data-lang]');
+          if (!item) return;
+          var next = item.dataset.lang;
+          if (pickerMode === 'navigation') {
+            writePref(next);
+          } else {
+            applyInPlace(next);
+            langMenu.hidden = true;
+          }
+        });
 
-      document.addEventListener('click', function () {
-        langMenu.hidden = true;
-      });
+        document.addEventListener('click', function () {
+          langMenu.hidden = true;
+        });
+      }
     }());
     </script>

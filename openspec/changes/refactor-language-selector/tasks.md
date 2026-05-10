@@ -5,11 +5,11 @@
 
 ## 2. Header partial — two-mode picker
 
-- [ ] 2.1 In `themes/garden/templates/base.html`, replace the popover's hard-coded `{% for lang in SITE_LANGS %}` block with a conditional: when `header_lang_links` is defined and non-empty, render one `<a href="{{ url }}" data-lang="{{ lang }}">{{ lang | upper }}</a>` per `(lang, url)` pair; otherwise render the existing `<button data-lang="{{ lang }}">` per language in `SITE_LANGS`.
-- [ ] 2.2 Mark the active mode on the picker root (e.g. `data-picker-mode="navigation"` vs `data-picker-mode="section-toggle"`) so JS and CSS can branch off it.
-- [ ] 2.3 In `themes/garden/templates/_pref_controls_script.html`, branch the popover-click handler on `data-picker-mode`: in navigation mode, write `localStorage["garden-lang"]` and `data-pref-lang` then let the click follow the `href` (do not `preventDefault()` for any modifier-key clicks); in section-toggle mode, keep the existing toggle path.
-- [ ] 2.4 Confirm middle-click and modifier-key clicks (`cmd`/`ctrl`/`shift`) on `<a>` entries preserve the browser default (no `preventDefault`); guard with explicit checks if needed.
-- [ ] 2.5 Update the popover's "current" indicator logic to apply to the trigger button only (current lang is no longer in the popover in navigation mode).
+- [x] 2.1 In `themes/garden/templates/base.html`, replace the popover's hard-coded `{% for lang in SITE_LANGS %}` block with a conditional: when `header_lang_links` is defined and non-empty, render one `<a href="{{ url }}" data-lang="{{ lang }}">{{ lang | upper }}</a>` per `(lang, url)` pair; otherwise render the existing `<button data-lang="{{ lang }}">` per language in `SITE_LANGS`.
+- [x] 2.2 Mark the active mode on the picker root (e.g. `data-picker-mode="navigation"` vs `data-picker-mode="section-toggle"`) so JS and CSS can branch off it.
+- [x] 2.3 In `themes/garden/templates/_pref_controls_script.html`, branch the popover-click handler on `data-picker-mode`: in navigation mode, write `localStorage["garden-lang"]` and `data-pref-lang` then let the click follow the `href` (do not `preventDefault()` for any modifier-key clicks); in section-toggle mode, keep the existing toggle path.
+- [x] 2.4 Confirm middle-click and modifier-key clicks (`cmd`/`ctrl`/`shift`) on `<a>` entries preserve the browser default (no `preventDefault`); guard with explicit checks if needed.
+- [x] 2.5 Update the popover's "current" indicator logic to apply to the trigger button only (current lang is no longer in the popover in navigation mode).
 
 ## 3. Page templates — publish `header_lang_links`
 
@@ -30,8 +30,8 @@
 
 ## 5. Styles
 
-- [ ] 5.1 In `themes/garden/static/css/styles.css`, ensure `.pref-lang-menu a` is styled identically to `.pref-lang-menu button` (font, colour, padding, hover, focus).
-- [ ] 5.2 If a single-lang post should hide the trigger entirely, add a CSS rule that hides `.pref-lang-picker[data-empty]` (or equivalent); otherwise leave the trigger visible per design D4.
+- [x] 5.1 In `themes/garden/static/css/styles.css`, ensure `.pref-lang-menu a` is styled identically to `.pref-lang-menu button` (font, colour, padding, hover, focus).
+- [x] 5.2 If a single-lang post should hide the trigger entirely, add a CSS rule that hides `.pref-lang-picker[data-empty]` (or equivalent); otherwise leave the trigger visible per design D4. _(No CSS rule added; per design D4 the trigger stays visible.)_
 
 ## 6. Manual verification (golden paths)
 

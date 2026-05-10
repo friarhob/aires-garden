@@ -193,7 +193,8 @@ header > a:first-child:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.pref-lang-menu button {
+.pref-lang-menu button,
+.pref-lang-menu a {
     display: block;
     width: 100%;
     font-family: var(--font-body);
@@ -208,13 +209,17 @@ header > a:first-child:hover {
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
-.pref-lang-menu button:hover {
+.pref-lang-menu button:hover,
+.pref-lang-menu a:hover {
     color: var(--accent);
 }
 
-.pref-lang-menu button[data-current] {
+.pref-lang-menu button[data-current],
+.pref-lang-menu a[data-current] {
     color: var(--accent);
     border-left: 2px solid var(--accent);
     padding-left: calc(0.75rem - 2px);

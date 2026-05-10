@@ -25,12 +25,19 @@
         <a href="{{ SITEURL }}/">{{ SITENAME }}</a>
         <div class="prefs">
             <button type="button" class="pref-theme">Light</button>
-            <div class="pref-lang-picker">
+            {% set picker_mode = "navigation" if (header_lang_links is defined and header_lang_links) else "section-toggle" %}
+            <div class="pref-lang-picker" data-picker-mode="{{ picker_mode }}">
                 <button type="button" class="pref-lang">{{ DEFAULT_LANG | upper }}</button>
                 <div class="pref-lang-menu" hidden>
-                    {% for lang in SITE_LANGS %}
-                    <button type="button" data-lang="{{ lang }}">{{ lang | upper }}</button>
-                    {% endfor %}
+                    {% if picker_mode == "navigation" %}
+                        {% for lang, url in header_lang_links | dictsort %}
+                        <a href="{{ url }}" data-lang="{{ lang }}">{{ lang | upper }}</a>
+                        {% endfor %}
+                    {% else %}
+                        {% for lang in SITE_LANGS %}
+                        <button type="button" data-lang="{{ lang }}">{{ lang | upper }}</button>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
