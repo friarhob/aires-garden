@@ -2,9 +2,9 @@
 {% block title %}#{{ tag_slug }} — {{ SITENAME }}{% endblock %}
 {% block content %}
     <h1>#{{ tag_slug }}</h1>
-    {% if SITE_LANGS | length >= 2 %}
+    {% if tag_langs | length >= 2 %}
     <p class="page-langs">Also in:
-        {% for lang in SITE_LANGS | sort %}{% if not loop.first %} · {% endif %}<a href="{{ SITEURL }}/{{ lang }}/tag/{{ tag_slug }}/">{{ lang | upper }}</a>{% endfor %}
+        {% for lang in tag_langs %}{% if not loop.first %} · {% endif %}<a href="{{ SITEURL }}/{{ lang }}/tag/{{ tag_slug }}/">{{ lang | upper }}</a>{% endfor %}
     </p>
     {% endif %}
 
