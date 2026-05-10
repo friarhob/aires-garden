@@ -53,4 +53,4 @@
 
 ## 8. Commit
 
-- [ ] 8.1 Commit the proposal bundle (proposal + design + specs + tasks) as a single commit per the project's "Commit per proposal bundle" convention.
+- [x] 8.1 Commit the proposal bundle (proposal + design + specs + tasks) as a single commit per the project's "Commit per proposal bundle" convention.
