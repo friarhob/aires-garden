@@ -48,12 +48,16 @@ Every non-article page kind (cross-language index, per-language index, cross-lan
 - **THEN** the page contains a lang-links bar with an "All" entry whose `href` is `/`, and one entry per language in `SITE_LANGS` whose `href` is `/<other>/`. The entry for `<lang>` carries a "current" indicator (e.g. `class="page-lang-current"`); no other entry does.
 
 #### Scenario: Cross-language tag page renders the bar
-- **WHEN** a cross-language tag index `/tag/<slug>/` is rendered with `SITE_LANGS` ≥ 2
-- **THEN** the page contains a lang-links bar listing an "All" entry (marked current) and one entry per language in `SITE_LANGS`. Each per-language entry's `href` is `/<lang>/tag/<slug>/`.
+- **WHEN** a cross-language tag index `/tag/<slug>/` is rendered and two or more languages have at least one published post tagged `<slug>`
+- **THEN** the page contains a lang-links bar listing entries only for those languages (`tag_langs`). Each per-language entry's `href` is `/<lang>/tag/<slug>/`.
 
 #### Scenario: Per-language tag page renders the bar with current scope marked
-- **WHEN** a per-language tag index `/<lang>/tag/<slug>/` is rendered with `SITE_LANGS` ≥ 2
-- **THEN** the page contains a lang-links bar with an "All" entry whose `href` is `/tag/<slug>/`, and one entry per language in `SITE_LANGS` whose `href` is `/<other>/tag/<slug>/`. The entry for `<lang>` carries the "current" indicator.
+- **WHEN** a per-language tag index `/<lang>/tag/<slug>/` is rendered and two or more languages have at least one published post tagged `<slug>`
+- **THEN** the page contains a lang-links bar with an "All" entry whose `href` is `/tag/<slug>/`, and one entry per language in `tag_langs` (excluding `<lang>` itself) whose `href` is `/<other>/tag/<slug>/`. The entry for `<lang>` carries the "current" indicator.
+
+#### Scenario: Tag page bar is hidden when the tag exists in only one language
+- **WHEN** a tag index page is rendered and only one language has posts tagged `<slug>`
+- **THEN** no lang-links bar is rendered for that tag page (a single-language bar would be degenerate).
 
 #### Scenario: Cross-language all-tags list renders the bar
 - **WHEN** the cross-language all-tags list `/tags/` is rendered with `SITE_LANGS` ≥ 2
@@ -71,9 +75,9 @@ Every non-article page kind (cross-language index, per-language index, cross-lan
 - **WHEN** an article page is rendered
 - **THEN** the page does not render the per-page lang-links bar; the existing "Available in" line continues to be the article's translation-navigation surface.
 
-#### Scenario: All `SITE_LANGS` are listed unconditionally
-- **WHEN** a non-article page renders the bar
-- **THEN** the per-language entries are exactly the languages in `SITE_LANGS` (sorted alphabetically), regardless of whether the equivalent page exists for every language. Links pointing at non-existent variants resolve via the multilingual 404 page's language inference.
+#### Scenario: Non-tag pages list all `SITE_LANGS` unconditionally
+- **WHEN** a non-article, non-tag page (home, per-language home, tags-list) renders the bar
+- **THEN** the per-language entries are exactly the languages in `SITE_LANGS` (sorted alphabetically). Links pointing at non-existent variants resolve via the multilingual 404 page's language inference.
 
 #### Scenario: Bar position is consistent across page kinds
 - **WHEN** a non-article page renders the bar

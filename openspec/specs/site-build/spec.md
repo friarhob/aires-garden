@@ -46,13 +46,17 @@ Content SHALL include one published Markdown post that exercises the frontmatter
 - **WHEN** `content/posts/hello-world/hello-world.en.md` is rendered
 - **THEN** its frontmatter includes `title`, `date`, `slug`, `lang: en`, and `status: published`, and it produces `output/hello-world/index.html`.
 
-### Requirement: Makefile exposes dev and build targets only
+### Requirement: Makefile exposes dev, devbuild, and build targets
 
-The `Makefile` SHALL expose exactly the two targets needed at this stage so later changes own the CLI surface explicitly.
+The `Makefile` SHALL expose exactly the three targets needed for local development and production builds so later changes own the CLI surface explicitly.
 
 #### Scenario: `make dev` serves the site locally
 - **WHEN** a developer runs `make dev`
 - **THEN** Pelican starts with autoreload and listens on `http://localhost:8000`.
+
+#### Scenario: `make devbuild` produces a one-shot dev build
+- **WHEN** a developer runs `make devbuild`
+- **THEN** Pelican runs against `pelicanconf.py` (drafts promoted, `SITEURL` unset) and writes static files to `output/`, then exits.
 
 #### Scenario: `make build` produces production output
 - **WHEN** a developer runs `make build`
