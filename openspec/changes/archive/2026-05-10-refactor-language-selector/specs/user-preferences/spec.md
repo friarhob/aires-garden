@@ -1,25 +1,4 @@
-# user-preferences Specification
-
-## Purpose
-TBD - created by syncing change add-user-preferences. Update Purpose after archive.
-## Requirements
-
-### Requirement: Theme preference is persisted in localStorage
-The site SHALL store the reader's chosen theme (`"dark"` or `"light"`) in `localStorage` under the key `garden-theme`. Reads and writes SHALL be wrapped in `try/catch` so that environments where `localStorage` is unavailable (private browsing, storage quota exceeded) fall back silently to system-preference behaviour.
-
-#### Scenario: Preference is saved on toggle
-- **WHEN** the reader activates the theme toggle control
-- **THEN** `localStorage.setItem('garden-theme', <new-value>)` is called and the `data-theme` attribute on `<html>` is updated to match
-
-#### Scenario: Preference survives page navigation
-- **WHEN** a reader sets the theme to `"light"` and navigates to a different page
-- **THEN** the new page loads with `data-theme="light"` applied before first paint
-
-#### Scenario: localStorage unavailable falls back gracefully
-- **WHEN** `localStorage` throws (e.g. private browsing mode)
-- **THEN** the toggle still works for the current page session; no error is thrown to the console
-
----
+## MODIFIED Requirements
 
 ### Requirement: Language preference is persisted in localStorage
 
@@ -44,40 +23,6 @@ The site SHALL store the reader's preferred language code (e.g. `"en"` or `"pt"`
 
 - **WHEN** the reader clicks any entry in the per-page lang-links bar (the navigation bar on non-article pages added in `add-page-lang-links`)
 - **THEN** `localStorage["garden-lang"]` is NOT updated and `data-pref-lang` is NOT changed; the click is a pure navigation. The header language picker is the only surface that writes the preference.
-
----
-
-### Requirement: Inline loader script applies preferences before first paint
-`base.html` SHALL include a synchronous inline `<script>` block in `<head>`, placed before the font and stylesheet `<link>` tags, that reads `garden-theme` and `garden-lang` from `localStorage` and applies them to `document.documentElement` immediately.
-
-#### Scenario: Theme attribute applied before stylesheet loads
-- **WHEN** any page is loaded in a browser where `garden-theme` is stored
-- **THEN** `document.documentElement.dataset.theme` is set before the stylesheet link is evaluated, preventing a flash of the wrong theme
-
-#### Scenario: Language attribute applied before inference script runs
-- **WHEN** any page is loaded in a browser where `garden-lang` is stored
-- **THEN** `document.documentElement.dataset.prefLang` is set before any inline inference script executes
-
-#### Scenario: Loader script is under 10 lines
-- **WHEN** the inline loader script is inspected
-- **THEN** it contains fewer than 10 lines of code, consistent with ADR-0007 bar 3 (inline-and-small)
-
----
-
-### Requirement: Theme toggle control is visible in the site header
-The site header SHALL contain a `<button>` element with class `pref-theme` that toggles between dark and light mode. Its visible label SHALL reflect the action (the opposite of the current state), not the current state.
-
-#### Scenario: Label reads action, not state (dark mode)
-- **WHEN** the current theme is dark
-- **THEN** the button label reads "Light" (switching to light is the available action)
-
-#### Scenario: Label reads action, not state (light mode)
-- **WHEN** the current theme is light
-- **THEN** the button label reads "Dark"
-
-#### Scenario: Toggle updates theme immediately
-- **WHEN** the reader clicks the theme toggle
-- **THEN** the page's colour scheme changes instantly without a page reload
 
 ---
 
@@ -127,16 +72,3 @@ The site header SHALL contain a translation-aware language picker. The trigger e
 
 - **WHEN** the reader has JavaScript disabled
 - **THEN** in navigation mode the popover entries remain followable as plain anchors; clicking navigates to the chosen language's page (the preference write does not happen, but the click still works). In section-toggle mode the popover entries are buttons that have no effect (consistent with existing graceful-degradation behaviour where all sections remain visible per ADR-0007 bar 2).
-
----
-
-### Requirement: Preference controls use token-aware styles
-The `.pref-theme` and `.pref-lang` buttons SHALL use CSS custom properties from the design-token layer for all colour, font, and spacing values. They SHALL share visual language with the existing `.scope-switcher` nav items (small, uppercase, muted colour, accent on hover).
-
-#### Scenario: Controls match scope-switcher visual style
-- **WHEN** the preference controls and scope-switcher are rendered side by side
-- **THEN** they share the same font-size, letter-spacing, text-transform, and colour tokens
-
-#### Scenario: Active preference is visually indicated
-- **WHEN** a non-default theme or language is stored
-- **THEN** the corresponding button carries a visual indicator (e.g. accent border or background) distinguishing it from the default state
