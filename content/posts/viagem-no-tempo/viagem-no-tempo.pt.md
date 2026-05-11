@@ -35,7 +35,7 @@ Jacques suspirou.
 
 -- Venha, Jacques, vou te apresentar o pessoal do MIR. 
 
-Jacques pegou mais um lanche, e encheu sua xícara de café, seguindo Igor. Ou o agora Dr. Igor Smith, do Instituto MIR, considerado o maior centro de produção matemática do mundo, situado em Predok. Igor era jovem, mas aparentava ser brilhante - todos no MIR eram. Claro, em Matemática, o que não impedia Jacques de julgá-lo um imbecil por ser um professor que acha que dar aulas não é trabalho. Abriu o lanche enquanto equilibrava a xícara assim que parou perto dos amigos de Igor. 
+Jacques pegou mais um lanche, e encheu sua xícara de café, seguindo Igor. Ou o agora Dr. Igor Smith, do Instituto MIR, considerado o maior centro de produção matemática do mundo, situado em Predok. Igor era jovem, mas aparentava ser brilhante -- todos no MIR eram. Claro, em Matemática, o que não impedia Jacques de julgá-lo um imbecil por ser um professor que acha que dar aulas não é trabalho. Abriu o lanche enquanto equilibrava a xícara assim que parou perto dos amigos de Igor. 
 
 -- Andrew e Godfrey, quero apresentar para vocês o Jacques, que é lá da Universidade Nova Paris. Ele esteve aqui ano passado, e vai apresentar esse ano de novo. 
 
@@ -49,7 +49,7 @@ Jacques apertou os olhos por baixo dos óculos. Andrew continuou:
 
 -- A gente precisava fazer um evento assim no MIR. Trazia o pessoal daqui de Athena, os políticos, e mostrava como realmente se pode projetar alguma coisa. Porque, francamente, o pessoal fica tirando conclusão sem saber fazer conta, não dá. 
 
-Jacques foi se afastando aos poucos, enquanto Andrew continuava a destilar seus preconceitos. Ficou feliz por perceber que aprendera a não se irritar com esses preconceitos típicos da Academia - apesar de ficar mais irritado com os seus colegas historiadores falando mal de matemáticos que o contrário. Sabia, também, que o governo de Predok espionava continuamente seus pesquisadores, e que eles tinham que tomar muito cuidado com as críticas que faziam - o que, no caso, justificaria Andrew instigando que esse congresso seria muito melhor feito por lá do que aqui em Pólis. 
+Jacques foi se afastando aos poucos, enquanto Andrew continuava a destilar seus preconceitos. Ficou feliz por perceber que aprendera a não se irritar com esses preconceitos típicos da Academia -- apesar de ficar mais irritado com os seus colegas historiadores falando mal de matemáticos que o contrário. Sabia, também, que o governo de Predok espionava continuamente seus pesquisadores, e que eles tinham que tomar muito cuidado com as críticas que faziam -- o que, no caso, justificaria Andrew instigando que esse congresso seria muito melhor feito por lá do que aqui em Pólis. 
 
 Jacques passava perto dos grupinhos formados, e escutava as histórias. Um grupo de engravatados escutava atentamente a descrição dos seios de uma mulher de um homem de barbas brancas. Quatro homens barbudos sem casacos conversavam efusivamente sobre um novo desenho animado. Duas mulheres, uma raridade em congressos acadêmicos, estavam uma ao lado da outra, mexendo em aparelhos eletrônicos, sem se olhar ou falar, e longe dos homens. Jacques deu um suspirou, e saiu caminhando em direção ao hotel. 
 
@@ -95,7 +95,7 @@ Jacques deu mais uma puxada no cigarro, e encheu a boca de fumaça enquanto olha
 
 -- Você fez faculdade, professor, sabe como são as coisas. Hidrometa não é legal, mas qualquer um consegue comprar onde quiser. 
 
-Jacques nunca fora um viciado, nem muito ligado em drogas ilícitas, mas certamente lembrava de seu tempo de faculdade, onde frascos de líquido branco turvo apareciam aos montes em qualquer festa. Coisas mais pesadas, como Segreg ou Rainbow Pill, eram menos comuns - apesar de não ser raro encontrar um ou outro estudante que terminava o curso com seus cílios alaranjados, um efeito colateral comum de Segreg -, mas hidrometa tinha em qualquer lugar. Ele mesmo havia provado uma ou duas vezes, e era a droga mais comum entre jovens universitários. Tinha um efeito relaxante, com leves alterações na percepção. 
+Jacques nunca fora um viciado, nem muito ligado em drogas ilícitas, mas certamente lembrava de seu tempo de faculdade, onde frascos de líquido branco turvo apareciam aos montes em qualquer festa. Coisas mais pesadas, como Segreg ou Rainbow Pill, eram menos comuns -- apesar de não ser raro encontrar um ou outro estudante que terminava o curso com seus cílios alaranjados, um efeito colateral comum de Segreg --, mas hidrometa tinha em qualquer lugar. Ele mesmo havia provado uma ou duas vezes, e era a droga mais comum entre jovens universitários. Tinha um efeito relaxante, com leves alterações na percepção. 
 
 Jacques deu mais uma puxada no cigarro, segurando a fumaça na boca enquanto pensava se aquele mendigo tinha feito faculdade também. O mendigo, por sua vez, jogou mais uma vez milhos para os pombos, que agora se amontoavam na sua frente, e continuou: 
 
