@@ -16,24 +16,24 @@ The theme SHALL express every colour, typography, spacing, and layout value as a
 ---
 
 ### Requirement: Dark mode token set (default)
-The stylesheet SHALL define light-mode token values in `:root` as the default. Light mode uses `--bg: #FAF7F2`, `--bg-subtle: #F0EAE0`, `--text: #2A1640`, `--text-heading: #2D1A4A`, `--text-muted: #7B54A0`, `--accent: #8B6209`, `--accent-display: #EDB755`, `--border: #DDD5C8`. Dark-mode token values SHALL be declared in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`.
+The stylesheet SHALL define light-mode token values in `:root` as the default. Light mode uses `--bg: #E7DED4`, `--bg-subtle: #DCCEBD`, `--text: #2A1640`, `--text-heading: #2D1A4A`, `--text-muted: #6A438E`, `--accent: #735107`, `--accent-display: #EDB755`, `--border: #DDD5C8`. Dark-mode token values SHALL be declared in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`.
 
 #### Scenario: Light palette applied without any attribute
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is light or unset
-- **THEN** the background SHALL be `#FAF7F2` and body text SHALL be `#2A1640`
+- **THEN** the background SHALL be `#E7DED4` and body text SHALL be `#2A1640`
 
 #### Scenario: Dark palette applied when OS prefers dark
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is dark
-- **THEN** the background SHALL be `#130A22` and body text SHALL be `#F0EAE0`
+- **THEN** the background SHALL be `#130A22` and body text SHALL be `#DCCEBD`
 
 ---
 
 ### Requirement: Light mode token set (override)
-The stylesheet SHALL define light-mode token overrides in `:root[data-theme="light"]` only. Dark-mode token overrides SHALL be defined in both `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. The `@media (prefers-color-scheme: light)` block used in the previous implementation SHALL be removed.
+Light-mode tokens SHALL be declared once in a grouped selector `:root, :root[data-theme="light"]`. Dark-mode token overrides SHALL be defined in both `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. No `@media (prefers-color-scheme: light)` block SHALL appear.
 
 #### Scenario: Light palette applied when OS prefers light
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is light
-- **THEN** the background SHALL be `#FAF7F2` and body text SHALL be `#2A1640`
+- **THEN** the background SHALL be `#E7DED4` and body text SHALL be `#2A1640`
 
 #### Scenario: Explicit light override
 - **WHEN** the `<html>` element carries `data-theme="light"`
@@ -72,7 +72,7 @@ The stylesheet SHALL define light-mode token overrides in `:root[data-theme="lig
 ---
 
 ### Requirement: Heading colour token distinct from body text
-A dedicated `--text-heading` token SHALL exist and SHALL be used by all heading elements (`h1`, article titles, list titles). In light mode `--text-heading` SHALL be `#2D1A4A`; in dark mode it SHALL inherit the same value as `--text` (`#F0EAE0`).
+A dedicated `--text-heading` token SHALL exist and SHALL be used by all heading elements (`h1`, article titles, list titles). In light mode `--text-heading` SHALL be `#2D1A4A`; in dark mode it SHALL inherit the same value as `--text` (`#DCCEBD`).
 
 #### Scenario: Light mode headings use --text-heading
 - **WHEN** a heading is rendered in light mode
@@ -80,7 +80,7 @@ A dedicated `--text-heading` token SHALL exist and SHALL be used by all heading 
 
 #### Scenario: Dark mode headings inherit --text
 - **WHEN** a heading is rendered in dark mode
-- **THEN** its colour SHALL be `var(--text-heading)` which resolves to `#F0EAE0`, the same as body text
+- **THEN** its colour SHALL be `var(--text-heading)` which resolves to `#DCCEBD`, the same as body text
 
 ---
 
@@ -114,7 +114,7 @@ Title headings (`h1`, article titles) SHALL use lighter Fraunces weights (≤500
 `--accent` in both modes SHALL meet WCAG AA contrast ratio (≥4.5:1) against `--bg` for normal-weight body text. `--accent-display` is exempt (decorative use only).
 
 #### Scenario: Light mode accent contrast
-- **WHEN** `--accent` (`#8B6209`) is rendered on `--bg` (`#FAF7F2`)
+- **WHEN** `--accent` (`#735107`) is rendered on `--bg` (`#E7DED4`)
 - **THEN** the contrast ratio SHALL be ≥ 4.5:1
 
 #### Scenario: Dark mode accent contrast
@@ -129,16 +129,16 @@ Four semantic tokens SHALL express the accent colour for each admonition variant
 
 | Token | Dark value | Light value |
 |---|---|---|
-| `--admonition-note` | `#4AADBA` (teal) | `#1A7A8A` |
-| `--admonition-tip` | `#3ABAA0` (mint) | `#207860` |
-| `--admonition-warning` | `#F0C060` (matches `--accent`) | `#8B6209` (matches `--accent`) |
-| `--admonition-danger` | `#C04040` | `#A02020` |
+| `--admonition-note` | `#4AADBA` (teal) | `#0D527D` |
+| `--admonition-tip` | `#3ABAA0` (mint) | `#146528` |
+| `--admonition-warning` | `#F0C060` (matches `--accent`) | `#735107` (matches `--accent`) |
+| `--admonition-danger` | `#DE4A4A` | `#A02020` |
 
-These tokens SHALL be defined in all four token blocks (`:root`, `@media prefers-color-scheme: light`, `:root[data-theme="light"]`, `:root[data-theme="dark"]`). Admonition CSS rules SHALL reference these tokens exclusively — no direct colour literals SHALL appear in admonition rules.
+These tokens SHALL be defined in three token blocks: light values in the grouped `:root, :root[data-theme="light"]` selector; dark values in both `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. Admonition CSS rules SHALL reference these tokens exclusively — no direct colour literals SHALL appear in admonition rules.
 
-#### Scenario: Admonition tokens present in all token blocks
+#### Scenario: Admonition tokens present in token blocks
 - **WHEN** the stylesheet is inspected
-- **THEN** `--admonition-note`, `--admonition-tip`, `--admonition-warning`, and `--admonition-danger` are defined in all four token blocks with values matching the table above
+- **THEN** `--admonition-note`, `--admonition-tip`, `--admonition-warning`, and `--admonition-danger` are defined in the grouped light selector and both dark blocks with values matching the table above
 
 #### Scenario: Admonition rules use only token references
 - **WHEN** the admonition CSS rules are inspected

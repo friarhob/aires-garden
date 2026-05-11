@@ -37,12 +37,12 @@
 
 ## 6. Update the design-tokens base spec
 
-- [ ] 6.1 Run `openspec validate refactor-colour-scheme` and resolve any structural warnings
-- [ ] 6.2 Confirm the delta spec at `openspec/changes/refactor-colour-scheme/specs/design-tokens/spec.md` reflects the as-shipped hex values (any adjustments from §3 must be mirrored here before archive)
+- [x] 6.1 Run `openspec validate refactor-colour-scheme` and resolve any structural warnings
+- [x] 6.2 Confirm the delta spec at `openspec/changes/refactor-colour-scheme/specs/design-tokens/spec.md` reflects the as-shipped hex values (any adjustments from §3 must be mirrored here before archive)
 
 ## 7. Verification and cleanup
 
-- [ ] 7.1 Run `make devbuild` (or the equivalent Pelican build) and confirm the build succeeds with no CSS warnings
-- [ ] 7.2 Visually verify on a published page: landing, an article with an admonition of each variant (note/tip/warning/danger), a tag-chip hover state, a list page. Compare light and dark side-by-side.
-- [ ] 7.3 Decide whether to retain `tools/colour-candidates.html` post-archive (Open Question in design.md). Default: remove on archive since the chosen values now live in `styles.css` and `docs/visual-identity.md`.
-- [ ] 7.4 Final sanity check: `git grep -n "#F0EAE0\|#FAF7F2"` returns zero hits inside `themes/`, `docs/`, and `openspec/specs/` (matches in `openspec/changes/archive/` are expected and fine)
+- [x] 7.1 Run `make devbuild` (or the equivalent Pelican build) and confirm the build succeeds with no CSS warnings
+- [x] 7.2 Visually verify on a published page: landing, an article with an admonition of each variant (note/tip/warning/danger), a tag-chip hover state, a list page. Compare light and dark side-by-side.
+- [x] 7.3 Decide whether to retain `tools/colour-candidates.html` post-archive (Open Question in design.md). Default: remove on archive since the chosen values now live in `styles.css` and `docs/visual-identity.md`.
+- [x] 7.4 Final sanity check: `git grep -n "#F0EAE0\|#FAF7F2"` returns zero hits inside `themes/`, `docs/`, and `openspec/specs/` (matches in `openspec/changes/archive/` are expected and fine)
