@@ -1,8 +1,8 @@
 ## 1. Build the contrast audit tool
 
-- [ ] 1.1 Create `tools/contrast_audit.py`: pure-stdlib Python script that defines the in-use pair list (per Decision 3 / WCAG requirement), computes WCAG relative-luminance contrast ratios, and prints a results table covering both light and dark modes with pass/fail per pair
-- [ ] 1.2 Run `python tools/contrast_audit.py` against the **current** token values (pre-change) and capture the baseline output so post-change drift is auditable
-- [ ] 1.3 Confirm the script runs in under 1s with no third-party dependencies (stdlib only — no `colorsys` workarounds needed beyond `math.pow`)
+- [x] 1.1 Create `tools/contrast_audit.py`: pure-stdlib Python script that defines the in-use pair list (per Decision 3 / WCAG requirement), computes WCAG relative-luminance contrast ratios, and prints a results table covering both light and dark modes with pass/fail per pair
+- [x] 1.2 Run `python tools/contrast_audit.py` against the **current** token values (pre-change) and capture the baseline output so post-change drift is auditable
+- [x] 1.3 Confirm the script runs in under 1s with no third-party dependencies (stdlib only — no `colorsys` workarounds needed beyond `math.pow`)
 
 ## 2. Apply the chosen off-white values
 
