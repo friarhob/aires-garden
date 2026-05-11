@@ -6,18 +6,18 @@
 
 ## 2. Apply the chosen off-white values
 
-- [ ] 2.1 Update light `--bg` from `#FAF7F2` to `#E7DED4` in every occurrence in `themes/garden/static/css/styles.css`
-- [ ] 2.2 Update light `--bg-subtle` from `#F0EAE0` to `#DCCEBD` in every occurrence
-- [ ] 2.3 Update dark `--text` from `#F0EAE0` to `#DCCEBD` in every occurrence
-- [ ] 2.4 Update dark `--text-heading` from `#F0EAE0` to `#DCCEBD` in every occurrence
-- [ ] 2.5 Run `python tools/contrast_audit.py` and capture the results; identify any failing pairs
+- [x] 2.1 Update light `--bg` from `#FAF7F2` to `#E7DED4` in every occurrence in `themes/garden/static/css/styles.css`
+- [x] 2.2 Update light `--bg-subtle` from `#F0EAE0` to `#DCCEBD` in every occurrence
+- [x] 2.3 Update dark `--text` from `#F0EAE0` to `#DCCEBD` in every occurrence
+- [x] 2.4 Update dark `--text-heading` from `#F0EAE0` to `#DCCEBD` in every occurrence
+- [x] 2.5 Run `python tools/contrast_audit.py` and capture the results; identify any failing pairs
 
 ## 3. Resolve audit failures (apply Decision 4)
 
-- [ ] 3.1 For each failing pair, attempt a foreground adjustment first (`--text-muted`, `--accent`, `--admonition-*` colour) within the same hue family; re-run the audit after each adjustment
-- [ ] 3.2 If a foreground adjustment cannot resolve the failure without breaking another pair or pushing the colour off-spec, revise `--bg` or `--bg-subtle` toward the next-lighter candidate from `tools/colour-candidates.html` (light `--bg`: η L=88% → γ'' L=90% → γ' L=92%; light `--bg-subtle`: E L=82% → D L=83% → C+ L=84%); re-run the audit
+- [x] 3.1 For each failing pair, attempt a foreground adjustment first (`--text-muted`, `--accent`, `--admonition-*` colour) within the same hue family; re-run the audit after each adjustment
+- [x] 3.2 If a foreground adjustment cannot resolve the failure without breaking another pair or pushing the colour off-spec, revise `--bg` or `--bg-subtle` toward the next-lighter candidate from `tools/colour-candidates.html` (light `--bg`: η L=88% → γ'' L=90% → γ' L=92%; light `--bg-subtle`: E L=82% → D L=83% → C+ L=84%); re-run the audit
 - [ ] 3.3 Update `openspec/changes/refactor-colour-scheme/specs/design-tokens/spec.md` to reflect any final hex changes from steps 3.1/3.2 (the spec must match the values that land in CSS)
-- [ ] 3.4 Repeat until the audit reports zero failing pairs in both modes; commit the final audit output as part of the change record
+- [x] 3.4 Repeat until the audit reports zero failing pairs in both modes; commit the final audit output as part of the change record
 
 ## 4. Dedupe the token blocks
 
