@@ -28,12 +28,12 @@
 
 ## 5. Author docs/visual-identity.md
 
-- [ ] 5.1 Create `docs/` directory (does not yet exist) and add `docs/visual-identity.md`
-- [ ] 5.2 Section: **Palette** — table of token name, hex, role, with light and dark values side-by-side. Use inline `<span>` swatches; if rendering is unreliable, fall back to hex-only (Open Question — decide in apply)
-- [ ] 5.3 Section: **Token naming conventions** — what each token name means, and the rule for when to add a new token versus extend an existing one
-- [ ] 5.4 Section: **Mode strategy** — how the three states resolve (default light, OS-driven dark, explicit `data-theme` override); reference the archived `default-light-mode` change for full rationale
-- [ ] 5.5 Section: **Typography tokens** — list `--font-title`, `--font-body`, `--body-size`; rationale for Fraunces and IBM Plex Sans; opsz/weight conventions
-- [ ] 5.6 Section: **Contrast targets and audit results** — state WCAG AA threshold (4.5:1 body, 3:1 large/non-text); paste the final audit table from `tools/contrast_audit.py`; show the script invocation so the reader can refresh it; note `--accent-display` exemption
+- [x] 5.1 Create `docs/` directory (does not yet exist) and add `docs/visual-identity.md`
+- [x] 5.2 Section: **Palette** — table of token name, hex, role, with light and dark values side-by-side. Use inline `<span>` swatches; if rendering is unreliable, fall back to hex-only (Open Question — decide in apply)
+- [x] 5.3 Section: **Token naming conventions** — what each token name means, and the rule for when to add a new token versus extend an existing one
+- [x] 5.4 Section: **Mode strategy** — how the three states resolve (default light, OS-driven dark, explicit `data-theme` override); reference the archived `default-light-mode` change for full rationale
+- [x] 5.5 Section: **Typography tokens** — list `--font-title`, `--font-body`, `--body-size`; rationale for Fraunces and IBM Plex Sans; opsz/weight conventions
+- [x] 5.6 Section: **Contrast targets and audit results** — state WCAG AA threshold (4.5:1 body, 3:1 large/non-text); paste the final audit table from `tools/contrast_audit.py`; show the script invocation so the reader can refresh it; note `--accent-display` exemption
 
 ## 6. Update the design-tokens base spec
 
