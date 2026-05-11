@@ -78,6 +78,15 @@ Term
 :   Definition of the term.
 ```
 
+**Typographic punctuation** — the `smarty` extension converts ASCII punctuation to typographic equivalents:
+
+| Input | Output | Name |
+| ----- | ------ | ---- |
+| `--`  | –      | en dash |
+| `---` | —      | em dash |
+| `'text'` | 'text' | curly single quotes |
+| `"text"` | "text" | curly double quotes |
+
 **Line breaks** — consecutive lines with no blank line between them produce a `<br>` without a paragraph gap. A blank line still creates a new paragraph as normal:
 
 ```markdown

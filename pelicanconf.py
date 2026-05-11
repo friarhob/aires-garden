@@ -7,6 +7,7 @@ MARKDOWN = {
         "markdown.extensions.admonition",
         "markdown.extensions.codehilite",
         "markdown.extensions.nl2br",
+        "markdown.extensions.smarty",
     ],
     "extension_configs": {
         "markdown.extensions.codehilite": {
