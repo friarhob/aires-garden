@@ -7,7 +7,7 @@ Status: published
 Tags: Published Works, Short Stories
 
 !!! note "Sobre o texto"
-    Este texto foi publicado na coletânea [Futura - Histórias do Século XXXI](assets/futura.pdf), uma publicação feita por um coletivo de 11 autores, eu inclusive, em 2014.
+    Este texto foi publicado na coletânea [Futura -- Histórias do Século XXXI](assets/futura.pdf), uma publicação feita por um coletivo de 11 autores, eu inclusive, em 2014.
 
 “O senhor é a única pessoa que eu conheço que ainda carrega papel nos bolsos para anotar coisas.” Jacques Würt deu um sorriso largo, e se lembrou da conversa que teve semanas antes com Alexander, seu aluno e orientando, enquanto guardava seu criticado caderno e sua caneta no casaco marrom que estava pendurado no espaldar da cadeira ao lado, ao som de aplausos no auditório. Ao final dos aplausos, uma voz mecânica diz: 
 
@@ -21,9 +21,9 @@ Já aqueles que não usavam casacos eram de Predok. Para o resto das pessoas ir 
 
 Jacques foi interrompido na sua análise estilístico-sócio-demográfica por um cutucão no ombro. Virou-se num susto, e viu um homem baixinho, de barba por fazer e sorriso largo, com o casaco na mão. 
 
--- Que bom te encontrar de novo. - disse o homem. 
+-- Que bom te encontrar de novo. -- disse o homem. 
 
--- Igor! - respondeu Jacques. - Já tinha te visto antes, mas você estava com seus amigos do MIR. Iam começar a fazer piadas com cálculos, e achei melhor não atrapalhar. 
+-- Igor! -- respondeu Jacques. -- Já tinha te visto antes, mas você estava com seus amigos do MIR. Iam começar a fazer piadas com cálculos, e achei melhor não atrapalhar. 
 
 -- Eu tinha visto seu nome na divulgação do congresso. Você fala amanhã, não? 
 
@@ -43,7 +43,7 @@ Jacques sorriu, e cumprimentou ambos. Andrew estava, assim como Igor, apenas com
 
 -- Andrew e Godfrey são pesquisadores de métodos numéricos, e estiveram na minha banca de doutorado. A gente discutiu muito durante a banca sobre o modelo que apresentei ano passado, e então a gente achou legal vir até aqui ver o que está sendo discutido... 
 
--- Mas não tem muita coisa séria, com números, é mais blá-blá-blá. - continuou Andrew. - No fim, só vai valer a pena pelo calor. 
+-- Mas não tem muita coisa séria, com números, é mais blá-blá-blá. -- continuou Andrew. -- No fim, só vai valer a pena pelo calor. 
 
 Jacques apertou os olhos por baixo dos óculos. Andrew continuou: 
 
@@ -75,15 +75,15 @@ Ao terminar o discurso, o mendigo tirou do bolso do sobretudo um pacote de papel
 
 -- Bom, você também tem um sobretudo. 
 
-O mendigo deu uma risada, enquanto atirava mais milho no chão e acompanhava os pombos com os olhos: - Pois é. É que eu não me incluo nessa maior parte das pessoas daqui que mencionei. 
+O mendigo deu uma risada, enquanto atirava mais milho no chão e acompanhava os pombos com os olhos: -- Pois é. É que eu não me incluo nessa maior parte das pessoas daqui que mencionei. 
 
 Jacques deu mais uma puxada no cigarro, e encheu a boca de fumaça enquanto olhava para o mendigo. Athena era considerada uma das cidades mais seguras do mundo. Aquele homem maltrapilho dizendo que a cidade escondia perigos poderia ser apenas um devaneio fruto das experiências individuais de um homem que vivia uma vida sofrida. Mas alguma coisa chamou a atenção de Jacques, e ele não sabia o que era. Talvez a língua falada com um formalismo raro a pessoas sem instrução, talvez os brilhantes olhos azuis, talvez a certeza com que ele adivinhara que Jacques era de fora. Ou talvez nada disso. 
 
 -- Quem são esses profissionais da noite que você falou? Não sabia que a prostituição era forte em Athena. 
 
--- Você não é mesmo de Pólis, estranho. Aliás, pelo seu sotaque, você muito provavelmente é de Kapital. Mas você está na rua cedo demais para ser um comerciante, como quase todo mundo de Kapital que vem para Athena, e não está de terno, portanto não é um político. Você não parece ter idade para ser um estudante, e não está vestido bem o suficiente para ter sido transferido e estar no seu primeiro dia de trabalho. Se fossem férias, você teria ido para lugares mais interessantes que Athena, ou nesse momento estaria num restaurante. Como você está sozinho, não tem parentes aqui, nem um romance. Não, você está aqui a trabalho. - O mendigo então parou, e respirou um pouco, antes de concluir. - Você é um professor universitário. 
+-- Você não é mesmo de Pólis, estranho. Aliás, pelo seu sotaque, você muito provavelmente é de Kapital. Mas você está na rua cedo demais para ser um comerciante, como quase todo mundo de Kapital que vem para Athena, e não está de terno, portanto não é um político. Você não parece ter idade para ser um estudante, e não está vestido bem o suficiente para ter sido transferido e estar no seu primeiro dia de trabalho. Se fossem férias, você teria ido para lugares mais interessantes que Athena, ou nesse momento estaria num restaurante. Como você está sozinho, não tem parentes aqui, nem um romance. Não, você está aqui a trabalho. -- O mendigo então parou, e respirou um pouco, antes de concluir. -- Você é um professor universitário. 
 
--- Impressionante. - balbuciou Jacques, ofegante com a rapidez da fala do mendigo. 
+-- Impressionante. -- balbuciou Jacques, ofegante com a rapidez da fala do mendigo. 
 
 -- Obrigado, professor. Mas, então, você não sabe quem são os Profissionais. Nós temos em Athena, além da sede do governo, da arquitetura imponente e dos kebabs saborosos, uma classe de assassinos de alta qualificação: os Profissionais. Se você precisar se livrar de alguém, eles são as pessoas mais confiáveis. E, cuidado: se você veio aqui para falar com políticos, pode ser alvo de um deles. 
 
@@ -113,7 +113,7 @@ Jacques não acreditava no que estava ouvindo. Aquele homem maltrapilho, mas que
 
 -- Então, professor, quando finalmente a sociedade começou a se reestruturar, a gente acreditava que havia a possibilidade de um novo mundo. Mas o humano é sempre o humano. Predok, ao menos para mim, foi a prova de que há algo na natureza humana intrinsecamente ruim. E tudo foi, mais uma vez, como correr atrás do vento. 
 
--- O que em Predok te faz se sentir mal? - perguntou Jacques, prometendo a si mesmo que encerraria o assunto ali. 
+-- O que em Predok te faz se sentir mal? -- perguntou Jacques, prometendo a si mesmo que encerraria o assunto ali. 
 
 -- Um governo totalitário e armamentista. Nós já tivemos isso na história antes da explosão, e pensávamos, na criação do mundo novo, que essa loucura não teria mais lugar. Eu, mesmo tendo sempre sido um cínico, professor, finalmente acreditei que um novo mundo planejado era uma chance da humanidade se redimir. Mas não foi o que aconteceu. 
 
@@ -143,15 +143,15 @@ Enquanto escutava os aplausos, Jacques saía do púlpito com suas folhas em mão
 
 Jacques apertou a mão de três desconhecidos enquanto descia, e pegava sua maleta numa cadeira da primeira fileira do evento. Encontrou Igor, Andrew e Godfrey, os três pesquisadores do Instituto MIR, na porta do auditório. 
 
--- Parabéns, Jacques! - adiantou-se Igor, chacoalhando a mão direita de Jacques com suas duas mãos. - Eu disse para vocês que ele era bom. 
+-- Parabéns, Jacques! -- adiantou-se Igor, chacoalhando a mão direita de Jacques com suas duas mãos. -- Eu disse para vocês que ele era bom. 
 
--- Realmente, professor Jacques. - concordou Andrew, apertando sua mão em seguida. - Foi a única apresentação a lidar com números e dados de verdade. Aquele monte de blá-blá-blá no começo foi muito chato. 
+-- Realmente, professor Jacques. -- concordou Andrew, apertando sua mão em seguida. -- Foi a única apresentação a lidar com números e dados de verdade. Aquele monte de blá-blá-blá no começo foi muito chato. 
 
--- Parabéns, professor Jacques. - continuou Godfrey, com as mãos para trás. - Eu acho, no entanto, que a gente poderia transformar o seu trabalho em alguma coisa mais séria. Colocar alguns modelos numéricos, predições estatísticas... O menino Igor aqui vai procurar você, e a gente tenta usar seu trabalho inicial. 
+-- Parabéns, professor Jacques. -- continuou Godfrey, com as mãos para trás. -- Eu acho, no entanto, que a gente poderia transformar o seu trabalho em alguma coisa mais séria. Colocar alguns modelos numéricos, predições estatísticas... O menino Igor aqui vai procurar você, e a gente tenta usar seu trabalho inicial. 
 
--- Mas, antes, a gente tem uma pergunta de alta relevância - interrompeu Andrew, com um sorriso. - Estávamos aqui discutindo sobre a fala do Dr. Schwans de manhã, que pediu que nos perguntássemos qual a maior liberdade possível. O Igor aqui - Andrew apertou o ombro do colega - acha que é tomar vodca, sem ter ressaca. Inocente, ele... Godfrey já acha que é trabalhar completamente pelado, mesmo em congressos. Já eu, acho que a maior liberdade é poder chegar em casa com duas prostitutas e dizer “Boa noite” à sua esposa. E você, professor, o que acha que é a maior liberdade? 
+-- Mas, antes, a gente tem uma pergunta de alta relevância -- interrompeu Andrew, com um sorriso. -- Estávamos aqui discutindo sobre a fala do Dr. Schwans de manhã, que pediu que nos perguntássemos qual a maior liberdade possível. O Igor aqui -- Andrew apertou o ombro do colega -- acha que é tomar vodca, sem ter ressaca. Inocente, ele... Godfrey já acha que é trabalhar completamente pelado, mesmo em congressos. Já eu, acho que a maior liberdade é poder chegar em casa com duas prostitutas e dizer “Boa noite” à sua esposa. E você, professor, o que acha que é a maior liberdade? 
 
--- Usar dinheiro de pesquisa para vir a eventos falar bobagem - respondeu Jacques, dando as costas e indo em direção ao café. Os três riram. 
+-- Usar dinheiro de pesquisa para vir a eventos falar bobagem -- respondeu Jacques, dando as costas e indo em direção ao café. Os três riram. 
 
 Jacques não queria ficar ali. Lembrou de tudo que vira no dia anterior, de toda superficialidade, e de como a conversa mais interessante que tivera tinha sido com o mendigo no parque. Colocou alguns lanches no bolso, pegou um copo descartável cheio de café, e saiu pela porta. 
  
@@ -161,23 +161,23 @@ Jacques não queria ficar ali. Lembrou de tudo que vira no dia anterior, de toda
 
 Ao chegar no parque, com um casaco preto e um cachecol azul, Jacques viu o mendigo sentado no mesmo banco, com os pombos em volta. 
 
--- Sabe o que você consegue alimentando pombos? - perguntou em voz alta, enquanto se aproximava, jogando o copo vazio de café num cesto próximo. 
+-- Sabe o que você consegue alimentando pombos? -- perguntou em voz alta, enquanto se aproximava, jogando o copo vazio de café num cesto próximo. 
 
--- Pombos gordos, professor. - Respondeu o mendigo também em voz alta, enquanto sorria, mas sem tirar os olhos dos pombos. - Essa piada é mais velha que a Grande Explosão. 
+-- Pombos gordos, professor. -- Respondeu o mendigo também em voz alta, enquanto sorria, mas sem tirar os olhos dos pombos. -- Essa piada é mais velha que a Grande Explosão. 
 
 Jacques sorriu, e tirou dois lanches do bolso, estendendo um ao mendigo. 
 
 -- Não devem ser bons como os kebabs daqui, mas pelo menos são de graça. 
 
--- Obrigado, professor. O de ontem estava bom, sim. Hoje você veio armado? - e apontou para a pasta de Jacques, enquanto já mastigava um pedaço do lanche. 
+-- Obrigado, professor. O de ontem estava bom, sim. Hoje você veio armado? -- e apontou para a pasta de Jacques, enquanto já mastigava um pedaço do lanche. 
 
 -- Ah, hoje foi minha palestra. Tive que trazer as notas para não me perder. 
 
 -- Posso ver, professor? 
 
--- Pode sim. - disse Jacques, abrindo a pasta e estendendo os papeis para o mendigo. Enquanto ele folheava, Jacques começou a comer seu lanche, acompanhando os olhos azuis rápidos daquele homem, que percorriam as folhas mais rápido do que parecia possível para ler um texto. 
+-- Pode sim. -- disse Jacques, abrindo a pasta e estendendo os papeis para o mendigo. Enquanto ele folheava, Jacques começou a comer seu lanche, acompanhando os olhos azuis rápidos daquele homem, que percorriam as folhas mais rápido do que parecia possível para ler um texto. 
 
--- Parece bem bom, professor. - rapidamente anunciou o mendigo. - Mas, a meu ver, você comete dois erros aqui. O primeiro é histórico: nós tínhamos, antes da Grande Explosão, centros de lazer sem moeda própria também, porque o desenvolvimento de moedas complementares só foi implementado de forma consistente no século XXII, e a diferença deles para Vergnügen é que eles não representavam nem 10% da economia que estavam inseridos, e não mais da metade, como é o nosso caso... 
+-- Parece bem bom, professor. -- rapidamente anunciou o mendigo. -- Mas, a meu ver, você comete dois erros aqui. O primeiro é histórico: nós tínhamos, antes da Grande Explosão, centros de lazer sem moeda própria também, porque o desenvolvimento de moedas complementares só foi implementado de forma consistente no século XXII, e a diferença deles para Vergnügen é que eles não representavam nem 10% da economia que estavam inseridos, e não mais da metade, como é o nosso caso... 
 
 -- Mas nenhum deles era um local que servia primariamente lazer e diversão, como é o caso de Vergnügen. Lazer tem uma lógica muito diferente de produção. 
 
@@ -191,23 +191,23 @@ O mendigo se calou, e jogou mais milho para os pombos, que se amontoavam a seus 
 
 -- Você pode me contar a história da Grande Explosão? 
 
--- Livros podem te contar a história da Grande Explosão, professor. - respondeu o mendigo, sem tirar os olhos dos pombos. - A ONU, que era uma organização que agia como um conselho central de governos, resolveu descentralizar o armazenamento das bombas atômicas, e num suposto erro de cálculo, colocou-os perto demais, e só percebeu quando, em 2253, um tremor de terra na costa do continente chamado Ásia fez com que duas se chocassem, causando uma cadeia de explosões atômicas em todo o planeta. Os livros não podem te contar, no entanto, sobre a expressão de desespero do jornalista que noticiava o suposto acidente minutos antes do sinal de televisão cair onde eu estava, sobre os gritos de desespero nas vielas da minha cidade ecoando pelas janelas da minha casa, sobre o sentimento de vazio que tomou conta do mundo quando percebeu-se o que tinha sido feito. 
+-- Livros podem te contar a história da Grande Explosão, professor. -- respondeu o mendigo, sem tirar os olhos dos pombos. -- A ONU, que era uma organização que agia como um conselho central de governos, resolveu descentralizar o armazenamento das bombas atômicas, e num suposto erro de cálculo, colocou-os perto demais, e só percebeu quando, em 2253, um tremor de terra na costa do continente chamado Ásia fez com que duas se chocassem, causando uma cadeia de explosões atômicas em todo o planeta. Os livros não podem te contar, no entanto, sobre a expressão de desespero do jornalista que noticiava o suposto acidente minutos antes do sinal de televisão cair onde eu estava, sobre os gritos de desespero nas vielas da minha cidade ecoando pelas janelas da minha casa, sobre o sentimento de vazio que tomou conta do mundo quando percebeu-se o que tinha sido feito. 
 
 Jacques terminou o lanche, e acendeu um cigarro, enquanto fixava os olhos naqueles olhos azuis brilhantes. Estendeu o maço ao mendigo, que levantou a mão em recusa, e continuou: 
 
 -- Livros podem te contar, professor, que houve caos nas cidades, mas que um grupo de cientistas organizou uma lista de pessoas e levou-as com animais, grãos congelados e documentação de tecnologias para abrigos-cidades subterrâneas. Os livros não te contam sobre os diálogos desesperados que atestavam como aquilo estava errado, que havia muito pouco tempo para serem desenvolvidos abrigos e coletadas todas as amostras e documentações, o que indicava que provavelmente alguém já tinha planejado aquilo tudo, nem que as pessoas que ficaram na superfície tentaram sobreviver por muito tempo. E algumas delas até conseguiram, com a ajuda de roupas de proteção à radiação em usinas abandonadas e afins, e que mantiveram até mesmo contato com o subterrâneo, negociando armas e energia proveniente da luz solar em troca de comidas e remédios. Nem que algumas dessas comunidades tem herdeiros até hoje, mas que não se fala mais nisso... 
 
--- Você viveu acima do solo nesse tempo? - interrompeu Jacques. 
+-- Você viveu acima do solo nesse tempo? -- interrompeu Jacques. 
 
 -- Eu fui um comerciante a maior parte da minha vida, professor, desde muito antes da Grande Explosão. Durante o período subterrâneo, como eu não fui escolhido, sobrevivi com o que sempre soube fazer: comércio. Montamos uma comunidade numa cidade que havia sediado uma usina nuclear, e que tínhamos um estoque grande de roupas de proteção para sair às ruas, e até um pequeno abrigo abandonado, todo revestido de chumbo, onde podíamos morar. Explorávamos a superfície em busca de armamentos, mantimentos, e tudo o mais que pudesse ser usado ou trocado com os subterrâneos. Quando finalmente a comunidade subterrânea voltou para a superfície, quinhentos anos após a explosão, mataram a maior parte desse grupo. Eu e uns poucos escapamos, e conseguimos nos misturar em pouco tempo. Eu cheguei a participar das primeiras reuniões sobre o desenvolvimento dos continentes. Mas sobre o desenvolvimento dos continentes nos duzentos anos seguintes os livros também te contam, professor. 
 
 Jacques terminou seu cigarro, e o apagou num cesto de lixo ao lado do banco. O mendigo se levantou, fazendo com que todos os pombos voassem ao mesmo tempo. 
 
--- Anoiteceu, professor. Obrigado pelo lanche. Vou procurar algum lugar para dormir. - disse o mendigo, levantando-se e indo embora. 
+-- Anoiteceu, professor. Obrigado pelo lanche. Vou procurar algum lugar para dormir. -- disse o mendigo, levantando-se e indo embora. 
 
--- Espere. - interrompeu Jacques com a mão erguida, levantando-se em seguida. - Você disse que o meu trabalho tinha dois erros, mas apontou apenas um. Qual era o outro? 
+-- Espere. -- interrompeu Jacques com a mão erguida, levantando-se em seguida. -- Você disse que o meu trabalho tinha dois erros, mas apontou apenas um. Qual era o outro? 
 
-O mendigo virou-se para Jacques: - Os políticos de Pólis têm uma razão a mais para quererem controlar diretamente o câmbio da moeda de Vergnügen, porque a superfície do continente tem uma economia baseada quase que exclusivamente em lazer, mas o subterrâneo, não. No subterrâneo eles estão voltados à produção de armamentos para a guerra, e são os principais fornecedores dos dois lados. Então Pólis não está tão preocupada com o seu recesso econômico, mas sim com ganhar a guerra, e ter nas mãos o controle econômico do fornecedor de armas do inimigo é algo que ela não vai abrir mão tão cedo. Boa noite, professor. 
+O mendigo virou-se para Jacques: -- Os políticos de Pólis têm uma razão a mais para quererem controlar diretamente o câmbio da moeda de Vergnügen, porque a superfície do continente tem uma economia baseada quase que exclusivamente em lazer, mas o subterrâneo, não. No subterrâneo eles estão voltados à produção de armamentos para a guerra, e são os principais fornecedores dos dois lados. Então Pólis não está tão preocupada com o seu recesso econômico, mas sim com ganhar a guerra, e ter nas mãos o controle econômico do fornecedor de armas do inimigo é algo que ela não vai abrir mão tão cedo. Boa noite, professor. 
 
 Jacques acompanhou com os olhos arregalados e a boca entreaberta o mendigo sair do parque. 
  
@@ -215,25 +215,25 @@ Jacques acompanhou com os olhos arregalados e a boca entreaberta o mendigo sair 
 
 ---
 
--- E com a última palavra deste evento, a Ministra da Ciência e Tecnologia, doutora Amanda Colmer. - anunciou a voz mecânica. Os aplausos de Jacques foram consonantes com os aplausos de toda a plateia, que tomaram o auditório enquanto uma simpática senhora de cabelos curtos e brancos sorria, mostrando algumas rugas no rosto e vestindo um paletó lilás por trás de uma mesa grande, enquanto esperava as pausas terminarem. 
+-- E com a última palavra deste evento, a Ministra da Ciência e Tecnologia, doutora Amanda Colmer. -- anunciou a voz mecânica. Os aplausos de Jacques foram consonantes com os aplausos de toda a plateia, que tomaram o auditório enquanto uma simpática senhora de cabelos curtos e brancos sorria, mostrando algumas rugas no rosto e vestindo um paletó lilás por trás de uma mesa grande, enquanto esperava as pausas terminarem. 
 
--- Obrigada, antes de tudo, ao convite para estar aqui. Desde que assumi o ministério, perdi um pouco esse vínculo com a academia, e afirmo que é muito bom estar de volta. Participar de tais debates foi muito importante para renovar as ideias, e manter acesa a intelectualidade, que eu tenho que tolher um pouco para não atrapalhar o meu cargo de ministra... - Amanda baixou o microfone e deu um sorriso enquanto duraram as risadas e os aplausos. - Eu queria brevemente, neste encerramento, remontar à fala do professor Jacques Würt, que além de meu aluno foi meu colega em Nova Paris, em dois pontos. Primeiramente, pela importância de considerar toda a experiência histórica na análise da contemporaneidade. É um clichê necessário dizer que não estudar a história é se condenar a cometer os mesmos erros. E necessário também é afirmar que o foco do estudo histórico deveria ser, em vez da história por si só, não cometer os mesmos erros. - Mais uma vez Amanda foi interrompida por aplausos, e mais uma vez esperou com sorrisos. 
+-- Obrigada, antes de tudo, ao convite para estar aqui. Desde que assumi o ministério, perdi um pouco esse vínculo com a academia, e afirmo que é muito bom estar de volta. Participar de tais debates foi muito importante para renovar as ideias, e manter acesa a intelectualidade, que eu tenho que tolher um pouco para não atrapalhar o meu cargo de ministra... -- Amanda baixou o microfone e deu um sorriso enquanto duraram as risadas e os aplausos. -- Eu queria brevemente, neste encerramento, remontar à fala do professor Jacques Würt, que além de meu aluno foi meu colega em Nova Paris, em dois pontos. Primeiramente, pela importância de considerar toda a experiência histórica na análise da contemporaneidade. É um clichê necessário dizer que não estudar a história é se condenar a cometer os mesmos erros. E necessário também é afirmar que o foco do estudo histórico deveria ser, em vez da história por si só, não cometer os mesmos erros. -- Mais uma vez Amanda foi interrompida por aplausos, e mais uma vez esperou com sorrisos. 
 
--- E, finalmente, lembrar da fala final do professor Jacques. Se fizermos política pensando apenas no nossos interesses de grupo, um dia seremos condenados a ter outro grupo tendo outros interesses que não os nossos. Já passamos por tantas crises traumáticas neste mundo, que não pensar no interesse do mundo todo não terá outro resultado que não a nossa própria morte. Obrigado. - Amanda levantou-se, e segurou o microfone com as duas mãos abaixo da cintura, mexendo os ombros e sorrindo enquanto o público a aplaudia de pé. Jacques ajeitou seu caderno no casaco marrom, e ajeitou mais uma vez o cachecol roxo, enquanto escutava a voz mecânica pela última vez: 
+-- E, finalmente, lembrar da fala final do professor Jacques. Se fizermos política pensando apenas no nossos interesses de grupo, um dia seremos condenados a ter outro grupo tendo outros interesses que não os nossos. Já passamos por tantas crises traumáticas neste mundo, que não pensar no interesse do mundo todo não terá outro resultado que não a nossa própria morte. Obrigado. -- Amanda levantou-se, e segurou o microfone com as duas mãos abaixo da cintura, mexendo os ombros e sorrindo enquanto o público a aplaudia de pé. Jacques ajeitou seu caderno no casaco marrom, e ajeitou mais uma vez o cachecol roxo, enquanto escutava a voz mecânica pela última vez: 
 
 -- Com a fala da Ministra da Ciência e Tecnologia, doutora Amanda Colmer, nós encerramos as atividades do VI Congresso de Economia e Política de Pólis. Aproveitem nosso coffee break de despedida, e tenham um bom retorno aos seus lares. 
 
 Jacques enchia seu copo de café, quando sentiu seu ombro sendo tocado. 
 
--- Finalmente uma mente sã por aqui. - disse Amanda, com um sorriso, e os braços abertos. Jacques a abraçou. 
+-- Finalmente uma mente sã por aqui. -- disse Amanda, com um sorriso, e os braços abertos. Jacques a abraçou. 
 
 -- Professora! Nem me fale. Você fez muita falta por aqui. 
 
-Amanda segurou as mãos de Jacques: - Eu tentei te encontrar ontem, depois da sua apresentação, mas não consegui te encontrar no café. 
+Amanda segurou as mãos de Jacques: -- Eu tentei te encontrar ontem, depois da sua apresentação, mas não consegui te encontrar no café. 
 
--- Ah, professora, se eu soubesse que você estava aqui, tinha te esperado. - Jacques olhou para os lados. - Eu estava cansado dos preconceitos, dos assuntos rasos, do machismo... 
+-- Ah, professora, se eu soubesse que você estava aqui, tinha te esperado. -- Jacques olhou para os lados. -- Eu estava cansado dos preconceitos, dos assuntos rasos, do machismo... 
 
--- É, Jacques, nós já conversamos muito sobre isso em volta de café. - disse Amanda, enchendo uma xícara de café, e se afastando da mesa. - As burrices do meio acadêmico ainda levam um tempo para se perderem. 
+-- É, Jacques, nós já conversamos muito sobre isso em volta de café. -- disse Amanda, enchendo uma xícara de café, e se afastando da mesa. -- As burrices do meio acadêmico ainda levam um tempo para se perderem. 
 
 -- E você ainda tem esperança? 
 
@@ -247,7 +247,7 @@ Jacques estalou o dedo:
 
 -- Preciso te levar para conhecer alguém, Amanda! Agora! 
 
-Amanda riu: - Tudo bem, Jacques. É breve? 
+Amanda riu: -- Tudo bem, Jacques. É breve? 
 
 -- É aqui perto! É na praça no caminho para o hotel. 
 
@@ -259,15 +259,15 @@ Amanda riu: - Tudo bem, Jacques. É breve?
 
 Quando chegaram lá, Jacques viu o banco vazio, apenas com um pequeno pacote marrom repousando no assento. Abriu o pacote, e viu milhos crus. Jogou-os no chão, e rapidamente vieram os pombos. 
 
--- Onde está essa famigerada pessoa? - perguntou Amanda, sentando ao lado dele. 
+-- Onde está essa famigerada pessoa? -- perguntou Amanda, sentando ao lado dele. 
 
 -- Acho que ainda não chegou. 
 
 Amanda olhou para o lado, e viu uma menina vindo, segurando um balão em formato de peixe. Ela era pequena, tinha cabelos loiros até os ombros, e um vestidinho verde como seus olhos arregalados. A pequena menina cantava alguma coisa alegremente, e parou quando chegou em frente a Jacques. 
 
--- Meu irmão vai encontrar com seu amigo, e pediu para que eu te desse esse recado. - disse a Jacques, estendendo um pedaço de papel. 
+-- Meu irmão vai encontrar com seu amigo, e pediu para que eu te desse esse recado. -- disse a Jacques, estendendo um pedaço de papel. 
 
--- Obrigado. - disse Jacques. - Meu amigo virá? 
+-- Obrigado. -- disse Jacques. -- Meu amigo virá? 
 
 -- Acho que não. Toda vez é a mesma coisa. Eles sentam e falam “bla-bla-blá, bla-bla-blá, bla-bla-blá”, depois ficam cem anos sem se falar. Quando nosso outro irmão voltou, eles se falaram mais. Mas agora, é só “bla-bla-blá, bla-bla-blá, bla-bla-blá” de novo. Bom, tchau. 
 
@@ -289,7 +289,7 @@ Jacques suspirou, e Amanda levantou de seu ombro.
 
 -- Foi ele que me salvou da loucura nesses dois dias, Amanda. Foi inacreditável: eu estava tendo uma conversa mais lúcida com um morador de rua que acredita ter vivido antes da Grande Explosão que com nossos colegas no congresso. Ele sabia muita coisa: sabia até mesmo da produção de armas no subsolo de Vergnügen. 
 
-Amanda levantou a cabeça: - Eu não sabia nem que você sabia isso, Jacques. 
+Amanda levantou a cabeça: -- Eu não sabia nem que você sabia isso, Jacques. 
 
 -- Participamos de uma reunião no congresso, ano passado, sobre isso, lembra-se? 
 
@@ -305,6 +305,6 @@ Amanda suspirou, e pôs a mão no ombro de Jacques.
 
 -- Não, querido, eu ligo para ela. Comer a comida da Emily é uma obrigação de esposa, não um prazer. Ela tenta, é super dedicada, mas eu já desisti de esperar avanços. 
 
-Jacques riu, enquanto se levantava, e ajeitava o cachecol: - Não era você que falava de esperança mais cedo? 
+Jacques riu, enquanto se levantava, e ajeitava o cachecol: -- Não era você que falava de esperança mais cedo? 
 
--- Ah, Jacques, eu tenho muita esperança. Com a mentalidade da Academia, com o fim da misoginia, com uma série de coisas. A comida da Emily é a única desesperança que me reservo. - respondeu Amanda, levantando-se também, numa gargalhada: - Vamos? 
+-- Ah, Jacques, eu tenho muita esperança. Com a mentalidade da Academia, com o fim da misoginia, com uma série de coisas. A comida da Emily é a única desesperança que me reservo. -- respondeu Amanda, levantando-se também, numa gargalhada: -- Vamos? 
