@@ -136,11 +136,13 @@ PAIRS = [
     # Tag-chip hover: bg-coloured label text on accent-coloured chip
     ('--bg',                 '--accent',    4.5, 'tag-chip hover (bg on accent)'),
 
-    # Admonition title text and left border (large/bold → 3:1 threshold)
-    ('--admonition-note',    '--bg-subtle', 3.0, 'admonition-note title / border'),
-    ('--admonition-tip',     '--bg-subtle', 3.0, 'admonition-tip title / border'),
-    ('--admonition-warning', '--bg-subtle', 3.0, 'admonition-warning title / border'),
-    ('--admonition-danger',  '--bg-subtle', 3.0, 'admonition-danger title / border'),
+    # Admonition title text and left border.
+    # Title CSS is font-size: 0.82rem (~13px) / font-weight: 600 — does NOT qualify
+    # as WCAG large text (requires ≥14px bold at weight 700+), so 4.5:1 applies.
+    ('--admonition-note',    '--bg-subtle', 4.5, 'admonition-note title / border'),
+    ('--admonition-tip',     '--bg-subtle', 4.5, 'admonition-tip title / border'),
+    ('--admonition-warning', '--bg-subtle', 4.5, 'admonition-warning title / border'),
+    ('--admonition-danger',  '--bg-subtle', 4.5, 'admonition-danger title / border'),
 ]
 
 
@@ -188,7 +190,7 @@ def main() -> None:
 
     print('# aires-garden — WCAG AA colour contrast audit')
     print(f'# Stylesheet: {css_path}')
-    print('# Thresholds: 4.5:1 normal body text / 3.0:1 large text & non-text')
+    print('# Threshold:  4.5:1 for all pairs (admonition titles are not WCAG large text)')
 
     total = audit(light, 'Light mode')
     total += audit(dark, 'Dark mode')

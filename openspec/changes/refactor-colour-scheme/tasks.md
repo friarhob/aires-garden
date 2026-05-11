@@ -16,14 +16,14 @@
 
 - [x] 3.1 For each failing pair, attempt a foreground adjustment first (`--text-muted`, `--accent`, `--admonition-*` colour) within the same hue family; re-run the audit after each adjustment
 - [x] 3.2 If a foreground adjustment cannot resolve the failure without breaking another pair or pushing the colour off-spec, revise `--bg` or `--bg-subtle` toward the next-lighter candidate from `tools/colour-candidates.html` (light `--bg`: η L=88% → γ'' L=90% → γ' L=92%; light `--bg-subtle`: E L=82% → D L=83% → C+ L=84%); re-run the audit
-- [ ] 3.3 Update `openspec/changes/refactor-colour-scheme/specs/design-tokens/spec.md` to reflect any final hex changes from steps 3.1/3.2 (the spec must match the values that land in CSS)
+- [x] 3.3 Update `openspec/changes/refactor-colour-scheme/specs/design-tokens/spec.md` to reflect any final hex changes from steps 3.1/3.2 (the spec must match the values that land in CSS)
 - [x] 3.4 Repeat until the audit reports zero failing pairs in both modes; commit the final audit output as part of the change record
 
 ## 4. Dedupe the token blocks
 
-- [ ] 4.1 Collapse the two light blocks (`:root` and `:root[data-theme="light"]`) into a single grouped-selector block: `:root, :root[data-theme="light"] { ... }`. Each light token name appears exactly once after this step.
-- [ ] 4.2 Verify the dark side remains as two blocks (the `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])` branch and the explicit `:root[data-theme="dark"]` override) — per Decision 5, dark cannot be fully deduped in plain CSS
-- [ ] 4.3 Confirm no `@media (prefers-color-scheme: light)` block remains anywhere in the stylesheet
+- [x] 4.1 Collapse the two light blocks (`:root` and `:root[data-theme="light"]`) into a single grouped-selector block: `:root, :root[data-theme="light"] { ... }`. Each light token name appears exactly once after this step.
+- [x] 4.2 Verify the dark side remains as two blocks (the `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])` branch and the explicit `:root[data-theme="dark"]` override) — per Decision 5, dark cannot be fully deduped in plain CSS
+- [x] 4.3 Confirm no `@media (prefers-color-scheme: light)` block remains anywhere in the stylesheet
 - [ ] 4.4 Toggle-test the rendered output in a browser: no preference → OS light → OS dark → `data-theme="light"` → `data-theme="dark"` → back to no preference. In each state, sample the computed `--bg`, `--bg-subtle`, `--text`, and `--text-heading` values against expected.
 
 ## 5. Author docs/visual-identity.md

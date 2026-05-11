@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Dark mode token set (default)
-The stylesheet SHALL define light-mode token values in `:root` as the default. Light mode uses `--bg: #E7DED4`, `--bg-subtle: #DCCEBD`, `--text: #2A1640`, `--text-heading: #2D1A4A`, `--text-muted: #7B54A0`, `--accent: #8B6209`, `--accent-display: #EDB755`, `--border: #DDD5C8`. Dark-mode token values SHALL be declared in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`. Dark mode uses `--text: #DCCEBD` and `--text-heading: #DCCEBD`.
+The stylesheet SHALL define light-mode token values in `:root` as the default. Light mode uses `--bg: #E7DED4`, `--bg-subtle: #DCCEBD`, `--text: #2A1640`, `--text-heading: #2D1A4A`, `--text-muted: #6A438E`, `--accent: #735107`, `--accent-display: #EDB755`, `--border: #DDD5C8`. Dark-mode token values SHALL be declared in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`. Dark mode uses `--text: #DCCEBD` and `--text-heading: #DCCEBD`.
 
 #### Scenario: Light palette applied without any attribute
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is light or unset
@@ -74,7 +74,7 @@ In-scope pairs (each evaluated in both light and dark modes where both sides exi
 - **THEN** every pair listed above SHALL be reported with a contrast ratio meeting its applicable threshold (4.5:1 body, 3:1 large/non-text), in both light and dark modes, with no failing rows
 
 #### Scenario: Light mode accent against background
-- **WHEN** `--accent` (`#8B6209`) is rendered on light `--bg` (`#E7DED4`)
+- **WHEN** `--accent` (`#735107`) is rendered on light `--bg` (`#E7DED4`)
 - **THEN** the contrast ratio SHALL be ≥ 4.5:1
 
 #### Scenario: Light mode accent against subtle background
@@ -93,10 +93,10 @@ Four semantic tokens SHALL express the accent colour for each admonition variant
 
 | Token | Dark value | Light value |
 |---|---|---|
-| `--admonition-note` | `#4AADBA` (teal) | `#1A7A8A` |
-| `--admonition-tip` | `#3ABAA0` (mint) | `#207860` |
-| `--admonition-warning` | `#F0C060` (matches `--accent`) | `#8B6209` (matches `--accent`) |
-| `--admonition-danger` | `#C04040` | `#A02020` |
+| `--admonition-note` | `#4AADBA` (teal) | `#0D527D` |
+| `--admonition-tip` | `#3ABAA0` (mint) | `#146528` |
+| `--admonition-warning` | `#F0C060` (matches `--accent`) | `#735107` (matches `--accent`) |
+| `--admonition-danger` | `#DE4A4A` | `#A02020` |
 
 These tokens SHALL be defined in the post-dedupe block structure: light values in the grouped `:root, :root[data-theme="light"]` selector; dark values in both `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. Admonition CSS rules SHALL reference these tokens exclusively — no direct colour literals SHALL appear in admonition rules.
 
