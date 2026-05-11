@@ -22,21 +22,14 @@
 | `fix-tag-lang-links` | 2026-05-10 | Fix tag-page language links broken by header refactor |
 | `refactor-language-selector` | 2026-05-10 | Translation-aware language picker; falls back gracefully on unmatched pages |
 | `default-light-mode` | 2026-05-10 | Light mode as default; dark honoured via `prefers-color-scheme`; ADR supersedes prior choice |
+| `refactor-colour-scheme` | 2026-05-11 | Warm palette, WCAG AA audit across all token pairs, admonition semantic tokens, `docs/visual-identity.md` |
+| `fix-typographic-punctuation` | 2026-05-11 | `smarty` extension for en/em dashes and curly quotes; updated all posts to use `--` |
 
 ---
 
 ## Planned
 
 Items are listed in intended implementation order. Dependencies are noted where they exist.
-
-### `refactor-colour-scheme`
-
-The current off-white used for text in dark mode and as the background in light mode has been flagged as too bright. This change replaces it with a less saturated alternative and audits all colour pairs in `tokens.css` against WCAG AA contrast requirements, adjusting only those that fail. Also produces a `docs/visual-identity.md` file documenting the colour palette and design token conventions.
-
-- **Scope:** small-medium — token changes, contrast audit, Markdown doc
-- **Depends on:** nothing
-
----
 
 ### `add-l10n-rendering`
 
