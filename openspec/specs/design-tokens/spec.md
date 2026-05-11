@@ -26,6 +26,10 @@ The stylesheet SHALL define light-mode token values in `:root` as the default. L
 - **WHEN** the page renders without a `data-theme` attribute and `prefers-color-scheme` is dark
 - **THEN** the background SHALL be `#130A22` and body text SHALL be `#DCCEBD`
 
+#### Scenario: Light bg and bg-subtle maintain lightness separation
+- **WHEN** the light-mode `--bg` and `--bg-subtle` values are compared in HSL space
+- **THEN** their lightness components SHALL differ by at least 6 percentage points so admonition surfaces remain visually distinct from the page background
+
 ---
 
 ### Requirement: Light mode token set (override)
@@ -42,6 +46,10 @@ Light-mode tokens SHALL be declared once in a grouped selector `:root, :root[dat
 #### Scenario: Explicit dark override
 - **WHEN** the `<html>` element carries `data-theme="dark"`
 - **THEN** the dark palette SHALL apply regardless of `prefers-color-scheme`
+
+#### Scenario: Each light token declared once
+- **WHEN** the stylesheet is inspected
+- **THEN** each light-mode token name SHALL appear in exactly one declaration block — the grouped `:root, :root[data-theme="light"]` selector — and not in two separate identical blocks
 
 ---
 
@@ -110,15 +118,38 @@ Title headings (`h1`, article titles) SHALL use lighter Fraunces weights (≤500
 
 ---
 
-### Requirement: WCAG AA contrast on interactive accent
-`--accent` in both modes SHALL meet WCAG AA contrast ratio (≥4.5:1) against `--bg` for normal-weight body text. `--accent-display` is exempt (decorative use only).
+### Requirement: WCAG AA contrast on all functional pairs
+Every colour pair that appears on a rendered page in either light or dark mode SHALL meet WCAG AA contrast: ≥4.5:1 for normal-weight body text and ≥3:1 for large text (≥18.66px regular or ≥14px bold) and non-text contrast (decorative borders that carry meaning, focus indicators). `--accent-display` is exempt (decorative use only, never sits on background as text).
 
-#### Scenario: Light mode accent contrast
-- **WHEN** `--accent` (`#735107`) is rendered on `--bg` (`#E7DED4`)
+In-scope pairs (each evaluated in both light and dark modes where both sides exist):
+
+- `text` / `bg`
+- `text-muted` / `bg`
+- `text` / `bg-subtle`
+- `text-muted` / `bg-subtle`
+- `text-heading` / `bg`
+- `accent` / `bg`
+- `accent` / `bg-subtle`
+- `bg` / `accent` (tag-chip hover renders `bg` text on `accent` background)
+- `admonition-note` / `bg-subtle`
+- `admonition-tip` / `bg-subtle`
+- `admonition-warning` / `bg-subtle`
+- `admonition-danger` / `bg-subtle`
+
+#### Scenario: Audit script reports all pairs pass
+- **WHEN** `tools/contrast_audit.py` is executed against the current token values
+- **THEN** every pair listed above SHALL be reported with a contrast ratio meeting its applicable threshold (4.5:1 body, 3:1 large/non-text), in both light and dark modes, with no failing rows
+
+#### Scenario: Light mode accent against background
+- **WHEN** `--accent` (`#735107`) is rendered on light `--bg` (`#E7DED4`)
 - **THEN** the contrast ratio SHALL be ≥ 4.5:1
 
-#### Scenario: Dark mode accent contrast
-- **WHEN** `--accent` (`#F0C060`) is rendered on `--bg` (`#130A22`)
+#### Scenario: Light mode accent against subtle background
+- **WHEN** `--accent` is rendered on light `--bg-subtle` (`#DCCEBD`)
+- **THEN** the contrast ratio SHALL be ≥ 4.5:1
+
+#### Scenario: Dark mode accent against background
+- **WHEN** `--accent` (`#F0C060`) is rendered on dark `--bg` (`#130A22`)
 - **THEN** the contrast ratio SHALL be ≥ 4.5:1
 
 ---
@@ -143,3 +174,28 @@ These tokens SHALL be defined in three token blocks: light values in the grouped
 #### Scenario: Admonition rules use only token references
 - **WHEN** the admonition CSS rules are inspected
 - **THEN** every colour value references a `var(--admonition-*)` token — no hardcoded hex values appear in admonition rules
+
+---
+
+### Requirement: Visual identity documentation
+A `docs/visual-identity.md` file SHALL exist and SHALL document the current palette, token naming conventions, mode strategy (default light, OS-driven dark via `prefers-color-scheme`, explicit `data-theme` override), typography tokens, and the WCAG AA contrast audit results.
+
+#### Scenario: Palette table present
+- **WHEN** `docs/visual-identity.md` is opened
+- **THEN** it SHALL include a table mapping each token name to its hex value and role, with light-mode and dark-mode values side-by-side
+
+#### Scenario: Token naming conventions explained
+- **WHEN** the document is read
+- **THEN** it SHALL describe what `--bg`, `--bg-subtle`, `--text`, `--text-heading`, `--text-muted`, `--accent`, `--accent-display`, `--border`, and `--admonition-*` each mean, and the rule for when to add a new token versus extend an existing one
+
+#### Scenario: Mode strategy documented
+- **WHEN** the document is read
+- **THEN** it SHALL describe how the three theme states resolve: default light mode, OS-driven dark mode via `prefers-color-scheme`, and explicit override via `data-theme`
+
+#### Scenario: Typography tokens covered
+- **WHEN** the document is read
+- **THEN** it SHALL list `--font-title`, `--font-body`, and `--body-size` with their values, the rationale for the chosen typefaces (Fraunces and IBM Plex Sans), and the `opsz`/weight conventions
+
+#### Scenario: Contrast audit results published
+- **WHEN** the document is read
+- **THEN** it SHALL include a table listing every in-use colour pair, the WCAG threshold applicable to that pair, the measured contrast ratio, and a pass indication — plus the invocation that reproduces the table (`python tools/contrast_audit.py`)
