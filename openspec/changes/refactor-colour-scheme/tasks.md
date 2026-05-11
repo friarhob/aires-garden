@@ -24,7 +24,7 @@
 - [x] 4.1 Collapse the two light blocks (`:root` and `:root[data-theme="light"]`) into a single grouped-selector block: `:root, :root[data-theme="light"] { ... }`. Each light token name appears exactly once after this step.
 - [x] 4.2 Verify the dark side remains as two blocks (the `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])` branch and the explicit `:root[data-theme="dark"]` override) — per Decision 5, dark cannot be fully deduped in plain CSS
 - [x] 4.3 Confirm no `@media (prefers-color-scheme: light)` block remains anywhere in the stylesheet
-- [ ] 4.4 Toggle-test the rendered output in a browser: no preference → OS light → OS dark → `data-theme="light"` → `data-theme="dark"` → back to no preference. In each state, sample the computed `--bg`, `--bg-subtle`, `--text`, and `--text-heading` values against expected.
+- [x] 4.4 Toggle-test the rendered output in a browser: no preference → OS light → OS dark → `data-theme="light"` → `data-theme="dark"` → back to no preference. In each state, sample the computed `--bg`, `--bg-subtle`, `--text`, and `--text-heading` values against expected.
 
 ## 5. Author docs/visual-identity.md
 
