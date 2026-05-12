@@ -79,6 +79,7 @@ class TestNewPage:
         fields, _ = read_frontmatter(f)
         assert fields["Title"] == "About"
         assert "Date" not in fields
+        assert "Slug" not in fields
 
     def test_no_per_page_directory(self, content: Path) -> None:
         runner.invoke(app, ["new", "--kind", "page", "--title", "About", "--slug", "about", "--lang", "en"])
@@ -90,7 +91,7 @@ class TestNewTagProse:
         (content / "tag-prose" / "my-tag").mkdir()
         result = runner.invoke(app, [
             "new", "--kind", "tag-prose",
-            "--title", "My Tag", "--slug", "my-tag", "--lang", "en",
+            "--title", "My Tag", "--lang", "en",
             "--tag", "my-tag", "--shape", "all",
         ])
         assert result.exit_code == 0, result.output
@@ -98,11 +99,13 @@ class TestNewTagProse:
         assert f.exists()
         fields, _ = read_frontmatter(f)
         assert fields["Status"] == "hidden"
+        assert "Slug" not in fields
+        assert "Translation_key" not in fields
 
     def test_creates_tag_dir_with_flag(self, content: Path) -> None:
         result = runner.invoke(app, [
             "new", "--kind", "tag-prose",
-            "--title", "New Tag", "--slug", "new-tag", "--lang", "en",
+            "--title", "New Tag", "--lang", "en",
             "--tag", "new-tag", "--shape", "all", "--create-tag",
         ])
         assert result.exit_code == 0, result.output
@@ -111,9 +114,43 @@ class TestNewTagProse:
     def test_refuses_missing_tag_dir_without_flag(self, content: Path) -> None:
         result = runner.invoke(app, [
             "new", "--kind", "tag-prose",
-            "--title", "X", "--slug", "x", "--lang", "en",
+            "--title", "X", "--lang", "en",
             "--tag", "nonexistent", "--shape", "all",
         ])
+        assert result.exit_code != 0
+
+    def test_tag_picker_shows_existing_tags(self, content: Path) -> None:
+        (content / "tag-prose" / "poetry").mkdir()
+        (content / "tag-prose" / "essays").mkdir()
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_select", return_value="poetry") as mock_select:
+            runner.invoke(app, [
+                "new", "--kind", "tag-prose",
+                "--title", "Poems", "--lang", "en", "--shape", "all",
+            ])
+        choices_arg = mock_select.call_args[0][1]
+        assert "poetry" in choices_arg
+        assert "essays" in choices_arg
+        assert "[new tag]" in choices_arg
+
+    def test_new_tag_sentinel_prompts_for_name(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_select", return_value="[new tag]"), \
+             patch("garden.prompts.prompt_text", side_effect=["brand-new"]), \
+             patch("garden.prompts.prompt_confirm", return_value=True):
+            result = runner.invoke(app, [
+                "new", "--kind", "tag-prose",
+                "--title", "Brand New", "--lang", "en", "--shape", "all",
+            ])
+        assert result.exit_code == 0, result.output
+        assert (content / "tag-prose" / "brand-new" / "all.en.md").exists()
+
+    def test_non_tty_requires_tag_flag(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=False):
+            result = runner.invoke(app, [
+                "new", "--kind", "tag-prose",
+                "--title", "X", "--lang", "en", "--shape", "all",
+            ])
         assert result.exit_code != 0
 
 

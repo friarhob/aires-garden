@@ -60,20 +60,21 @@ def new(
     except ValidationError as exc:
         raise typer.BadParameter(str(exc), param_hint="--title") from exc
 
-    # --- slug ---
-    if slug is None:
+    # --- slug (not applicable for tag-prose) ---
+    if kind != "tag-prose":
+        if slug is None:
+            try:
+                default_slug = _slugify(title)
+            except ValidationError as exc:
+                raise typer.BadParameter(str(exc), param_hint="--title") from exc
+            if prompts.is_tty():
+                slug = prompts.prompt_text("Slug?", default=default_slug)
+            else:
+                slug = default_slug
         try:
-            default_slug = _slugify(title)
+            validate_slug(slug)
         except ValidationError as exc:
-            raise typer.BadParameter(str(exc), param_hint="--title") from exc
-        if prompts.is_tty():
-            slug = prompts.prompt_text("Slug?", default=default_slug)
-        else:
-            slug = default_slug
-    try:
-        validate_slug(slug)
-    except ValidationError as exc:
-        raise typer.BadParameter(str(exc), param_hint="--slug") from exc
+            raise typer.BadParameter(str(exc), param_hint="--slug") from exc
 
     # --- lang ---
     if lang is None:
@@ -88,7 +89,7 @@ def new(
     elif kind == "page":
         _create_page(title, slug, lang)
     else:
-        _create_tag_prose(title, slug, lang, tag, shape, create_tag)
+        _create_tag_prose(title, lang, tag, shape, create_tag)
 
 
 def _create_post(title: str, slug: str, lang: str) -> None:
@@ -117,7 +118,6 @@ def _create_page(title: str, slug: str, lang: str) -> None:
     pages_dir.mkdir(parents=True, exist_ok=True)
     fields = {
         "Title": title,
-        "Slug": slug,
         "Lang": lang,
         "Status": "hidden",
     }
@@ -125,16 +125,30 @@ def _create_page(title: str, slug: str, lang: str) -> None:
     typer.echo(f"Created {target}")
 
 
+_NEW_TAG_SENTINEL = "[new tag]"
+
+
 def _create_tag_prose(
     title: str,
-    slug: str,
     lang: str,
     tag: str | None,
     shape: str | None,
     create_tag: bool,
 ) -> None:
+    tag_prose_root = _CONTENT_ROOT / "tag-prose"
+    existing_tags = sorted(d.name for d in tag_prose_root.iterdir() if d.is_dir()) if tag_prose_root.exists() else []
+
     if tag is None:
-        tag = prompts.prompt_text("Tag name?")
+        if prompts.is_tty():
+            choices = existing_tags + [_NEW_TAG_SENTINEL]
+            chosen = prompts.prompt_select("Tag?", choices)
+            if chosen == _NEW_TAG_SENTINEL:
+                tag = prompts.prompt_text("New tag name (kebab-case):")
+            else:
+                tag = chosen
+        else:
+            raise typer.BadParameter("--tag is required in non-interactive mode.", param_hint="--tag")
+
     if shape is None:
         shape = prompts.prompt_select("Prose shape?", list(PROSE_SHAPES))
     if shape not in PROSE_SHAPES:
@@ -160,7 +174,6 @@ def _create_tag_prose(
     _refuse_if_exists(target)
     fields = {
         "Title": title,
-        "Slug": slug,
         "Lang": lang,
         "Status": "hidden",
     }
