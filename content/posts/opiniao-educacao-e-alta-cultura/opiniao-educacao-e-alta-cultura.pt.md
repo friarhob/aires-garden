@@ -3,7 +3,7 @@ Slug: opiniao-educacao-e-alta-cultura
 Date: 2026-05-12
 Lang: pt
 Translation_key: opiniao-educacao-e-alta-cultura
-Status: draft
+Status: published
 Tags: Tempos Fantásticos, Published Works
 
 !!! tip

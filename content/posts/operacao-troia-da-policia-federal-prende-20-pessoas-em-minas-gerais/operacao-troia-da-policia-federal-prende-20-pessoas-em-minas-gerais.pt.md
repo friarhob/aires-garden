@@ -3,7 +3,7 @@ Slug: operacao-troia-da-policia-federal-prende-20-pessoas-em-minas-gerais
 Date: 2026-05-12
 Lang: pt
 Translation_key: operacao-troia-da-policia-federal-prende-20-pessoas-em-minas-gerais
-Status: draft
+Status: published
 Tags: Tempos Fantásticos, Published Works
 
 _Fernando Aires, de um presente alternativo_
