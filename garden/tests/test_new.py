@@ -6,7 +6,9 @@ import pytest
 from typer.testing import CliRunner
 
 from garden.cli import app
+from garden.commands.new import _slugify
 from garden.frontmatter_io import read_frontmatter
+from garden.validation import ValidationError
 
 runner = CliRunner()
 
@@ -130,3 +132,24 @@ class TestNonTtyMode:
         with patch("garden.prompts.is_tty", return_value=False):
             result = runner.invoke(app, ["new", "--kind", "post", "--title", "X", "--slug", "x"])
         assert result.exit_code != 0
+
+
+class TestSlugify:
+    def test_plain_ascii_unchanged(self) -> None:
+        assert _slugify("Hello World") == "hello-world"
+
+    def test_portuguese_accents(self) -> None:
+        assert _slugify("Água no Balão") == "agua-no-balao"
+
+    def test_french_accents(self) -> None:
+        assert _slugify("crème brûlée") == "creme-brulee"
+
+    def test_spanish_accents(self) -> None:
+        assert _slugify("Año Nuevo") == "ano-nuevo"
+
+    def test_multiple_spaces_collapsed(self) -> None:
+        assert _slugify("hello   world") == "hello-world"
+
+    def test_title_with_no_alphanumeric_raises(self) -> None:
+        with pytest.raises(ValidationError):
+            _slugify("!!!")

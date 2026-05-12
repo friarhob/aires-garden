@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from datetime import date
 from pathlib import Path
 from typing import Annotated, Optional
@@ -24,10 +25,13 @@ PROSE_SHAPES = ("all", "lang")
 
 
 def _slugify(title: str) -> str:
-    slug = title.lower().strip()
+    slug = unicodedata.normalize("NFD", title.lower().strip())
+    slug = "".join(c for c in slug if unicodedata.category(c) != "Mn")
     slug = re.sub(r"[^a-z0-9]+", "-", slug)
     slug = slug.strip("-")
-    return slug or "untitled"
+    if not slug:
+        raise ValidationError(f"title {title!r} produces an empty slug after normalisation")
+    return slug
 
 
 def new(
@@ -58,7 +62,10 @@ def new(
 
     # --- slug ---
     if slug is None:
-        default_slug = _slugify(title)
+        try:
+            default_slug = _slugify(title)
+        except ValidationError as exc:
+            raise typer.BadParameter(str(exc), param_hint="--title") from exc
         if prompts.is_tty():
             slug = prompts.prompt_text("Slug?", default=default_slug)
         else:
