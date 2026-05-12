@@ -64,8 +64,9 @@ This change improves the CLI interaction model:
 - Handle the case where the post list grows large: how to present and filter it is a design question to resolve during implementation.
 - Shell tab completion (Typer has built-in support for this) is an alternative worth exploring during design: `garden publish <Tab>` could autocomplete slugs without changing the prompt flow at all.
 - `garden new --kind tag-prose` should allow the user to select from the tags that currently exist, and create a structure relevant (e.g., no adding Slug: as a parameter, as current behaviour does).
+- when creating new posts, slugs suggestions should be generated with letters instead of accented letters (eg., "Água no Balão" becomes `agua-no-balao` instead of `gua-no-bal-o`), replicating how tag slugs are being generated.
 
-- **Scope:** medium — interactive picker UX across multiple commands; design discovery on list size and exact command scope
+- **Scope:** large — interactive picker UX across multiple commands; design discovery on list size and exact command scope; slug generation refactor
 - **Depends on:** `add-python-cli` (shipped)
 
 ---
