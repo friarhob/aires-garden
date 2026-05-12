@@ -1,4 +1,5 @@
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 from typer.testing import CliRunner
@@ -93,3 +94,27 @@ class TestTranslateTagProse:
         assert result.exit_code == 0, result.output
         target = content / "tag-prose" / "my-tag" / "all.pt.md"
         assert target.exists()
+
+
+class TestTranslateSlugPicker:
+    def test_slug_omitted_non_tty_exits_nonzero(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=False):
+            result = runner.invoke(app, ["translate", "--to", "pt", "--slug", "ola", "--title", "Olá"])
+        assert result.exit_code != 0
+
+    def test_slug_omitted_tty_calls_picker(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_slug_picker", return_value="hello-world") as mock_picker, \
+             patch("garden.prompts.prompt_text", return_value="Olá"):
+            result = runner.invoke(app, ["translate", "--to", "pt", "--slug", "ola", "--title", "Olá"])
+        assert result.exit_code == 0, result.output
+        mock_picker.assert_called_once()
+
+    def test_slug_supplied_skips_picker(self, content: Path) -> None:
+        with patch("garden.prompts.prompt_slug_picker") as mock_picker:
+            runner.invoke(app, ["translate", "hello-world", "--to", "pt", "--slug", "ola", "--title", "Olá"])
+        mock_picker.assert_not_called()
+
+    def test_missing_to_flag_exits_nonzero(self, content: Path) -> None:
+        result = runner.invoke(app, ["translate", "hello-world", "--slug", "ola", "--title", "Olá"])
+        assert result.exit_code != 0

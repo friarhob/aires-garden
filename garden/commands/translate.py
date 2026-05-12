@@ -14,18 +14,32 @@ _CONTENT_ROOT = Path("content")
 
 
 def translate(
-    slug: Annotated[str, typer.Argument(help="Source file's Slug value")],
-    to: Annotated[str, typer.Option("--to", help="Target ISO 639-1 language code")],
+    slug: Annotated[Optional[str], typer.Argument(help="Source file's Slug value (omit to select interactively)")] = None,
+    to: Annotated[Optional[str], typer.Option("--to", help="Target ISO 639-1 language code")] = None,
     slug_new: Annotated[Optional[str], typer.Option("--slug", help="Slug for the new file")] = None,
     title_new: Annotated[Optional[str], typer.Option("--title", help="Title for the new file")] = None,
 ) -> None:
     """Create a paired-language file from an existing source."""
+    if to is None:
+        raise typer.BadParameter("--to is required", param_hint="--to")
     try:
         validate_lang(to)
     except ValidationError as exc:
         raise typer.BadParameter(str(exc), param_hint="--to") from exc
 
     index = walk_content(_CONTENT_ROOT)
+
+    if slug is None:
+        if prompts.is_tty():
+            posts = [cf for cf in index if cf.kind == "post"]
+            if not posts:
+                typer.echo("Error: no posts found in content tree.", err=True)
+                raise typer.Exit(1)
+            slug = prompts.prompt_slug_picker(posts, "Select source post:")
+        else:
+            typer.echo("Error: slug is required in non-interactive mode.", err=True)
+            raise typer.Exit(1)
+
     source = find_by_slug(index, slug)
     if source is None:
         typer.echo(f"Error: no file found with Slug: {slug!r}", err=True)
