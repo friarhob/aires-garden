@@ -18,3 +18,6 @@ A tragédia começou quando Rei Léo, de seu gabinete, abriu fogo contra a polí
 
 No meio do tiroteio, todos os pacientes se perderam e sumiram das vistas dos olhos dos policiais. As famílias dos pacientes não conseguiram encontrar nenhum deles, e o secretário de segurança grão-mogolense, Caio Kent, pediu paciência enquanto equipes de busca varrem o perímetro da cidade. “Tenho certeza que em breve teremos notícias que tranquilizarão os familiares”. O rumor nas ruas, no entanto, não confia nas palavras do secretário, e o acusa de estar, ironicamente, mais perdido que os cegos do tiroteio.
 
+!!! tip "Textos relacionados com a temática de ditados populares a causar problemas"
+    * [Operação “Troia”, da Polícia Federal, prende 20 pessoas em Minas Gerais](/operacao-troia-da-policia-federal-prende-20-pessoas-em-minas-gerais/)
+    * [Opinião - Educação e alta cultura](/opiniao-educacao-e-alta-cultura/)
