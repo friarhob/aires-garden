@@ -69,6 +69,20 @@ This change improves the CLI interaction model:
 
 ---
 
+### `add-optional-subtitle`
+
+The current post format doesn't support posts to have subtitles/subheads/captions. This change introduces:
+
+- A new field `Subtitle:` in the current post template.
+- An updated CLI to contemplate that (including receiving it as param on `garden new`, or requesting in the iteration).
+- An updated `styles.css` with formatting for the subtitle. Eventually this will lead to updates in `visual-identity.md`, and even `contrast_audit.py`.
+- The templates should contemplate it being optional, and keep the formatting as is in case of empty subtitle.
+
+- **Scope:** large — new element in posts, CLI scaffold addition, theme template redesign.
+- **Depends on:** nothing
+
+---
+
 
 ## Deferred
 
