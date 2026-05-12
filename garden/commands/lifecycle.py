@@ -13,11 +13,23 @@ _CONTENT_ROOT = Path("content")
 
 
 def _resolve_targets(
-    slug: str,
+    slug: str | None,
     all_translations: bool | None,
     content_root: Path,
 ) -> list[ContentFile]:
     index = walk_content(content_root)
+
+    if slug is None:
+        if prompts.is_tty():
+            posts = [cf for cf in index if cf.kind == "post"]
+            if not posts:
+                typer.echo("Error: no posts found in content tree.", err=True)
+                raise typer.Exit(1)
+            slug = prompts.prompt_slug_picker(posts, "Select post:")
+        else:
+            typer.echo("Error: slug is required in non-interactive mode.", err=True)
+            raise typer.Exit(1)
+
     source = find_by_slug(index, slug)
     if source is None:
         typer.echo(f"Error: no file found with Slug: {slug!r}", err=True)
@@ -91,7 +103,7 @@ def _run_lifecycle(
 
 
 def publish(
-    slug: Annotated[str, typer.Argument(help="Slug of the file to publish")],
+    slug: Annotated[Optional[str], typer.Argument(help="Slug of the file to publish (omit to select interactively)")] = None,
     all_translations: Annotated[Optional[bool], typer.Option("--all-translations/--no-all-translations", help="Apply to every translation")] = None,
     force: Annotated[bool, typer.Option("--force", help="Bypass refusal checks")] = False,
 ) -> None:
@@ -105,7 +117,7 @@ def publish(
 
 
 def draft(
-    slug: Annotated[str, typer.Argument(help="Slug of the file to revert to draft")],
+    slug: Annotated[Optional[str], typer.Argument(help="Slug of the file to revert to draft (omit to select interactively)")] = None,
     all_translations: Annotated[Optional[bool], typer.Option("--all-translations/--no-all-translations", help="Apply to every translation")] = None,
     force: Annotated[bool, typer.Option("--force", help="Bypass refusal checks")] = False,
 ) -> None:
@@ -119,7 +131,7 @@ def draft(
 
 
 def archive(
-    slug: Annotated[str, typer.Argument(help="Slug of the file to archive")],
+    slug: Annotated[Optional[str], typer.Argument(help="Slug of the file to archive (omit to select interactively)")] = None,
     all_translations: Annotated[Optional[bool], typer.Option("--all-translations/--no-all-translations", help="Apply to every translation")] = None,
     force: Annotated[bool, typer.Option("--force", help="Bypass refusal checks")] = False,
 ) -> None:

@@ -173,3 +173,27 @@ class TestAllTranslations:
         assert result.exit_code == 0
         fields, _ = read_frontmatter(content / "posts" / "hello" / "hello.en.md")
         assert fields["Status"] == "published"
+
+
+class TestSlugPicker:
+    def test_slug_omitted_non_tty_exits_nonzero(self, content: Path) -> None:
+        _make_post(content, "hello", "en", "draft")
+        with patch("garden.prompts.is_tty", return_value=False):
+            result = runner.invoke(app, ["publish", "--no-all-translations"])
+        assert result.exit_code != 0
+
+    def test_slug_omitted_tty_calls_picker(self, content: Path) -> None:
+        _make_post(content, "hello", "en", "draft")
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_slug_picker", return_value="hello") as mock_picker:
+            result = runner.invoke(app, ["publish", "--no-all-translations"])
+        assert result.exit_code == 0, result.output
+        mock_picker.assert_called_once()
+        fields, _ = read_frontmatter(content / "posts" / "hello" / "hello.en.md")
+        assert fields["Status"] == "published"
+
+    def test_slug_supplied_skips_picker(self, content: Path) -> None:
+        _make_post(content, "hello", "en", "draft")
+        with patch("garden.prompts.prompt_slug_picker") as mock_picker:
+            runner.invoke(app, ["publish", "hello", "--no-all-translations"])
+        mock_picker.assert_not_called()
