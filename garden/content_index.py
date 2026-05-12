@@ -14,6 +14,7 @@ class ContentFile:
     lang: str
     translation_key: str
     status: str
+    title: str = ""
 
 
 def _infer_kind(path: Path, content_root: Path) -> str:
@@ -46,6 +47,7 @@ def walk_content(content_root: Path) -> list[ContentFile]:
                 lang=lang,
                 translation_key=fields.get("Translation_key", slug),
                 status=fields.get("Status", ""),
+                title=fields.get("Title", ""),
             )
         )
     return records
