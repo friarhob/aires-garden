@@ -3,7 +3,7 @@ Slug: entidade-assistencial-sofre-motim-que-acaba-em-trag-dia
 Date: 2026-05-12
 Lang: pt
 Translation_key: entidade-assistencial-sofre-motim-que-acaba-em-trag-dia
-Status: draft
+Status: published
 Tags: Tempos Fantásticos, Published Works
 
 _Fernando Aires, de um presente alternativo_
