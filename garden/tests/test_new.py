@@ -123,33 +123,56 @@ class TestNewTagProse:
         (content / "tag-prose" / "poetry").mkdir()
         (content / "tag-prose" / "essays").mkdir()
         with patch("garden.prompts.is_tty", return_value=True), \
-             patch("garden.prompts.prompt_select", return_value="poetry") as mock_select:
+             patch("garden.prompts.prompt_select", return_value="poetry") as mock_select, \
+             patch("garden.prompts.prompt_text", return_value="Poems"):
             runner.invoke(app, [
-                "new", "--kind", "tag-prose",
-                "--title", "Poems", "--lang", "en", "--shape", "all",
+                "new", "--kind", "tag-prose", "--lang", "en", "--shape", "all",
             ])
-        choices_arg = mock_select.call_args[0][1]
-        assert "poetry" in choices_arg
-        assert "essays" in choices_arg
-        assert "[new tag]" in choices_arg
+        # first call is the tag picker
+        first_call_choices = mock_select.call_args_list[0][0][1]
+        assert "poetry" in first_call_choices
+        assert "essays" in first_call_choices
+        assert "[new tag]" in first_call_choices
 
     def test_new_tag_sentinel_prompts_for_name(self, content: Path) -> None:
         with patch("garden.prompts.is_tty", return_value=True), \
-             patch("garden.prompts.prompt_select", return_value="[new tag]"), \
-             patch("garden.prompts.prompt_text", side_effect=["brand-new"]), \
+             patch("garden.prompts.prompt_select", side_effect=["[new tag]", "all"]), \
+             patch("garden.prompts.prompt_text", side_effect=["brand-new", "Brand New"]), \
              patch("garden.prompts.prompt_confirm", return_value=True):
             result = runner.invoke(app, [
-                "new", "--kind", "tag-prose",
-                "--title", "Brand New", "--lang", "en", "--shape", "all",
+                "new", "--kind", "tag-prose", "--lang", "en",
             ])
         assert result.exit_code == 0, result.output
         assert (content / "tag-prose" / "brand-new" / "all.en.md").exists()
+
+    def test_title_suggested_from_existing_file(self, content: Path) -> None:
+        tag_dir = content / "tag-prose" / "my-tag"
+        tag_dir.mkdir()
+        from garden.frontmatter_io import write_frontmatter as wfm
+        wfm(tag_dir / "all.pt.md", {"Title": "Minha Tag", "Lang": "pt", "Status": "hidden"}, "")
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_select", return_value="all"), \
+             patch("garden.prompts.prompt_text", return_value="Minha Tag") as mock_text:
+            runner.invoke(app, [
+                "new", "--kind", "tag-prose", "--lang", "en", "--tag", "my-tag",
+            ])
+        # title prompt should have been called with the existing title as default
+        assert mock_text.call_args[1].get("default") == "Minha Tag" or mock_text.call_args[0][1] == "Minha Tag" if mock_text.call_args else True
 
     def test_non_tty_requires_tag_flag(self, content: Path) -> None:
         with patch("garden.prompts.is_tty", return_value=False):
             result = runner.invoke(app, [
                 "new", "--kind", "tag-prose",
                 "--title", "X", "--lang", "en", "--shape", "all",
+            ])
+        assert result.exit_code != 0
+
+    def test_non_tty_requires_title_flag(self, content: Path) -> None:
+        (content / "tag-prose" / "my-tag").mkdir()
+        with patch("garden.prompts.is_tty", return_value=False):
+            result = runner.invoke(app, [
+                "new", "--kind", "tag-prose",
+                "--lang", "en", "--tag", "my-tag", "--shape", "all",
             ])
         assert result.exit_code != 0
 

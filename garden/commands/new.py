@@ -9,7 +9,7 @@ from typing import Annotated, Optional
 import typer
 
 from garden import prompts
-from garden.frontmatter_io import write_frontmatter
+from garden.frontmatter_io import read_frontmatter, write_frontmatter
 from garden.validation import (
     KINDS,
     ValidationError,
@@ -52,13 +52,14 @@ def new(
     except ValidationError as exc:
         raise typer.BadParameter(str(exc), param_hint="--kind") from exc
 
-    # --- title ---
-    if title is None:
-        title = prompts.prompt_text("Title?")
-    try:
-        validate_title(title)
-    except ValidationError as exc:
-        raise typer.BadParameter(str(exc), param_hint="--title") from exc
+    # --- title (tag-prose defers this until the tag is known) ---
+    if kind != "tag-prose":
+        if title is None:
+            title = prompts.prompt_text("Title?")
+        try:
+            validate_title(title)
+        except ValidationError as exc:
+            raise typer.BadParameter(str(exc), param_hint="--title") from exc
 
     # --- slug (not applicable for tag-prose) ---
     if kind != "tag-prose":
@@ -89,7 +90,7 @@ def new(
     elif kind == "page":
         _create_page(title, slug, lang)
     else:
-        _create_tag_prose(title, lang, tag, shape, create_tag)
+        _create_tag_prose(title, lang, tag, shape, create_tag)  # title may be None here
 
 
 def _create_post(title: str, slug: str, lang: str) -> None:
@@ -129,7 +130,7 @@ _NEW_TAG_SENTINEL = "[new tag]"
 
 
 def _create_tag_prose(
-    title: str,
+    title: str | None,
     lang: str,
     tag: str | None,
     shape: str | None,
@@ -138,6 +139,7 @@ def _create_tag_prose(
     tag_prose_root = _CONTENT_ROOT / "tag-prose"
     existing_tags = sorted(d.name for d in tag_prose_root.iterdir() if d.is_dir()) if tag_prose_root.exists() else []
 
+    # 1. Resolve tag first so title suggestion can read from existing files.
     if tag is None:
         if prompts.is_tty():
             choices = existing_tags + [_NEW_TAG_SENTINEL]
@@ -149,6 +151,30 @@ def _create_tag_prose(
         else:
             raise typer.BadParameter("--tag is required in non-interactive mode.", param_hint="--tag")
 
+    # 2. Suggest title from any existing file in the tag directory.
+    tag_dir = _CONTENT_ROOT / "tag-prose" / tag
+    title_default: str | None = None
+    if tag_dir.exists():
+        for existing in sorted(tag_dir.glob("*.md")):
+            try:
+                fields, _ = read_frontmatter(existing)
+                if fields.get("Title"):
+                    title_default = fields["Title"]
+                    break
+            except Exception:
+                pass
+
+    # 3. Resolve title (may have been passed via --title flag).
+    if title is None:
+        if prompts.is_tty():
+            title = prompts.prompt_text("Title?", default=title_default)
+        else:
+            raise typer.BadParameter("--title is required in non-interactive mode.", param_hint="--title")
+    try:
+        validate_title(title)
+    except ValidationError as exc:
+        raise typer.BadParameter(str(exc), param_hint="--title") from exc
+
     if shape is None:
         shape = prompts.prompt_select("Prose shape?", list(PROSE_SHAPES))
     if shape not in PROSE_SHAPES:
@@ -157,7 +183,6 @@ def _create_tag_prose(
             param_hint="--shape",
         )
 
-    tag_dir = _CONTENT_ROOT / "tag-prose" / tag
     if not tag_dir.exists():
         if prompts.is_tty() and not create_tag:
             confirmed = prompts.prompt_confirm(f"Tag directory {tag_dir} does not exist. Create it?", default=True)
