@@ -6,7 +6,7 @@ Translation_key: invasor-em-cidade-do-interior-de-sp-assusta-fi-is-na-sa-da-da-i
 Status: published
 Tags: Tempos Fantásticos, Published Works
 
-_Fernando Aires, de um passado alternativo_
+_Fernando Aires, do passado alternativo_
 
 A comunidade da freguesia do Senhor Bom Jesus dos Aflitos de Pirassununga, no município de Limeira, foi surpreendida por um desconhecido na freguesia na saída da missa que celebrava os quinze anos do lugar, no 6 de agosto de 1838. Os moradores viram, na saída da Igreja, um homem com roupas estranhas e sujas, olhos arregalados e ofegante, parecendo perdido.
 
