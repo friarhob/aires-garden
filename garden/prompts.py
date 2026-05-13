@@ -45,13 +45,21 @@ def prompt_confirm(message: str, default: bool | None = None) -> bool:
     return result
 
 
+def prompt_checkbox(message: str, choices: list[str]) -> list[str]:
+    _require_tty(message)
+    result = questionary.checkbox(message, choices=choices).ask()
+    if result is None:
+        raise typer.Abort()
+    return result
+
+
 def prompt_slug_picker(posts: list[ContentFile], message: str) -> str:
     _require_tty(message)
     choices = [
         f"{cf.slug} — {cf.title} ({cf.lang}, {cf.status})"
         for cf in posts
     ]
-    result = questionary.autocomplete(message, choices=choices).ask()
+    result = questionary.select(message, choices=choices).ask()
     if result is None:
         raise typer.Abort()
     return result.split(" — ")[0].strip()

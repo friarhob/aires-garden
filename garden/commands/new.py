@@ -52,7 +52,7 @@ def new(
     except ValidationError as exc:
         raise typer.BadParameter(str(exc), param_hint="--kind") from exc
 
-    # --- title (tag-prose defers this until the tag is known) ---
+    # --- title (tag-prose defers this until each tag is known) ---
     if kind != "tag-prose":
         if title is None:
             title = prompts.prompt_text("Title?")
@@ -99,6 +99,22 @@ def _create_post(title: str, slug: str, lang: str) -> None:
     _refuse_if_exists(target)
     post_dir.mkdir(parents=True, exist_ok=True)
     (post_dir / "assets").mkdir(exist_ok=True)
+
+    tags_str = ""
+    if prompts.is_tty():
+        available = _available_raw_tags(_CONTENT_ROOT)
+        choices = available + [_NEW_TAG_SENTINEL]
+        selected = prompts.prompt_checkbox("Tags? (optional, space to select)", choices)
+        resolved: list[str] = []
+        for item in selected:
+            if item == _NEW_TAG_SENTINEL:
+                new_tag = prompts.prompt_text("New tag name:")
+                if new_tag.strip():
+                    resolved.append(new_tag.strip())
+            else:
+                resolved.append(item)
+        tags_str = ", ".join(resolved)
+
     fields = {
         "Title": title,
         "Slug": slug,
@@ -106,7 +122,7 @@ def _create_post(title: str, slug: str, lang: str) -> None:
         "Lang": lang,
         "Translation_key": slug,
         "Status": "draft",
-        "Tags": "",
+        "Tags": tags_str,
     }
     write_frontmatter(target, fields, "")
     typer.echo(f"Created {target}")
@@ -129,6 +145,54 @@ def _create_page(title: str, slug: str, lang: str) -> None:
 _NEW_TAG_SENTINEL = "[new tag]"
 
 
+def _available_raw_tags(content_root: Path) -> list[str]:
+    """Return sorted display-form tag strings from existing posts and tag-prose dirs."""
+    seen: dict[str, str] = {}  # slug → first display form seen
+    posts_dir = content_root / "posts"
+    if posts_dir.exists():
+        for md in sorted(posts_dir.rglob("*.md")):
+            try:
+                fields, _ = read_frontmatter(md)
+                for raw in fields.get("Tags", "").split(","):
+                    raw = raw.strip()
+                    if raw:
+                        try:
+                            slug = _slugify(raw)
+                            if slug not in seen:
+                                seen[slug] = raw
+                        except ValidationError:
+                            pass
+            except Exception:
+                pass
+    tag_prose_dir = content_root / "tag-prose"
+    if tag_prose_dir.exists():
+        for d in sorted(tag_prose_dir.iterdir()):
+            if d.is_dir() and d.name not in seen:
+                seen[d.name] = d.name
+    return sorted(seen.values(), key=str.lower)
+
+
+def _tag_slugs_from_posts(content_root: Path) -> set[str]:
+    """Return slug forms of every tag referenced in any post frontmatter."""
+    slugs: set[str] = set()
+    posts_dir = content_root / "posts"
+    if not posts_dir.exists():
+        return slugs
+    for md in posts_dir.rglob("*.md"):
+        try:
+            fields, _ = read_frontmatter(md)
+            for raw_tag in fields.get("Tags", "").split(","):
+                raw_tag = raw_tag.strip()
+                if raw_tag:
+                    try:
+                        slugs.add(_slugify(raw_tag))
+                    except ValidationError:
+                        pass
+        except Exception:
+            pass
+    return slugs
+
+
 def _create_tag_prose(
     title: str | None,
     lang: str,
@@ -137,12 +201,14 @@ def _create_tag_prose(
     create_tag: bool,
 ) -> None:
     tag_prose_root = _CONTENT_ROOT / "tag-prose"
-    existing_tags = sorted(d.name for d in tag_prose_root.iterdir() if d.is_dir()) if tag_prose_root.exists() else []
+    existing_prose_tags = {d.name for d in tag_prose_root.iterdir() if d.is_dir()} if tag_prose_root.exists() else set()
+    post_tags = _tag_slugs_from_posts(_CONTENT_ROOT)
+    all_tags = sorted(existing_prose_tags | post_tags)
 
     # 1. Resolve tag first so title suggestion can read from existing files.
     if tag is None:
         if prompts.is_tty():
-            choices = existing_tags + [_NEW_TAG_SENTINEL]
+            choices = all_tags + [_NEW_TAG_SENTINEL]
             chosen = prompts.prompt_select("Tag?", choices)
             if chosen == _NEW_TAG_SENTINEL:
                 tag = prompts.prompt_text("New tag name (kebab-case):")
