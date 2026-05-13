@@ -16,14 +16,19 @@ def _resolve_targets(
     slug: str | None,
     all_translations: bool | None,
     content_root: Path,
+    allowed_from: set[str] | None = None,
 ) -> list[ContentFile]:
     index = walk_content(content_root)
 
     if slug is None:
         if prompts.is_tty():
-            posts = [cf for cf in index if cf.kind == "post"]
+            posts = [
+                cf for cf in index
+                if cf.kind == "post"
+                and (allowed_from is None or cf.status in allowed_from)
+            ]
             if not posts:
-                typer.echo("Error: no posts found in content tree.", err=True)
+                typer.echo("Error: no eligible posts found in content tree.", err=True)
                 raise typer.Exit(1)
             slug = prompts.prompt_slug_picker(posts, "Select post:")
         else:
@@ -92,7 +97,7 @@ def _run_lifecycle(
     to_state: str,
     refusal_hint: str,
 ) -> None:
-    targets = _resolve_targets(slug, all_translations, _CONTENT_ROOT)
+    targets = _resolve_targets(slug, all_translations, _CONTENT_ROOT, allowed_from=allowed_from)
     refused = _validate_transition(targets, allowed_from, force)
     if refused:
         typer.echo("Error: the following files cannot transition:", err=True)
