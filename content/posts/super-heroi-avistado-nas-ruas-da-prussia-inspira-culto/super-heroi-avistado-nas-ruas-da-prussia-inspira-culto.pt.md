@@ -3,7 +3,7 @@ Slug: super-heroi-avistado-nas-ruas-da-prussia-inspira-culto
 Date: 2026-05-13
 Lang: pt
 Translation_key: super-heroi-avistado-nas-ruas-da-prussia-inspira-culto
-Status: draft
+Status: published
 Tags: Published Works, Tempos Fantásticos
 
 _Fernando Aires, do passado_

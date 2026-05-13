@@ -3,7 +3,7 @@ Slug: nem-chuva-atrapalha-o-sucesso-da-virada-cultural-classica
 Date: 2026-05-13
 Lang: pt
 Translation_key: nem-chuva-atrapalha-o-sucesso-da-virada-cultural-classica
-Status: draft
+Status: published
 Tags: Published Works, Tempos Fantásticos
 
 _Fernando Aires, de um presente alternativo_
