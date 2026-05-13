@@ -24,6 +24,7 @@
 | `default-light-mode` | 2026-05-10 | Light mode as default; dark honoured via `prefers-color-scheme`; ADR supersedes prior choice |
 | `refactor-colour-scheme` | 2026-05-11 | Warm palette, WCAG AA audit across all token pairs, admonition semantic tokens, `docs/visual-identity.md` |
 | `fix-typographic-punctuation` | 2026-05-11 | `smarty` extension for en/em dashes and curly quotes; updated all posts to use `--` |
+| `smarter-cli` | 2026-05-13 | Interactive slug picker for lifecycle/translate, Unicode slug normalisation, tag-prose picker, page/tag-prose frontmatter fixes |
 
 ---
 
@@ -54,29 +55,13 @@ The current homepage is a flat list of recent posts. This change introduces:
 
 ---
 
-### `smarter-cli`
-
-The current CLI requires a slug argument for every command that acts on existing content. This has two problems: the user must remember the exact slug, and omitting the slug currently fails immediately even in TTY mode (despite the spec requiring an interactive prompt).
-
-This change improves the CLI interaction model:
-
-- When a slug is omitted in TTY mode, show an interactive searchable list of all posts to select from, rather than erroring. Commands affected: lifecycle commands (`publish`, `draft`, `archive`) and `translate` — exact scope to confirm during design.
-- Handle the case where the post list grows large: how to present and filter it is a design question to resolve during implementation.
-- Shell tab completion (Typer has built-in support for this) is an alternative worth exploring during design: `garden publish <Tab>` could autocomplete slugs without changing the prompt flow at all.
-- `garden new --kind tag-prose` should allow the user to select from the tags that currently exist, and create a structure relevant (e.g., no adding Slug: as a parameter, as current behaviour does).
-- when creating new posts, slugs suggestions should be generated with letters instead of accented letters (eg., "Água no Balão" becomes `agua-no-balao` instead of `gua-no-bal-o`), replicating how tag slugs are being generated.
-
-- **Scope:** large — interactive picker UX across multiple commands; design discovery on list size and exact command scope; slug generation refactor
-- **Depends on:** `add-python-cli` (shipped)
-
----
-
 ### `add-optional-subtitle`
 
 The current post format doesn't support posts to have subtitles/subheads/captions. This change introduces:
 
 - A new field `Subtitle:` in the current post template.
 - An updated CLI to contemplate that (including receiving it as param on `garden new`, or requesting in the iteration).
+- An updated `frontmatter_lint` to handle the new optional field.
 - An updated `styles.css` with formatting for the subtitle. Eventually this will lead to updates in `visual-identity.md`, and even `contrast_audit.py`.
 - The templates should contemplate it being optional, and keep the formatting as is in case of empty subtitle.
 
