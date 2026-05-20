@@ -44,6 +44,21 @@ garden archive my-post --all-translations                           # published 
 garden lint                                                         # validate frontmatter
 ```
 
+### Intro content
+
+Short editorial passages that appear above the post catalogue on the homepage. Files live in `content/intro/` (see examples there).
+
+```bash
+# Cross-language root (/) intro
+garden new --kind intro --title "What this garden is" --scope all --lang en
+
+# Per-language corner (/en/) intro
+garden new --kind intro --title "The English corner" --scope lang --lang en
+```
+
+`scope all` → displayed on `/` (multi-language inference picks the right section).
+`scope lang` → displayed on `/<lang>/` only.
+
 Any argument can be omitted and the CLI will prompt interactively.
 
 ## Content syntax

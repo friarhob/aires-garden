@@ -76,8 +76,8 @@
 
 ## 9. Documentation
 
-- [ ] 9.1 Update `README.md` to mention `garden new --kind intro` in the authoring section and link to `content/intro/` for examples
-- [ ] 9.2 Update `docs/visual-identity.md` to document the catalogue card pattern (grid template, card structure, dashed-rule meta footer) under a new "Patterns" or "Components" section — short, just enough that the design intent is recoverable
+- [x] 9.1 Update `README.md` to mention `garden new --kind intro` in the authoring section and link to `content/intro/` for examples
+- [x] 9.2 Update `docs/visual-identity.md` to document the catalogue card pattern (grid template, card structure, dashed-rule meta footer) under a new "Patterns" or "Components" section — short, just enough that the design intent is recoverable
 
 ## 10. End-to-end verification
 

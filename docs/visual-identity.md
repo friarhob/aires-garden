@@ -117,3 +117,44 @@ python tools/contrast_audit.py
 | `--admonition-tip / --bg-subtle` | 8.33 | 4.5 | PASS | admonition-tip title / border |
 | `--admonition-warning / --bg-subtle` | 11.87 | 4.5 | PASS | admonition-warning title / border |
 | `--admonition-danger / --bg-subtle` | 4.96 | 4.5 | PASS | admonition-danger title / border |
+
+---
+
+## Patterns
+
+### Catalogue card
+
+Used on the homepage (`/` and `/<lang>/`) to display post groups.
+
+```html
+<a href="…" class="catalogue-card">
+    <span class="card-title">Post title (3-line clamp)</span>
+    <div></div>
+    <div class="card-meta">
+        <time datetime="YYYY-MM-DD">date string</time>
+        <span class="langs"><span class="lang-chip">EN</span></span>
+    </div>
+</a>
+```
+
+Grid container: `grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))`.
+Card template rows: `auto 1fr auto` (title / spacer / meta). Title clamped to 3 lines.
+Meta footer: dashed `var(--border)` top rule; date + lang chips right-aligned.
+Hover: `border-color: var(--accent)`, `transform: translateY(-1px)`.
+No new tokens — all colours from existing design tokens.
+
+### Intro region
+
+Used above the catalogue on `/` (all-language) and `/<lang>/` (per-language).
+
+```html
+<section class="intro">
+    <section class="intro-body" data-lang="en">…rendered HTML…</section>
+</section>
+```
+
+Left border: `3px solid var(--accent-display)`. Max-width on paragraphs: `65ch`.
+On `/`: multiple `intro-body` sections, one per language. An inline script picks the
+appropriate one based on stored preference → browser language → default → alphabetic-first.
+JS-disabled fallback: all sections visible.
+On `/<lang>/`: single `intro-body`, no script needed.
