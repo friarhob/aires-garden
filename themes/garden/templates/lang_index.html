@@ -5,22 +5,42 @@
 {%- endfor -%}
 {% block title %}{{ page_lang | upper }} — {{ SITENAME }}{% endblock %}
 {% block content %}
-    <h1>Posts ({{ page_lang | upper }})</h1>
     {% if SITE_LANGS | length >= 2 %}
     <p class="page-langs">Also in:
         <a href="{{ SITEURL }}/">All</a>{% for lang in SITE_LANGS | sort %}{% if lang != page_lang %} · <a href="{{ SITEURL }}/{{ lang }}/">{{ lang | upper }}</a>{% endif %}{% endfor %}
     </p>
     {% endif %}
+    {% if (page_number is not defined or page_number == 1) and INTRO_LANG is defined and INTRO_LANG.get(page_lang) %}
+    <section class="intro">
+        <section class="intro-body" data-lang="{{ page_lang }}">{{ INTRO_LANG[page_lang] }}</section>
+    </section>
+    {% endif %}
+    <h2 class="catalogue-heading">Recent posts ({{ page_lang | upper }})</h2>
     {% if articles %}
-    <ul>
-    {% for article in articles %}
-        <li>
-            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-            <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-        </li>
-    {% endfor %}
-    </ul>
+    <section class="catalogue">
+        <div class="catalogue-grid">
+        {% for article in articles %}
+            <a href="{{ SITEURL }}/{{ article.url }}" class="catalogue-card">
+                <span class="card-title">{{ article.title }}</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                    <span class="langs"><span class="lang-chip">{{ page_lang | upper }}</span></span>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    </section>
     {% else %}
     <p>No posts in this language yet.</p>
+    {% endif %}
+    {% if total_pages is defined and total_pages > 1 %}
+    <nav class="pagination">
+        {% if page_number > 1 %}<a href="{{ SITEURL }}/{{ page_lang }}/{% if page_number > 2 %}page/{{ page_number - 1 }}/{% endif %}">← Previous</a>{% else %}<span class="disabled">← Previous</span>{% endif %}
+        {% for n in range(1, total_pages + 1) %}
+            {% if n == page_number %}<span class="current">{{ n }}</span>{% elif n == 1 %}<a href="{{ SITEURL }}/{{ page_lang }}/">{{ n }}</a>{% else %}<a href="{{ SITEURL }}/{{ page_lang }}/page/{{ n }}/">{{ n }}</a>{% endif %}
+        {% endfor %}
+        {% if page_number < total_pages %}<a href="{{ SITEURL }}/{{ page_lang }}/page/{{ page_number + 1 }}/">Next →</a>{% else %}<span class="disabled">Next →</span>{% endif %}
+    </nav>
     {% endif %}
 {% endblock %}

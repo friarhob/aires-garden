@@ -528,3 +528,160 @@ article figcaption {
     border-radius: 2px;
     overflow: hidden;
 }
+
+/* ------------------------------------------------------------------ */
+/* Intro region                                                         */
+/* ------------------------------------------------------------------ */
+.intro {
+    margin: 1.5rem 0 2rem;
+    border-left: 3px solid var(--accent-display);
+    padding-left: 1.25rem;
+}
+
+.intro-body {
+    max-width: 65ch;
+}
+
+.intro-body p {
+    margin-bottom: 0.75rem;
+}
+
+.intro-body p:last-child {
+    margin-bottom: 0;
+}
+
+.intro-body.intro-hidden {
+    display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Catalogue heading                                                    */
+/* ------------------------------------------------------------------ */
+.catalogue-heading {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 2rem 0 1rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Catalogue grid + cards                                               */
+/* ------------------------------------------------------------------ */
+.catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.catalogue-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.6rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    transition: border-color 0.15s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.catalogue-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.catalogue-card .card-title {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 24;
+    line-height: 1.25;
+    letter-spacing: 0.005em;
+    color: var(--text-heading);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.catalogue-card:hover .card-title {
+    color: var(--accent);
+}
+
+.catalogue-card .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.catalogue-card time {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.catalogue-card .langs {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.lang-chip {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.1em 0.35em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pagination nav                                                       */
+/* ------------------------------------------------------------------ */
+nav.pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    font-size: 0.85rem;
+}
+
+nav.pagination a,
+nav.pagination span {
+    display: inline-block;
+    padding: 0.3em 0.7em;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+nav.pagination a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+nav.pagination .current {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+}
+
+nav.pagination .disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}

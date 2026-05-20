@@ -1,0 +1,49 @@
+{% if INTRO_ALL %}
+    <section class="intro">
+    {% for lang, html in INTRO_ALL.items() %}
+        <section class="intro-body" data-lang="{{ lang }}">{{ html }}</section>
+    {% endfor %}
+    </section>
+    <script>
+    (function () {
+      var sections = document.querySelectorAll('.intro-body[data-lang]');
+      if (!sections.length) { return; }
+
+      var available = [];
+      for (var i = 0; i < sections.length; i++) {
+        available.push(sections[i].dataset.lang);
+      }
+
+      var target;
+
+      // Stage 1: stored language preference
+      try {
+        var pref = localStorage.getItem('garden-lang');
+        if (pref && available.indexOf(pref) !== -1) { target = pref; }
+      } catch (e) {}
+
+      // Stage 2: browser language
+      if (!target) {
+        var nav = ((navigator.language || '') + '').slice(0, 2).toLowerCase();
+        if (nav && available.indexOf(nav) !== -1) { target = nav; }
+      }
+
+      // Stage 3: default lang from html element
+      if (!target) {
+        var def = document.documentElement.dataset.defaultLang || '{{ DEFAULT_LANG }}';
+        if (def && available.indexOf(def) !== -1) { target = def; }
+      }
+
+      // Stage 4: alphabetically-first emitted section
+      if (!target) { target = available[0]; }
+
+      for (var j = 0; j < sections.length; j++) {
+        if (sections[j].dataset.lang !== target) {
+          sections[j].classList.add('intro-hidden');
+        } else {
+          sections[j].classList.add('is-active');
+        }
+      }
+    }());
+    </script>
+{% endif %}

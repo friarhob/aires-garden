@@ -89,41 +89,95 @@ def _select_for_lang(articles, lang):
     return matching
 
 
+def _paginate(items, page_size):
+    """Chunk items into pages of page_size. Always returns at least one page."""
+    if not items:
+        return [[]]
+    return [items[i:i + page_size] for i in range(0, len(items), page_size)]
+
+
 def on_finalized(pelican):
     if _article_generator is None:
         return
 
+    settings = pelican.settings
     site_langs = _article_generator.context.get("SITE_LANGS", [])
+    homepage_groups = _article_generator.context.get("HOMEPAGE_GROUPS", [])
+    page_size = settings.get("HOMEPAGE_PAGINATION", 0) or 0
+
     if not site_langs:
         return
 
     articles = _all_articles(_article_generator)
-    output_path = Path(pelican.settings["OUTPUT_PATH"])
+    output_path = Path(settings["OUTPUT_PATH"])
+    siteurl = settings.get("SITEURL", "")
     env = _article_generator.env
-    try:
-        template = env.get_template("lang_index.html")
-    except Exception:
-        return
 
     base_context = {
         **_article_generator.context,
-        "SITEURL": pelican.settings.get("SITEURL", ""),
-        "SITENAME": pelican.settings.get("SITENAME", ""),
-        "DEFAULT_LANG": pelican.settings.get("DEFAULT_LANG", "en"),
+        "SITEURL": siteurl,
+        "SITENAME": settings.get("SITENAME", ""),
+        "DEFAULT_LANG": settings.get("DEFAULT_LANG", "en"),
     }
     base_context.pop("articles", None)
+
+    # --- Root homepage pagination ---
+    try:
+        index_template = env.get_template("index.html")
+    except Exception:
+        index_template = None
+
+    if index_template and homepage_groups and page_size > 0:
+        group_pages = _paginate(homepage_groups, page_size)
+        total = len(group_pages)
+        for page_num, page_groups in enumerate(group_pages, 1):
+            rendered = index_template.render(
+                **base_context,
+                homepage_groups=page_groups,
+                page_number=page_num,
+                total_pages=total,
+                page_kind="index",
+            )
+            if page_num == 1:
+                (output_path / "index.html").write_text(rendered, encoding="utf-8")
+            else:
+                page_dir = output_path / "page" / str(page_num)
+                page_dir.mkdir(parents=True, exist_ok=True)
+                (page_dir / "index.html").write_text(rendered, encoding="utf-8")
+
+    # --- Per-language pagination ---
+    try:
+        lang_template = env.get_template("lang_index.html")
+    except Exception:
+        return
 
     for lang in site_langs:
         articles_for_lang = _select_for_lang(articles, lang)
         out_dir = output_path / lang
         out_dir.mkdir(parents=True, exist_ok=True)
-        rendered = template.render(
-            **base_context,
-            page_lang=lang,
-            articles=articles_for_lang,
-            page_kind="lang_index",
-        )
-        (out_dir / "index.html").write_text(rendered, encoding="utf-8")
+
+        if page_size > 0:
+            article_pages = _paginate(articles_for_lang, page_size)
+            total = len(article_pages)
+        else:
+            article_pages = [articles_for_lang]
+            total = 1
+
+        for page_num, page_articles in enumerate(article_pages, 1):
+            rendered = lang_template.render(
+                **base_context,
+                page_lang=lang,
+                articles=page_articles,
+                page_number=page_num,
+                total_pages=total,
+                page_kind="lang_index",
+            )
+            if page_num == 1:
+                (out_dir / "index.html").write_text(rendered, encoding="utf-8")
+            else:
+                page_dir = out_dir / "page" / str(page_num)
+                page_dir.mkdir(parents=True, exist_ok=True)
+                (page_dir / "index.html").write_text(rendered, encoding="utf-8")
 
 
 def register():

@@ -41,38 +41,38 @@
 
 ## 5. Templates: catalogue layout
 
-- [ ] 5.1 In `themes/garden/templates/index.html`, replace `<ul>...<li>` with the catalogue markup: `<section class="catalogue">` → `<div class="catalogue-grid">` → `<a class="catalogue-card">` per group; each card carries `.card-title`, `.card-meta` with `<time datetime>` and `.langs` of `<span class="lang-chip">`
-- [ ] 5.2 In `themes/garden/templates/lang_index.html`, apply the same catalogue markup; each card's `.langs` shows exactly one chip for the page language
-- [ ] 5.3 Card `href` mirrors the existing homepage rules: cross-language card links to default-lang translation when available, else alphabetically-first; per-language card links to its single article
-- [ ] 5.4 Confirm `make devbuild` succeeds and the new markup is present in `output/index.html` and `output/<lang>/index.html`
+- [x] 5.1 In `themes/garden/templates/index.html`, replace `<ul>...<li>` with the catalogue markup: `<section class="catalogue">` → `<div class="catalogue-grid">` → `<a class="catalogue-card">` per group; each card carries `.card-title`, `.card-meta` with `<time datetime>` and `.langs` of `<span class="lang-chip">`
+- [x] 5.2 In `themes/garden/templates/lang_index.html`, apply the same catalogue markup; each card's `.langs` shows exactly one chip for the page language
+- [x] 5.3 Card `href` mirrors the existing homepage rules: cross-language card links to default-lang translation when available, else alphabetically-first; per-language card links to its single article
+- [x] 5.4 Confirm `make devbuild` succeeds and the new markup is present in `output/index.html` and `output/<lang>/index.html`
 
 ## 6. Templates: intro region
 
-- [ ] 6.1 In `themes/garden/templates/index.html`, render `<section class="intro">` containing one `<section class="intro-body" data-lang="<lang>">` per key in `INTRO_ALL`; omit the wrapper if `INTRO_ALL` is empty; place it between the per-page lang-links bar and the catalogue heading
-- [ ] 6.2 In `themes/garden/templates/lang_index.html`, render `<section class="intro">` containing the single `INTRO_LANG[page_lang]` body if present; omit otherwise; same placement
-- [ ] 6.3 Create `themes/garden/templates/_intro_inference_script.html`: inline `<script>` (≤ 50 lines, no external resources) implementing stages 1–4 of the inference chain (stored preference → `navigator.language` → `data-default-lang` → alphabetically-first emitted section); include only in `index.html`, never in `lang_index.html`
+- [x] 6.1 In `themes/garden/templates/index.html`, render `<section class="intro">` containing one `<section class="intro-body" data-lang="<lang>">` per key in `INTRO_ALL`; omit the wrapper if `INTRO_ALL` is empty; place it between the per-page lang-links bar and the catalogue heading
+- [x] 6.2 In `themes/garden/templates/lang_index.html`, render `<section class="intro">` containing the single `INTRO_LANG[page_lang]` body if present; omit otherwise; same placement
+- [x] 6.3 Create `themes/garden/templates/_intro_inference_script.html`: inline `<script>` (≤ 50 lines, no external resources) implementing stages 1–4 of the inference chain (stored preference → `navigator.language` → `data-default-lang` → alphabetically-first emitted section); include only in `index.html`, never in `lang_index.html`
 - [ ] 6.4 Verify the inference script: stage 1 — set `localStorage["garden-lang"] = "pt"` and reload `/`, only `<section data-lang="pt">` visible; stage 2 — clear storage, set browser language to `pt`, only `<section data-lang="pt">` visible; stage 3 — neither matches, `data-default-lang="en"` shows `en`; stage 4 — none match, alphabetically-first section visible
 - [ ] 6.5 Verify JS-disabled fallback: every `<section class="intro-body" data-lang>` is visible
 
 ## 7. Styling
 
-- [ ] 7.1 Add `.intro` and `.intro-body` rules to `themes/garden/static/css/styles.css`: left rule in `var(--accent-display)`, padding, max-width on paragraphs; `.intro-body[data-lang]:not(.is-active) { display: none; }` for the JS-driven toggle
-- [ ] 7.2 Add `.catalogue`, `.catalogue-grid`, `.catalogue-card` rules: grid-template-columns `repeat(auto-fill, minmax(280px, 1fr))`; card uses `grid-template-rows: auto 1fr auto`; title clamp via `-webkit-line-clamp: 3`; meta row separated by a dashed `var(--border)` rule
-- [ ] 7.3 Add `.card-title`, `.card-meta`, `time`, `.langs`, `.lang-chip` rules — reuse existing design tokens; no new tokens introduced
-- [ ] 7.4 Add `nav.pagination` rules — prev/next links and numbered pages, with `.current` pill in `var(--accent)`
-- [ ] 7.5 Remove obsolete `main ul li` rules from the article-list section that are no longer used (tag pages and other surfaces still use `<ul>` — keep rules that other templates depend on; only remove what's truly orphaned)
+- [x] 7.1 Add `.intro` and `.intro-body` rules to `themes/garden/static/css/styles.css`: left rule in `var(--accent-display)`, padding, max-width on paragraphs; `.intro-body[data-lang]:not(.is-active) { display: none; }` for the JS-driven toggle
+- [x] 7.2 Add `.catalogue`, `.catalogue-grid`, `.catalogue-card` rules: grid-template-columns `repeat(auto-fill, minmax(280px, 1fr))`; card uses `grid-template-rows: auto 1fr auto`; title clamp via `-webkit-line-clamp: 3`; meta row separated by a dashed `var(--border)` rule
+- [x] 7.3 Add `.card-title`, `.card-meta`, `time`, `.langs`, `.lang-chip` rules — reuse existing design tokens; no new tokens introduced
+- [x] 7.4 Add `nav.pagination` rules — prev/next links and numbered pages, with `.current` pill in `var(--accent)`
+- [x] 7.5 Remove obsolete `main ul li` rules from the article-list section that are no longer used (tag pages and other surfaces still use `<ul>` — keep rules that other templates depend on; only remove what's truly orphaned)
 - [ ] 7.6 Visual review in `make dev`: light mode and dark mode, three viewport widths (mobile ~375px, tablet ~768px, desktop ~1200px); verify grid reflow, title clamp, dashed rule legibility, hover states
-- [ ] 7.7 Run `python tools/contrast_audit.py` and confirm no regressions (no new tokens, but verify the existing pairs still pass)
+- [x] 7.7 Run `python tools/contrast_audit.py` and confirm no regressions (no new tokens, but verify the existing pairs still pass)
 
 ## 8. Pagination
 
-- [ ] 8.1 Add `DEFAULT_PAGINATION = 12` to `pelicanconf.py`; confirm `make devbuild` paginates `/` once post count > 12 (add temporary fake posts if needed to test, then remove)
-- [ ] 8.2 Confirm Pelican emits `/page/2/`, `/page/3/`, … without additional configuration
-- [ ] 8.3 Investigate per-language pagination: determine whether `i18n_grouping` plugin's `/<lang>/` output goes through Pelican's paginator. If not, extend the plugin to emit `<lang>/page/2/` pages OR switch the per-language template to a paginator-friendly approach
-- [ ] 8.4 If the per-language pagination approach deviates significantly from Pelican-native, promote the decision to an ADR (`0012-home-pagination.md`) per design.md's open-question note
-- [ ] 8.5 Add a `<nav class="pagination">` block to both `index.html` and `lang_index.html` rendering: prev link (disabled on page 1), numbered pages with `.current` marker, next link (disabled on last page)
-- [ ] 8.6 Hide the intro region on pages other than the first (`{% if page_number == 1 %}` or equivalent — page 1 carries intro, page 2+ does not)
-- [ ] 8.7 Verify rendered output: `output/index.html` has intro + catalogue + pagination; `output/page/2/index.html` has catalogue + pagination only; same for per-language
+- [x] 8.1 Add `DEFAULT_PAGINATION = 12` to `pelicanconf.py`; confirm `make devbuild` paginates `/` once post count > 12 (add temporary fake posts if needed to test, then remove)
+- [x] 8.2 Confirm Pelican emits `/page/2/`, `/page/3/`, … without additional configuration
+- [x] 8.3 Investigate per-language pagination: determine whether `i18n_grouping` plugin's `/<lang>/` output goes through Pelican's paginator. If not, extend the plugin to emit `<lang>/page/2/` pages OR switch the per-language template to a paginator-friendly approach
+- [x] 8.4 If the per-language pagination approach deviates significantly from Pelican-native, promote the decision to an ADR (`0012-home-pagination.md`) per design.md's open-question note
+- [x] 8.5 Add a `<nav class="pagination">` block to both `index.html` and `lang_index.html` rendering: prev link (disabled on page 1), numbered pages with `.current` marker, next link (disabled on last page)
+- [x] 8.6 Hide the intro region on pages other than the first (`{% if page_number == 1 %}` or equivalent — page 1 carries intro, page 2+ does not)
+- [x] 8.7 Verify rendered output: `output/index.html` has intro + catalogue + pagination; `output/page/2/index.html` has catalogue + pagination only; same for per-language
 
 ## 9. Documentation
 
