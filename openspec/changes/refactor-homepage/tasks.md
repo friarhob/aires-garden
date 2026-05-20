@@ -82,17 +82,17 @@
 
 ## 10. End-to-end verification
 
-- [ ] 10.1 Run `garden lint` — exit 0
-- [ ] 10.2 Run `make build` — succeeds with no warnings
-- [ ] 10.3 Open `output/index.html` in a browser, verify: intro region with EN section visible (default-lang inference), catalogue grid with all post groups, pagination if applicable
-- [ ] 10.4 Open `output/en/index.html` and `output/pt/index.html`, verify per-language intro and catalogue
-- [ ] 10.5 Open `output/page/2/index.html` if pagination triggered, verify no intro region and catalogue continues
-- [ ] 10.6 Click each language in the header lang picker on `/` and verify it switches the visible intro section (preference write + section-toggle)
-- [ ] 10.7 Disable JavaScript in browser, reload `/`, verify all `<section class="intro-body" data-lang>` blocks are visible (graceful degradation)
+- [x] 10.1 Run `garden lint` — exit 0
+- [x] 10.2 Run `make build` — succeeds with no warnings
+- [x] 10.3 Open `output/index.html` in a browser, verify: intro region with EN section visible (default-lang inference), catalogue grid with all post groups, pagination if applicable
+- [x] 10.4 Open `output/en/index.html` and `output/pt/index.html`, verify per-language intro and catalogue
+- [x] 10.5 Open `output/page/2/index.html` if pagination triggered, verify no intro region and catalogue continues
+- [x] 10.6 Click each language in the header lang picker on `/` and verify it switches the visible intro section (preference write + section-toggle)
+- [x] 10.7 Disable JavaScript in browser, reload `/`, verify all `<section class="intro-body" data-lang>` blocks are visible (graceful degradation)
 
 ## 11. Deploy validation gate
 
-- [ ] 11.1 Push branch to remote
-- [ ] 11.2 Monitor GitHub Actions `build-and-deploy` workflow; confirm green
+- [x] 11.1 Push branch to remote
+- [x] 11.2 Monitor GitHub Actions `build-and-deploy` workflow; confirm green — completed in 41 s
 - [ ] 11.3 Open the deployed site, repeat verification steps 10.3–10.7 against production URL
 - [ ] 11.4 Ask user: "Deploy validated. Ready to finalise with /garden:finalise?"
