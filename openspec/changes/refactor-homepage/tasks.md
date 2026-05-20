@@ -53,6 +53,7 @@
 - [x] 6.3 Create `themes/garden/templates/_intro_inference_script.html`: inline `<script>` (≤ 50 lines, no external resources) implementing stages 1–4 of the inference chain (stored preference → `navigator.language` → `data-default-lang` → alphabetically-first emitted section); include only in `index.html`, never in `lang_index.html`
 - [ ] 6.4 Verify the inference script: stage 1 — set `localStorage["garden-lang"] = "pt"` and reload `/`, only `<section data-lang="pt">` visible; stage 2 — clear storage, set browser language to `pt`, only `<section data-lang="pt">` visible; stage 3 — neither matches, `data-default-lang="en"` shows `en`; stage 4 — none match, alphabetically-first section visible
 - [ ] 6.5 Verify JS-disabled fallback: every `<section class="intro-body" data-lang>` is visible
+- [x] 6.6 Use intro `Title` as page `<h1>`: update `intro_pages` to expose `{title, html}` dicts; render title as `<h1>` inside each `intro-body`; fall back to `<h1>Posts</h1>` (index) and `<h1>Posts ({{ page_lang | upper }})</h1>` (lang_index) when no intro is present or on pages 2+; restyle `.catalogue-heading` to Fraunces subheading in `--text-muted`
 
 ## 7. Styling
 

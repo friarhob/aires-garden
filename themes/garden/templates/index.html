@@ -14,6 +14,9 @@
     {% endif %}
     {%- if page_number is not defined or page_number == 1 -%}
     {% include "_intro_inference_script.html" %}
+    {%- if not INTRO_ALL %}<h1>Posts</h1>{%- endif -%}
+    {%- else -%}
+    <h1>Posts</h1>
     {%- endif -%}
     <h2 class="catalogue-heading">Recent posts</h2>
     {%- set groups = homepage_groups if homepage_groups is defined else HOMEPAGE_GROUPS -%}

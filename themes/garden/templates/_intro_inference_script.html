@@ -1,7 +1,7 @@
 {% if INTRO_ALL %}
     <section class="intro">
-    {% for lang, html in INTRO_ALL.items() %}
-        <section class="intro-body" data-lang="{{ lang }}">{{ html }}</section>
+    {% for lang, section in INTRO_ALL.items() %}
+        <section class="intro-body" data-lang="{{ lang }}"><h1>{{ section.title }}</h1>{{ section.html }}</section>
     {% endfor %}
     </section>
     <script>

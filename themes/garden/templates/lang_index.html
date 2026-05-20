@@ -12,8 +12,10 @@
     {% endif %}
     {% if (page_number is not defined or page_number == 1) and INTRO_LANG is defined and INTRO_LANG.get(page_lang) %}
     <section class="intro">
-        <section class="intro-body" data-lang="{{ page_lang }}">{{ INTRO_LANG[page_lang] }}</section>
+        <section class="intro-body" data-lang="{{ page_lang }}"><h1>{{ INTRO_LANG[page_lang].title }}</h1>{{ INTRO_LANG[page_lang].html }}</section>
     </section>
+    {% else %}
+    <h1>Posts ({{ page_lang | upper }})</h1>
     {% endif %}
     <h2 class="catalogue-heading">Recent posts ({{ page_lang | upper }})</h2>
     {% if articles %}

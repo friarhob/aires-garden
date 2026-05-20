@@ -54,7 +54,9 @@ def test_all_en_populates_intro_all(tmp_path: Path) -> None:
     gen = _make_generator(tmp_path)
     on_article_generator_finalized(gen)
     assert "en" in gen.context["INTRO_ALL"]
-    assert "Hello world" in gen.context["INTRO_ALL"]["en"]
+    entry = gen.context["INTRO_ALL"]["en"]
+    assert entry["title"] == "All EN"
+    assert "Hello world" in entry["html"]
     assert gen.context["INTRO_LANG"] == {}
 
 
@@ -63,6 +65,7 @@ def test_all_pt_populates_intro_all(tmp_path: Path) -> None:
     gen = _make_generator(tmp_path)
     on_article_generator_finalized(gen)
     assert "pt" in gen.context["INTRO_ALL"]
+    assert gen.context["INTRO_ALL"]["pt"]["title"] == "All PT"
     assert gen.context["INTRO_LANG"] == {}
 
 
@@ -75,7 +78,9 @@ def test_lang_pt_populates_intro_lang(tmp_path: Path) -> None:
     gen = _make_generator(tmp_path)
     on_article_generator_finalized(gen)
     assert "pt" in gen.context["INTRO_LANG"]
-    assert "Canto português" in gen.context["INTRO_LANG"]["pt"]
+    entry = gen.context["INTRO_LANG"]["pt"]
+    assert entry["title"] == "Lang PT"
+    assert "Canto português" in entry["html"]
     assert gen.context["INTRO_ALL"] == {}
 
 
@@ -91,6 +96,8 @@ def test_multiple_files_split_by_scope(tmp_path: Path) -> None:
     on_article_generator_finalized(gen)
     assert set(gen.context["INTRO_ALL"].keys()) == {"en", "pt"}
     assert set(gen.context["INTRO_LANG"].keys()) == {"en"}
+    assert gen.context["INTRO_ALL"]["en"]["title"] == "All EN"
+    assert gen.context["INTRO_LANG"]["en"]["title"] == "Lang EN"
 
 
 # ---------------------------------------------------------------------------
@@ -101,6 +108,6 @@ def test_renders_markdown_to_html(tmp_path: Path) -> None:
     _write_intro(tmp_path, "all.en.md", "**Bold** text.", "en", "X")
     gen = _make_generator(tmp_path)
     on_article_generator_finalized(gen)
-    html = gen.context["INTRO_ALL"]["en"]
+    html = gen.context["INTRO_ALL"]["en"]["html"]
     assert "<strong>Bold</strong>" in html
     assert "**" not in html

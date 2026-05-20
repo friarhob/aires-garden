@@ -44,8 +44,8 @@ def on_article_generator_finalized(generator) -> None:
     md_settings = settings.get("MARKDOWN", {})
     intro_dir = content_path / "intro"
 
-    intro_all: dict[str, str] = {}
-    intro_lang: dict[str, str] = {}
+    intro_all: dict[str, dict] = {}
+    intro_lang: dict[str, dict] = {}
 
     if intro_dir.is_dir():
         for path in sorted(intro_dir.glob("*.md")):
@@ -54,12 +54,13 @@ def on_article_generator_finalized(generator) -> None:
             if len(parts) != 2:
                 continue
             scope, lang = parts
-            _metadata, body = _parse_intro_file(path)
+            metadata, body = _parse_intro_file(path)
             rendered = _render_markdown(body, md_settings)
+            entry = {"title": metadata.get("Title", ""), "html": rendered}
             if scope == "all":
-                intro_all[lang] = rendered
+                intro_all[lang] = entry
             elif scope == "lang":
-                intro_lang[lang] = rendered
+                intro_lang[lang] = entry
 
     generator.context["INTRO_ALL"] = intro_all
     generator.context["INTRO_LANG"] = intro_lang
