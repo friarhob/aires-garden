@@ -1,5 +1,5 @@
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404", "dev_drafts", "tag_pages", "content_tags", "post_assets"]
+PLUGINS = ["frontmatter_lint", "i18n_grouping", "multilingual_404", "dev_drafts", "tag_pages", "content_tags", "post_assets", "intro_pages"]
 
 MARKDOWN = {
     "extensions": [

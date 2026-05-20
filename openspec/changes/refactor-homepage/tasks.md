@@ -5,7 +5,7 @@
 - [x] 1.3 In `plugins/frontmatter_lint/cli.py`, add discovery pass for `content/intro/`; emit grouped, file-anchored errors using the same formatter as posts/tag-prose
 - [x] 1.4 In `plugins/frontmatter_lint/__init__.py`, register the intro pass so `make build` validates intro files
 - [x] 1.5 Add unit tests in `plugins/frontmatter_lint/tests/`: valid `all.en.md` passes; missing `Title` fails; `Status: published` fails; `Slug` field rejected; mismatched filename lang rejected; nested-path rejected; duplicate `(scope, lang)` rejected
-- [ ] 1.6 Confirm `garden lint` exits 0 on an empty `content/intro/` and on `content/intro/` populated with seed files (added in section 3)
+- [x] 1.6 Confirm `garden lint` exits 0 on an empty `content/intro/` and on `content/intro/` populated with seed files (added in section 3)
 
 ## 2. `garden new --kind intro` flow
 
@@ -32,12 +32,12 @@
 
 ## 4. Pelican plugin: intro discovery
 
-- [ ] 4.1 Create `plugins/intro_pages/__init__.py` (or extend an existing plugin if a clear fit exists): walk `content/intro/` on Pelican's `generator_init` (or equivalent) signal; parse each file's frontmatter + body
-- [ ] 4.2 Group files by `(scope, lang)`; expose two settings to templates: `INTRO_ALL` (dict of `lang → rendered HTML`) and `INTRO_LANG` (dict of `lang → rendered HTML`)
-- [ ] 4.3 Use Pelican's Markdown reader (or `markdown` directly) so the rendered HTML matches Pelican's other output exactly (same extensions, `smarty`, `attr_list`, etc.)
-- [ ] 4.4 Register the plugin in `pelicanconf.py` `PLUGINS` list
-- [ ] 4.5 Add unit tests in `plugins/intro_pages/tests/`: empty `content/intro/` → both dicts empty; one `all.en.md` → `INTRO_ALL == {"en": "<rendered>"}`; one `lang.pt.md` → `INTRO_LANG == {"pt": "<rendered>"}`
-- [ ] 4.6 Confirm `make devbuild` succeeds with the plugin registered and the seed content in place
+- [x] 4.1 Create `plugins/intro_pages/__init__.py` (or extend an existing plugin if a clear fit exists): walk `content/intro/` on Pelican's `generator_init` (or equivalent) signal; parse each file's frontmatter + body
+- [x] 4.2 Group files by `(scope, lang)`; expose two settings to templates: `INTRO_ALL` (dict of `lang → rendered HTML`) and `INTRO_LANG` (dict of `lang → rendered HTML`)
+- [x] 4.3 Use Pelican's Markdown reader (or `markdown` directly) so the rendered HTML matches Pelican's other output exactly (same extensions, `smarty`, `attr_list`, etc.)
+- [x] 4.4 Register the plugin in `pelicanconf.py` `PLUGINS` list
+- [x] 4.5 Add unit tests in `plugins/intro_pages/tests/`: empty `content/intro/` → both dicts empty; one `all.en.md` → `INTRO_ALL == {"en": "<rendered>"}`; one `lang.pt.md` → `INTRO_LANG == {"pt": "<rendered>"}`
+- [x] 4.6 Confirm `make devbuild` succeeds with the plugin registered and the seed content in place
 
 ## 5. Templates: catalogue layout
 
