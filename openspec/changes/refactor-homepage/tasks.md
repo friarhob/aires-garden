@@ -1,10 +1,10 @@
 ## 1. Intro schema and lint integration
 
-- [ ] 1.1 Add `IntroFrontmatter` Pydantic model in `plugins/frontmatter_lint/schema.py`: required `Title`, `Lang`, `Status` (literal `"hidden"`); `extra="forbid"`; same `Lang` validator used by post/tag-prose
-- [ ] 1.2 Add an `IntroFilenameContract` parser (mirroring the tag-prose one) that splits `<scope>.<lang>.md` and validates `scope ∈ {all, lang}`, lang ISO 639-1; rejects nested paths under `content/intro/`
-- [ ] 1.3 In `plugins/frontmatter_lint/cli.py`, add discovery pass for `content/intro/`; emit grouped, file-anchored errors using the same formatter as posts/tag-prose
-- [ ] 1.4 In `plugins/frontmatter_lint/__init__.py`, register the intro pass so `make build` validates intro files
-- [ ] 1.5 Add unit tests in `plugins/frontmatter_lint/tests/`: valid `all.en.md` passes; missing `Title` fails; `Status: published` fails; `Slug` field rejected; mismatched filename lang rejected; nested-path rejected; duplicate `(scope, lang)` rejected
+- [x] 1.1 Add `IntroFrontmatter` Pydantic model in `plugins/frontmatter_lint/schema.py`: required `Title`, `Lang`, `Status` (literal `"hidden"`); `extra="forbid"`; same `Lang` validator used by post/tag-prose
+- [x] 1.2 Add an `IntroFilenameContract` parser (mirroring the tag-prose one) that splits `<scope>.<lang>.md` and validates `scope ∈ {all, lang}`, lang ISO 639-1; rejects nested paths under `content/intro/`
+- [x] 1.3 In `plugins/frontmatter_lint/cli.py`, add discovery pass for `content/intro/`; emit grouped, file-anchored errors using the same formatter as posts/tag-prose
+- [x] 1.4 In `plugins/frontmatter_lint/__init__.py`, register the intro pass so `make build` validates intro files
+- [x] 1.5 Add unit tests in `plugins/frontmatter_lint/tests/`: valid `all.en.md` passes; missing `Title` fails; `Status: published` fails; `Slug` field rejected; mismatched filename lang rejected; nested-path rejected; duplicate `(scope, lang)` rejected
 - [ ] 1.6 Confirm `garden lint` exits 0 on an empty `content/intro/` and on `content/intro/` populated with seed files (added in section 3)
 
 ## 2. `garden new --kind intro` flow

@@ -172,7 +172,7 @@ The implementation phase executes the tasks defined in the proposal, with valida
    - Wait for user response
    - Continue with the answer
 3. **Commit small and often:** Create a commit for each logical chunk, not batches
-4. For each task completed, mark it in `tasks.md`
+4. **Keep `tasks.md` in sync with commits:** Before creating each commit, mark all tasks completed in that commit's scope as `- [x]`. Never let `tasks.md` fall more than one commit behind the code.
 
 ### 2.2 Document & Script Updates
 
