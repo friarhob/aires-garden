@@ -23,12 +23,12 @@
 
 ## 3. Seed intro content
 
-- [ ] 3.1 Author `content/intro/all.en.md`: short editorial passage for the cross-language root (≤ 80 words; 2–3 short paragraphs)
-- [ ] 3.2 Author `content/intro/all.pt.md`: Portuguese version of the same framing
-- [ ] 3.3 Author `content/intro/lang.en.md`: short editorial passage framing the English corner of the garden
-- [ ] 3.4 Author `content/intro/lang.pt.md`: Portuguese version of the same per-language framing
-- [ ] 3.5 Run `garden lint` and confirm exit 0
-- [ ] 3.6 Commit seed content separately from plugin/template changes for a clean diff
+- [x] 3.1 Author `content/intro/all.en.md`: short editorial passage for the cross-language root (≤ 80 words; 2–3 short paragraphs)
+- [x] 3.2 Author `content/intro/all.pt.md`: Portuguese version of the same framing
+- [x] 3.3 Author `content/intro/lang.en.md`: short editorial passage framing the English corner of the garden
+- [x] 3.4 Author `content/intro/lang.pt.md`: Portuguese version of the same per-language framing
+- [x] 3.5 Run `garden lint` and confirm exit 0
+- [x] 3.6 Commit seed content separately from plugin/template changes for a clean diff
 
 ## 4. Pelican plugin: intro discovery
 
