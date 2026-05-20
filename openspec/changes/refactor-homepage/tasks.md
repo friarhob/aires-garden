@@ -9,17 +9,17 @@
 
 ## 2. `garden new --kind intro` flow
 
-- [ ] 2.1 In `garden/commands/new.py`, add `intro` to the `--kind` enum/choices; add `--scope` Typer option (`Optional[str]`, default `None`, validated against `{all, lang}`)
-- [ ] 2.2 Implement `_create_intro(scope: str, lang: str, title: str)`: writes `content/intro/<scope>.<lang>.md` with only `Title`, `Lang`, `Status: hidden`; refuses to overwrite
-- [ ] 2.3 In the main `new()` function: when `kind == "intro"`, skip the slug prompt; prompt for `scope` (questionary select between `all` and `lang`) in TTY mode; require `--scope` in non-TTY mode; silently ignore `--slug` if supplied
-- [ ] 2.4 Update `garden --help` and `garden new --help` so the `--kind` option lists exactly `post`, `page`, `tag-prose`, `intro`
-- [ ] 2.5 Add unit tests in `garden/tests/`:
+- [x] 2.1 In `garden/commands/new.py`, add `intro` to the `--kind` enum/choices; add `--scope` Typer option (`Optional[str]`, default `None`, validated against `{all, lang}`)
+- [x] 2.2 Implement `_create_intro(scope: str, lang: str, title: str)`: writes `content/intro/<scope>.<lang>.md` with only `Title`, `Lang`, `Status: hidden`; refuses to overwrite
+- [x] 2.3 In the main `new()` function: when `kind == "intro"`, skip the slug prompt; prompt for `scope` (questionary select between `all` and `lang`) in TTY mode; require `--scope` in non-TTY mode; silently ignore `--slug` if supplied
+- [x] 2.4 Update `garden --help` and `garden new --help` so the `--kind` option lists exactly `post`, `page`, `tag-prose`, `intro`
+- [x] 2.5 Add unit tests in `garden/tests/`:
   - `garden new --kind intro --title "X" --scope all --lang en` writes a lint-passing file with no `Slug:`
   - Non-TTY without `--scope` exits non-zero with a clear message
   - Invalid `--scope tag` exits non-zero citing the value set
   - `--slug` is silently ignored
   - TTY flow prompts for scope (mock `questionary.select`)
-- [ ] 2.6 End-to-end check: `garden new --kind intro --title "Welcome" --scope all --lang en` → file at `content/intro/all.en.md` → `garden lint` exits 0
+- [x] 2.6 End-to-end check: `garden new --kind intro --title "Welcome" --scope all --lang en` → file at `content/intro/all.en.md` → `garden lint` exits 0
 
 ## 3. Seed intro content
 

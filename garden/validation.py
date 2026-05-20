@@ -1,6 +1,6 @@
 import re
 
-KINDS = ("post", "page", "tag-prose")
+KINDS = ("post", "page", "tag-prose", "intro")
 _SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 _LANG_RE = re.compile(r"^[a-z]{2}$")
 

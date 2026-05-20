@@ -34,16 +34,20 @@ def _slugify(title: str) -> str:
     return slug
 
 
+_INTRO_SCOPES = ("all", "lang")
+
+
 def new(
-    kind: Annotated[Optional[str], typer.Option("--kind", help="post | page | tag-prose")] = None,
+    kind: Annotated[Optional[str], typer.Option("--kind", help="post | page | tag-prose | intro")] = None,
     title: Annotated[Optional[str], typer.Option("--title", help="Post title")] = None,
     slug: Annotated[Optional[str], typer.Option("--slug", help="URL slug (kebab-case)")] = None,
     lang: Annotated[Optional[str], typer.Option("--lang", help="ISO 639-1 language code")] = None,
     tag: Annotated[Optional[str], typer.Option("--tag", help="Tag name (tag-prose only)")] = None,
     shape: Annotated[Optional[str], typer.Option("--shape", help="Prose shape: all | lang (tag-prose only)")] = None,
     create_tag: Annotated[bool, typer.Option("--create-tag/--no-create-tag", help="Create tag dir if missing (tag-prose, non-interactive)")] = False,
+    scope: Annotated[Optional[str], typer.Option("--scope", help="Intro scope: all | lang (intro only)")] = None,
 ) -> None:
-    """Scaffold a new post, page, or tag-prose file."""
+    """Scaffold a new post, page, tag-prose, or intro file."""
     # --- kind ---
     if kind is None:
         kind = prompts.prompt_select("Kind?", list(KINDS))
@@ -53,7 +57,7 @@ def new(
         raise typer.BadParameter(str(exc), param_hint="--kind") from exc
 
     # --- title (tag-prose defers this until each tag is known) ---
-    if kind != "tag-prose":
+    if kind not in ("tag-prose",):
         if title is None:
             title = prompts.prompt_text("Title?")
         try:
@@ -61,8 +65,8 @@ def new(
         except ValidationError as exc:
             raise typer.BadParameter(str(exc), param_hint="--title") from exc
 
-    # --- slug (not applicable for tag-prose) ---
-    if kind != "tag-prose":
+    # --- slug (not applicable for tag-prose or intro) ---
+    if kind not in ("tag-prose", "intro"):
         if slug is None:
             try:
                 default_slug = _slugify(title)
@@ -89,6 +93,8 @@ def new(
         _create_post(title, slug, lang)
     elif kind == "page":
         _create_page(title, slug, lang)
+    elif kind == "intro":
+        _create_intro(title, lang, scope)
     else:
         _create_tag_prose(title, lang, tag, shape, create_tag)  # title may be None here
 
@@ -133,6 +139,33 @@ def _create_page(title: str, slug: str, lang: str) -> None:
     target = pages_dir / f"{slug}.{lang}.md"
     _refuse_if_exists(target)
     pages_dir.mkdir(parents=True, exist_ok=True)
+    fields = {
+        "Title": title,
+        "Lang": lang,
+        "Status": "hidden",
+    }
+    write_frontmatter(target, fields, "")
+    typer.echo(f"Created {target}")
+
+
+def _create_intro(title: str, lang: str, scope: str | None) -> None:
+    if scope is None:
+        if prompts.is_tty():
+            scope = prompts.prompt_select("Scope?", list(_INTRO_SCOPES))
+        else:
+            raise typer.BadParameter(
+                "--scope is required in non-interactive mode for --kind intro.",
+                param_hint="--scope",
+            )
+    if scope not in _INTRO_SCOPES:
+        raise typer.BadParameter(
+            f"scope must be one of {{{', '.join(_INTRO_SCOPES)}}}, got: {scope!r}",
+            param_hint="--scope",
+        )
+    intro_dir = _CONTENT_ROOT / "intro"
+    intro_dir.mkdir(parents=True, exist_ok=True)
+    target = intro_dir / f"{scope}.{lang}.md"
+    _refuse_if_exists(target)
     fields = {
         "Title": title,
         "Lang": lang,

@@ -229,6 +229,70 @@ class TestNewTagProse:
         assert result.exit_code != 0
 
 
+class TestNewIntro:
+    def test_creates_intro_file(self, content: Path) -> None:
+        (content / "intro").mkdir(parents=True, exist_ok=True)
+        result = runner.invoke(app, [
+            "new", "--kind", "intro", "--title", "Welcome", "--scope", "all", "--lang", "en",
+        ])
+        assert result.exit_code == 0, result.output
+        f = content / "intro" / "all.en.md"
+        assert f.exists()
+        fields, _ = read_frontmatter(f)
+        assert fields["Title"] == "Welcome"
+        assert fields["Lang"] == "en"
+        assert fields["Status"] == "hidden"
+        assert "Slug" not in fields
+
+    def test_creates_intro_dir_if_missing(self, content: Path) -> None:
+        result = runner.invoke(app, [
+            "new", "--kind", "intro", "--title", "X", "--scope", "lang", "--lang", "pt",
+        ])
+        assert result.exit_code == 0, result.output
+        assert (content / "intro" / "lang.pt.md").exists()
+
+    def test_refuses_existing_file(self, content: Path) -> None:
+        runner.invoke(app, ["new", "--kind", "intro", "--title", "X", "--scope", "all", "--lang", "en"])
+        result = runner.invoke(app, ["new", "--kind", "intro", "--title", "X", "--scope", "all", "--lang", "en"])
+        assert result.exit_code != 0
+
+    def test_non_tty_without_scope_fails(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=False):
+            result = runner.invoke(app, [
+                "new", "--kind", "intro", "--title", "X", "--lang", "en",
+            ])
+        assert result.exit_code != 0
+        assert "scope" in result.output.lower() or "scope" in (result.stderr or "").lower()
+
+    def test_invalid_scope_fails(self, content: Path) -> None:
+        result = runner.invoke(app, [
+            "new", "--kind", "intro", "--title", "X", "--scope", "tag", "--lang", "en",
+        ])
+        assert result.exit_code != 0
+
+    def test_slug_flag_silently_ignored(self, content: Path) -> None:
+        result = runner.invoke(app, [
+            "new", "--kind", "intro", "--title", "Welcome", "--scope", "all", "--lang", "en",
+            "--slug", "some-slug",
+        ])
+        assert result.exit_code == 0, result.output
+        f = content / "intro" / "all.en.md"
+        assert f.exists()
+        fields, _ = read_frontmatter(f)
+        assert "Slug" not in fields
+
+    def test_tty_prompts_for_scope(self, content: Path) -> None:
+        with patch("garden.prompts.is_tty", return_value=True), \
+             patch("garden.prompts.prompt_select", return_value="lang") as mock_select:
+            result = runner.invoke(app, [
+                "new", "--kind", "intro", "--title", "Welcome", "--lang", "en",
+            ])
+        assert result.exit_code == 0, result.output
+        scope_call = mock_select.call_args_list[0]
+        assert "lang" in scope_call[0][1] and "all" in scope_call[0][1]
+        assert (content / "intro" / "lang.en.md").exists()
+
+
 class TestNonTtyMode:
     def test_missing_kind_fails_non_tty(self, content: Path) -> None:
         with patch("garden.prompts.is_tty", return_value=False):
