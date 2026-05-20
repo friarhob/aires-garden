@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype — refactor-homepage (catalogue)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------ */
+/* Tokens — copied verbatim from themes/garden/static/css/styles.css   */
+/* ------------------------------------------------------------------ */
+:root,
+:root[data-theme="light"] {
+    --bg:              #E7DED4;
+    --bg-subtle:       #DCCEBD;
+    --text:            #2A1640;
+    --text-heading:    #2D1A4A;
+    --text-muted:      #6A438E;
+    --accent:          #735107;
+    --accent-display:  #EDB755;
+    --border:          #DDD5C8;
+    --font-title: 'Fraunces', Georgia, serif;
+    --font-body:  'IBM Plex Sans', system-ui, sans-serif;
+    --body-size:     clamp(16px, 1.15vw, 18px);
+    --content-width: clamp(600px, 55vw, 900px);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg:              #130A22;
+        --bg-subtle:       #0A0515;
+        --text:            #DCCEBD;
+        --text-heading:    #DCCEBD;
+        --text-muted:      #A08EC0;
+        --accent:          #F0C060;
+        --accent-display:  #F0C060;
+        --border:          #261648;
+    }
+}
+:root[data-theme="dark"] {
+    --bg:              #130A22;
+    --bg-subtle:       #0A0515;
+    --text:            #DCCEBD;
+    --text-heading:    #DCCEBD;
+    --text-muted:      #A08EC0;
+    --accent:          #F0C060;
+    --accent-display:  #F0C060;
+    --border:          #261648;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    line-height: 1.75;
+    min-height: 100vh;
+}
+
+a { color: var(--accent); }
+a:hover { text-decoration: underline; }
+
+header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+header > a:first-child {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 14;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+.prefs { display: flex; align-items: center; gap: 0.25rem; }
+.prefs button {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+main {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+}
+
+h1 {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 400;
+    font-variation-settings: 'opsz' 36;
+    color: var(--text-heading);
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+}
+
+p.page-langs {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+p.page-langs a { color: var(--accent); }
+
+/* ------------------------------------------------------------------ */
+/* Intro section — borrowed treatment (left rule, italic disposition)   */
+/* ------------------------------------------------------------------ */
+.intro {
+    border-left: 3px solid var(--accent-display);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    margin: 2rem 0 3rem;
+    color: var(--text);
+}
+.intro p {
+    margin: 0;
+    max-width: 65ch;
+    font-size: 1rem;
+}
+.intro p + p { margin-top: 0.75rem; }
+
+.intro[data-lang-section]:not(.is-active) { display: none; }
+
+/* ------------------------------------------------------------------ */
+/* Post catalogue — CSS-grid "dynamic table" of cards                   */
+/* ------------------------------------------------------------------ */
+section.catalogue h2 {
+    font-family: var(--font-title);
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-variation-settings: 'opsz' 14;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.catalogue-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.6rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    transition: border-color 0.15s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+}
+.catalogue-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.catalogue-card .card-title {
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 24;
+    line-height: 1.2;
+    color: var(--text-heading);
+    letter-spacing: 0.005em;
+    /* Three-line clamp keeps cards uniform when titles vary in length */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.catalogue-card:hover .card-title { color: var(--accent); }
+
+.catalogue-card .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+.catalogue-card time {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+.catalogue-card .langs {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+.catalogue-card .lang-chip {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    padding: 0.08rem 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pagination — Pelican-default look                                    */
+/* ------------------------------------------------------------------ */
+nav.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+nav.pagination a,
+nav.pagination span {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+    text-decoration: none;
+    min-width: 2rem;
+    text-align: center;
+}
+nav.pagination a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    text-decoration: none;
+}
+nav.pagination .current {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 500;
+}
+nav.pagination .disabled {
+    opacity: 0.35;
+    border-color: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Prototype-only chrome: scope switcher + theme toggle                 */
+/* ------------------------------------------------------------------ */
+.proto-bar {
+    background: var(--bg-subtle);
+    border-bottom: 1px dashed var(--border);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.5rem 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.proto-bar strong { color: var(--text); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; }
+.proto-bar button {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.proto-bar button.is-active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+}
+
+/* Per-view visibility (driven by JS toggle) */
+.view { display: none; }
+.view.is-active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="proto-bar">
+    <strong>Prototype view:</strong>
+    <button type="button" data-view="cross" class="is-active">Cross-language / (root)</button>
+    <button type="button" data-view="lang">Per-language /en/</button>
+    <span>·</span>
+    <strong>Theme:</strong>
+    <button type="button" data-theme="light" class="is-active">Light</button>
+    <button type="button" data-theme="dark">Dark</button>
+</div>
+
+<header>
+    <a href="#">Aires Garden</a>
+    <div class="prefs">
+        <button>Dark</button>
+        <button>EN ▾</button>
+    </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     VIEW 1 — Cross-language root /
+     ============================================================ -->
+<section class="view view-cross is-active">
+    <h1>Posts</h1>
+    <p class="page-langs">Also in:
+        <a href="#">EN</a> · <a href="#">ES</a> · <a href="#">FR</a> · <a href="#">PT</a>
+    </p>
+
+    <!-- Cross-language intro section: stacks one block per language.
+         In production this would be served as `<section data-lang="..">` blocks
+         picked up by the header lang picker in section-toggle mode, exactly
+         like the multilingual 404 page. -->
+    <div class="intro is-active" data-lang-section="en">
+        <p>Welcome to the garden. This is the place where I keep the work I make and find — fragments, translations, found things, half-finished pieces. Everything published in any language ends up on this page.</p>
+        <p>For one-language reading, the per-language home pages are linked above.</p>
+    </div>
+    <div class="intro" data-lang-section="pt">
+        <p>Bem-vindo ao jardim. Aqui guardo o que faço e o que encontro — fragmentos, traduções, coisas achadas, peças por acabar. Tudo o que publico em qualquer língua termina nesta página.</p>
+    </div>
+
+    <section class="catalogue">
+        <h2>Recent posts</h2>
+        <div class="catalogue-grid">
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Nem chuva atrapalha o sucesso da Virada Cultural Clássica</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-18">2026-05-18</time>
+                    <span class="langs">
+                        <span class="lang-chip">PT</span>
+                        <span class="lang-chip">EN</span>
+                    </span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Super-herói avistado nas ruas da Prússia inspira culto</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-16">2026-05-16</time>
+                    <span class="langs">
+                        <span class="lang-chip">PT</span>
+                    </span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Produtor é preso por uso privilegiado de informações transtemporais</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-14">2026-05-14</time>
+                    <span class="langs">
+                        <span class="lang-chip">PT</span>
+                        <span class="lang-chip">ES</span>
+                    </span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">A gata e o gato — uma fábula em pedaços</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-10">2026-05-10</time>
+                    <span class="langs">
+                        <span class="lang-chip">PT</span>
+                        <span class="lang-chip">EN</span>
+                    </span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Hello, garden</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-04-20">2026-04-20</time>
+                    <span class="langs">
+                        <span class="lang-chip">EN</span>
+                        <span class="lang-chip">PT</span>
+                    </span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Olá, jardim</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-04-19">2026-04-19</time>
+                    <span class="langs">
+                        <span class="lang-chip">PT</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        <nav class="pagination">
+            <span class="disabled">«</span>
+            <span class="current">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">»</a>
+        </nav>
+    </section>
+</section>
+
+<!-- ============================================================
+     VIEW 2 — Per-language /en/
+     ============================================================ -->
+<section class="view view-lang">
+    <h1>Posts (EN)</h1>
+    <p class="page-langs">
+        <a href="#">All</a> · <a href="#">ES</a> · <a href="#">FR</a> · <a href="#">PT</a>
+    </p>
+
+    <!-- Per-language intro: single block in the page language. -->
+    <div class="intro is-active">
+        <p>The English corner of the garden. Mostly translations and a handful of pieces originally written in English. New here? The <a href="#">all-languages home</a> shows everything I've published.</p>
+    </div>
+
+    <section class="catalogue">
+        <h2>Posts in English</h2>
+        <div class="catalogue-grid">
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Rain doesn't dampen the success of the Classical Cultural Vigil</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-18">2026-05-18</time>
+                    <span class="langs"><span class="lang-chip">EN</span></span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">The cat and the tom-cat — a fable in pieces</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-05-10">2026-05-10</time>
+                    <span class="langs"><span class="lang-chip">EN</span></span>
+                </div>
+            </a>
+            <a href="#" class="catalogue-card">
+                <span class="card-title">Hello, garden</span>
+                <div></div>
+                <div class="card-meta">
+                    <time datetime="2026-04-20">2026-04-20</time>
+                    <span class="langs"><span class="lang-chip">EN</span></span>
+                </div>
+            </a>
+        </div>
+
+        <nav class="pagination">
+            <span class="disabled">«</span>
+            <span class="current">1</span>
+            <span class="disabled">»</span>
+        </nav>
+    </section>
+</section>
+
+</main>
+
+<script>
+// Prototype-only: view + theme toggles
+document.querySelectorAll('.proto-bar button[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.proto-bar button[data-view]').forEach(b => b.classList.toggle('is-active', b === btn));
+        const view = btn.dataset.view;
+        document.querySelectorAll('.view').forEach(v => v.classList.toggle('is-active', v.classList.contains('view-' + view)));
+    });
+});
+document.querySelectorAll('.proto-bar button[data-theme]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.proto-bar button[data-theme]').forEach(b => b.classList.toggle('is-active', b === btn));
+        document.documentElement.dataset.theme = btn.dataset.theme;
+    });
+});
+</script>
+
+</body>
+</html>

@@ -49,3 +49,4 @@ See [ADR-0002](0002-design-md-always-present-status-marked.md) for the rationale
 - [0008 — Dev-drafts promotion via a settings-flag toggle](0008-dev-drafts-promotion.md)
 - [0009 — Tag prose is a third content type at `content/tag-prose/<slug>/`](0009-tag-prose-content-type.md)
 - [0010 — Header language picker is a translation-aware navigator](0010-header-lang-picker-as-navigator.md)
+- [0011 — Intro is a fourth content type at `content/intro/`](0011-intro-content-type.md)
