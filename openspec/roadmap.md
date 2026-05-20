@@ -25,6 +25,7 @@
 | `refactor-colour-scheme` | 2026-05-11 | Warm palette, WCAG AA audit across all token pairs, admonition semantic tokens, `docs/visual-identity.md` |
 | `fix-typographic-punctuation` | 2026-05-11 | `smarty` extension for en/em dashes and curly quotes; updated all posts to use `--` |
 | `smarter-cli` | 2026-05-13 | Interactive slug picker for lifecycle/translate, Unicode slug normalisation, tag-prose picker, page/tag-prose frontmatter fixes |
+| `refactor-homepage` | 2026-05-20 | Intro content kind, catalogue card layout, pagination, `garden new --kind intro` |
 
 ---
 
@@ -38,20 +39,6 @@ Localise all UI chrome strings so the site renders in the visitor's language rat
 
 - **Scope:** medium — strings layer (format TBD at design time), theme template updates, date localisation
 - **Note:** `refactor-homepage` may introduce additional strings that need localising; coordinate if both are in flight
-
----
-
-### `refactor-homepage`
-
-The current homepage is a flat list of recent posts. This change introduces:
-
-- A new `intro` content kind: Markdown files per language and shape, mirroring the `tag-prose` convention. Two shapes: `all.<lang>.md` (shown on the root `/` page, which aggregates all languages) and `lang.<lang>.md` (shown on per-language roots: `/en`, `/pt`, `/es`, `/fr`). Authored via `garden new --kind intro`.
-- A redesigned post list below the intro. Open design questions to resolve during the proposal: table layout vs. card/list layout; pagination vs. infinite scroll vs. "load more".
-
-**Content dependency:** Spanish and French intro files can be authored once this change lands.
-
-- **Scope:** large — new content kind, CLI scaffold addition, theme template redesign, pagination
-- **Depends on:** nothing (but `default-light-mode` should ship first to avoid re-touching theme twice)
 
 ---
 
