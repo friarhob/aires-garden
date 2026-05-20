@@ -16,6 +16,8 @@ from .schema import (
     format_errors,
     parse_frontmatter,
     parse_tag_prose_frontmatter,
+    validate_intro,
+    validate_intro_group,
     validate_page,
     validate_post,
     validate_post_group,
@@ -57,19 +59,27 @@ def on_page_generator_finalized(generator: object) -> None:
         _errors.extend(scan_body(md, get_body(md)))
 
     tag_prose_dir = content_root / "tag-prose"
-    if not tag_prose_dir.is_dir():
-        return
-    from collections import defaultdict as _defaultdict
-    slug_dirs: dict[Path, list[Path]] = _defaultdict(list)
-    for md in sorted(tag_prose_dir.rglob("*.md")):
-        slug_dirs[md.parent].append(md)
-    for slug_dir, files in sorted(slug_dirs.items()):
-        dir_name = slug_dir.name
-        for path in files:
-            raw, body = parse_tag_prose_frontmatter(path)
-            _errors.extend(validate_tag_prose(path, raw, dir_name))
-            _errors.extend(scan_body(path, body))
-        _errors.extend(validate_tag_prose_group(dir_name, files))
+    if tag_prose_dir.is_dir():
+        from collections import defaultdict as _defaultdict
+        slug_dirs: dict[Path, list[Path]] = _defaultdict(list)
+        for md in sorted(tag_prose_dir.rglob("*.md")):
+            slug_dirs[md.parent].append(md)
+        for slug_dir, files in sorted(slug_dirs.items()):
+            dir_name = slug_dir.name
+            for path in files:
+                raw, body = parse_tag_prose_frontmatter(path)
+                _errors.extend(validate_tag_prose(path, raw, dir_name))
+                _errors.extend(scan_body(path, body))
+            _errors.extend(validate_tag_prose_group(dir_name, files))
+
+    intro_dir = content_root / "intro"
+    if intro_dir.is_dir():
+        intro_files: list[Path] = sorted(intro_dir.rglob("*.md"))
+        for path in intro_files:
+            raw = parse_frontmatter(path)
+            _errors.extend(validate_intro(path, raw))
+        direct_intro = [p for p in intro_files if p.parent == intro_dir]
+        _errors.extend(validate_intro_group(direct_intro))
 
 
 def on_all_generators_finalized(generators: object) -> None:

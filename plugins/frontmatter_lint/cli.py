@@ -17,6 +17,8 @@ from .schema import (
     format_errors,
     parse_frontmatter,
     parse_tag_prose_frontmatter,
+    validate_intro,
+    validate_intro_group,
     validate_page,
     validate_post,
     validate_post_group,
@@ -79,6 +81,23 @@ def _collect_tag_prose(tag_prose_dir: Path) -> list[LintError]:
     return errors
 
 
+def _collect_intro(intro_dir: Path) -> list[LintError]:
+    errors: list[LintError] = []
+    if not intro_dir.is_dir():
+        return errors
+
+    files: list[Path] = sorted(intro_dir.rglob("*.md"))
+    for path in files:
+        raw = parse_frontmatter(path)
+        errors.extend(validate_intro(path, raw))
+
+    # Group only direct children for uniqueness check
+    direct_files = [p for p in files if p.parent == intro_dir]
+    errors.extend(validate_intro_group(direct_files))
+
+    return errors
+
+
 def main(argv: list[str] | None = None) -> None:
     args = (argv if argv is not None else sys.argv)[1:]
     content_root = Path(args[0]) if args else Path("content")
@@ -87,6 +106,7 @@ def main(argv: list[str] | None = None) -> None:
         _collect_posts(content_root / "posts")
         + _collect_pages(content_root / "pages")
         + _collect_tag_prose(content_root / "tag-prose")
+        + _collect_intro(content_root / "intro")
     )
 
     if errors:

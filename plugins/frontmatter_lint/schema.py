@@ -125,6 +125,27 @@ class TagProseFrontmatter(BaseModel):
         return s
 
 
+class IntroFrontmatter(BaseModel):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    title: Annotated[str, Field(alias="Title")]
+    lang: Annotated[str, Field(alias="Lang")]
+    status: Annotated[Literal["hidden"], Field(alias="Status")]
+
+    @field_validator("lang", mode="before")
+    @classmethod
+    def check_lang(cls, v: object) -> str:
+        return _validate_lang(v)
+
+    @field_validator("title", mode="before")
+    @classmethod
+    def check_title_nonempty(cls, v: object) -> str:
+        s = str(v).strip()
+        if not s:
+            raise ValueError("Title must not be empty")
+        return s
+
+
 # ---------------------------------------------------------------------------
 # Per-file validation
 # ---------------------------------------------------------------------------
@@ -185,6 +206,7 @@ def validate_page(path: Path, raw: dict[str, object]) -> list[LintError]:
 
 
 _TAG_PROSE_FORBIDDEN = {"Slug", "Translation_key", "Tags"}
+_INTRO_FORBIDDEN = {"Slug", "Translation_key", "Tags"}
 _VALID_SCOPES = {"all", "lang"}
 import re as _re
 _DIR_SLUG_RE = _re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -302,6 +324,80 @@ def validate_tag_prose_group(
         parts = stem.rsplit(".", 1)
         if len(parts) != 2:
             continue  # malformed filename — validate_tag_prose already reports it
+        scope, lang = parts
+        key = (scope, lang)
+        if key in seen:
+            errors.append(LintError(
+                path,
+                f"(scope='{scope}', lang='{lang}') already used by '{seen[key].name}'"
+            ))
+        else:
+            seen[key] = path
+
+    return errors
+
+
+def validate_intro(path: Path, raw: dict[str, object]) -> list[LintError]:
+    """Validate a single intro file: schema + filename↔frontmatter coupling."""
+    errors: list[LintError] = []
+
+    # Reject nested paths: file must be directly under content/intro/
+    if path.parent.name != "intro":
+        errors.append(LintError(
+            path,
+            f"Intro files must be directly under content/intro/, not in subdirectories"
+        ))
+        return errors  # filename checks are meaningless if path is wrong
+
+    # Forbidden fields — check before Pydantic for specific messages.
+    for field in _INTRO_FORBIDDEN:
+        if field in raw:
+            errors.append(LintError(path, f"Forbidden field on intro: '{field}'"))
+
+    try:
+        m = IntroFrontmatter.model_validate(raw)
+    except Exception as exc:
+        for msg in _pydantic_errors(exc):
+            errors.append(LintError(path, msg))
+        return errors  # skip filename checks when schema fails
+
+    # Filename: <scope>.<lang>.md
+    stem = path.stem  # strips final .md only
+    parts = stem.rsplit(".", 1)
+    if len(parts) != 2:
+        errors.append(LintError(
+            path,
+            f"Intro filename must be <scope>.<lang>.md, got '{path.name}'"
+        ))
+        return errors
+
+    scope_part, lang_part = parts
+
+    if scope_part not in _VALID_SCOPES:
+        errors.append(LintError(
+            path,
+            f"Intro filename scope '{scope_part}' is not valid; must be 'all' or 'lang'"
+        ))
+
+    if lang_part != m.lang:
+        errors.append(LintError(
+            path,
+            f"Intro filename lang '{lang_part}' ≠ frontmatter Lang '{m.lang}'"
+        ))
+
+    return errors
+
+
+def validate_intro_group(files: list[Path]) -> list[LintError]:
+    """Check (scope, lang) uniqueness across all intro files."""
+    errors: list[LintError] = []
+    seen: dict[tuple[str, str], Path] = {}
+
+    for path in files:
+        stem = path.stem
+        parts = stem.rsplit(".", 1)
+        if len(parts) != 2:
+            continue  # malformed filename — validate_intro already reports it
         scope, lang = parts
         key = (scope, lang)
         if key in seen:
