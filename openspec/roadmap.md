@@ -31,7 +31,7 @@
 
 ## Planned
 
-Items are listed in intended implementation order. Dependencies are noted where they exist.
+Items are not listed in any particular order. Dependencies are noted where they exist.
 
 ### `add-l10n-rendering`
 
@@ -57,6 +57,50 @@ The current post format doesn't support posts to have subtitles/subheads/caption
 
 ---
 
+### `add-admin-ui`
+
+A web-based admin UI for editing and publishing garden content from a browser, including mobile. Strong default lean toward adopting an existing static CMS rather than building from scratch — Git-backed, so the UI commits Markdown to the repo and the existing GitHub Actions deploy takes over. The CLI workflow continues to work in parallel. The "adopt vs build" call is not mandatory; the design phase confirms.
+
+Candidate tools for the adopt path: **Decap CMS** (pure-static, GitHub OAuth) and **Sveltia CMS** (Decap-compatible config, modern Svelte stack). Hard constraint: must work on GitHub Pages (no backend hosting) — any auth flow that needs a server-side component must use either a free hosted bridge or a tiny serverless endpoint, to be confirmed at design time.
+
+In scope:
+
+- Full CRUD on posts across all configured site languages (language-agnostic per `ADR-0004`; adapts to whatever languages exist in `siteconfig`).
+- Frontmatter compatibility with garden's content model (`translation_key`, `Lang`, `Tags`, `Status`, slug-per-language, directory layout).
+- Authentication / identity management for the UI — only authorised users can edit and commit. Exact mechanism (GitHub OAuth, an allowlist, or another approach) to be decided at proposal time.
+- Mobile-friendly editing UX.
+
+Out of scope (initial slice):
+
+- Image / media uploads — see `add-admin-ui-media`.
+- Non-post content kinds (`tag-prose`, `intro`) — see `add-admin-ui-content-kinds`.
+- Multi-author review/approval workflow.
+- L10n of the admin UI chrome itself.
+- Custom widgets beyond what the chosen tool offers.
+
+- **Scope:** large — tool evaluation, integration, content-model wiring, auth flow, access control
+- **Depends on:** nothing hard. Coordinate with `add-l10n-rendering` if both end up touching templates simultaneously.
+
+---
+
+### `add-admin-ui-media`
+
+Extend the admin UI with image uploads so embedded media can be added from the browser without local git. Includes storage-location conventions (co-located with posts per ADR-0004's `images/` sibling pattern) and UI wiring for the figure shortcode with captions introduced by `add-content-tags`.
+
+- **Scope:** medium
+- **Depends on:** `add-admin-ui`
+
+---
+
+### `add-admin-ui-content-kinds`
+
+Extend the admin UI to handle non-post content kinds: `tag-prose` (per-tag prose pages, from `add-tags-and-drafts`) and `intro` (homepage intro, from `refactor-homepage`). Each has its own frontmatter shape and lives in dedicated locations — the UI needs explicit collections per kind.
+
+- **Scope:** medium
+- **Depends on:** `add-admin-ui`
+
+---
+
 
 ## Deferred
 
@@ -65,4 +109,3 @@ Carried forward from `project.md`; still out of scope until a real need emerges.
 - **`add-image-pipeline`** — responsive images, optimisation. Deferred until image weight is a real problem.
 - **Cloudflare subdomain routing** — `poetry.example.com` → `/tag/poetry/`. Pattern understood, not implemented.
 - **Interactive components / JS islands** — Pelican is templates-only; revisit if a concrete need appears.
-- **Web-based admin UI** — authoring is Markdown-in-Git; mobile editing via Working Copy or GitJournal.
